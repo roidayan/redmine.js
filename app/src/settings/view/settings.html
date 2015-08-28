@@ -1,0 +1,15 @@
+<md-progress-linear ng-if="pl.loading < 100" class="md-warn" md-mode="buffer" value="{{pl.loading}}" md-buffer-value="{{pl.loading}}"></md-progress-linear>
+
+<form layout-padding name="userForm" ng-submit="ctrl.save(userForm)" ng-cloak>
+    <md-input-container flex>
+        <label>Server address</label>
+        <input ng-model="ctrl.settings.server" required>
+    </md-input-container>
+    <md-input-container flex>
+        <label>API key</label>
+        <input ng-model="ctrl.settings.apiKey" required>
+    </md-input-container>
+    <md-input-container>
+        <md-button aria-label="submit form" class="md-primary" type="submit">Submit</md-button>
+    </md-input-container>
+</form>

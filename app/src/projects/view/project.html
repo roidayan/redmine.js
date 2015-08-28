@@ -1,0 +1,16 @@
+<md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
+
+<div layout-padding ng-show="ctrl.project">
+    <h3 class="md-headline">
+        <md-icon>store</md-icon>
+        {{ctrl.project.name}}
+    </h3>
+</div>
+
+<md-list ng-cloak ng-show="ctrl.project">
+      <md-subheader class="md-no-sticky">Project issues</md-subheader>
+      <md-list-item ng-repeat="issue in ctrl.issues" ng-click="ctrl.showIssue(issue)">
+            <md-icon ng-class="ctrl.getIconClass(issue)">{{ctrl.getIcon(issue)}}</md-icon>
+            <p class="md-body-1" ng-class="ctrl.getPriorityClass(issue)">{{ issue.subject }}</p>
+      </md-list-item>
+</md-list>

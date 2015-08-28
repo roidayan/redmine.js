@@ -1,0 +1,69 @@
+/*!
+ * Redmine.js
+ * @license GPLv2
+ */
+(function(){
+  'use strict';
+
+  angular
+       .module('rmIssues')
+       .controller('IssueListController', [
+          '$scope',
+          'issueService',
+          'IssueClassFactory',
+          '$log',
+          '$location',
+          '$localStorage',
+          'Page',
+          IssueListController
+       ]);
+
+  function IssueListController( $scope, issueService, IssueClassFactory, $log, $location, $localStorage, Page ) {
+    var self = this;
+    var cache = {};
+
+    self.loading = false;
+    self.issues = [];
+    self.getIcon = IssueClassFactory.getIcon;
+    self.getIconClass = IssueClassFactory.getIconClass;
+    self.getPriorityClass = IssueClassFactory.getPriorityClass;
+    self.showIssue = showIssue;
+
+    Page.setTitle('Issues');
+
+    var _services = [];
+    var q = getIssues();
+
+    function getIssues() {
+        self.loading = true;
+
+        var service = issueService;
+        _services.push(service);
+        var q = service.query({
+            'assigned_to_id': 'me'
+        }).$promise.then(function(data) {
+            console.log(data);
+            self.issues = data.issues;
+            self.loading = false;
+        });
+
+        return q;
+    }
+
+    function showIssue(issue) {
+        $location.path('/issues/' + issue.id);
+    }
+
+    /**
+     *  XXX: this breaks all $resource calls later because the timeout
+     *  promise is resolved.
+     */
+    // $scope.$on('$destroy', function() {
+    //     _services.forEach(function(p) {
+    //         p.abort();
+    //     });
+    // });
+
+  }
+
+})();

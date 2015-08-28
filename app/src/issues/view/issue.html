@@ -1,0 +1,29 @@
+<md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
+
+<div layout-padding ng-show="ctrl.issue">
+    <h4 class="md-subhead">
+        <md-icon ng-class="ctrl.issueIconClass">{{ctrl.issueIcon}}</md-icon>
+        {{ctrl.issue.tracker.name}} #{{ctrl.issue.id}}
+    </h4>
+    <h3 class="md-headline">{{ctrl.issue.subject}}</h3>
+
+    <br/>
+
+    <table style="border: 0;">
+        <tr ng-repeat="(key, item) in ctrl.issueItems">
+            <td class="issue-key">{{key}}</td>
+            <td>
+                <img ng-if="item.avatar" ng-src="{{item.avatar}}" />
+                <span>{{item.name}}</span>
+            </td>
+        </tr>
+    </table>
+    <!-- <md-whiteframe class="md-whiteframe-z1" layout="column" layout-align="space-between center">
+        <div ng-repeat="item in ctrl.issueItems" layout="row">
+            <div class="issue-key">{{item.title}}</div>
+            &nbsp;
+            <div>{{item.name}}</div>
+        </div>
+    </md-white-frame> -->
+
+</div>

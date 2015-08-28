@@ -1,0 +1,13 @@
+<md-progress-linear ng-if="ctrl.loading < 100" class="md-warn" md-mode="buffer" value="{{ctrl.loading}}" md-buffer-value="{{ctrl.loading}}"></md-progress-linear>
+
+<md-button class="md-fab md-fab-bottom-right md-primary" aria-label="Add project" ng-click="ctrl.addFavProject()">
+    <md-icon>add</md-icon>
+</md-button>
+
+<md-list>
+    <md-subheader class="md-no-sticky">My projects</md-subheader>
+    <md-list-item  ng-repeat="project in ctrl.projects" ng-click="ctrl.goProject(project);">
+        <md-icon>store</md-icon>
+        <p class="md-body-2">{{ project.name }}</p>
+    </md-list-item>
+</md-list>

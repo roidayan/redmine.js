@@ -1,0 +1,24 @@
+<div layout-padding>
+    <md-input-container class="md-accent">
+        <label>Add by project id</label>
+        <input aria-label="search" ng-model="ctrl.projectId" ng-model-options="{debounce: 500}" ng-change="ctrl.lookFor()" />
+    </md-input-container>
+
+    <div ng-if="ctrl.project">
+        <div>Project: {{ctrl.project.name}}</div>
+        <div>Description: {{ctrl.project.description}}</div>
+    </div>
+
+    <div ng-if="ctrl.statusText">
+        Error: {{ctrl.statusText}}
+    </div>
+
+    <br/>
+
+    <md-input-container>
+        <md-button ng-disabled="!ctrl.canAddFav()" aria-label="add to my projects"
+                    class="md-primary" ng-click="ctrl.addFav()">
+                    Add to my projects
+        </md-button>
+    </md-input-container>
+</div>
