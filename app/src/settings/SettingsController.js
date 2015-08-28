@@ -18,14 +18,22 @@
     var self = this;
     var cache = {};
 
-    self.settings = settingsService.read();
+    self.settings = settingsService.read() || {};
     self.save = save;
+    self.predefinedServers = {
+        'hostedredmine.com': 'http://hostedredmine.com/'
+    };
+    self.selectedServer = self.predefinedServers[self.settings.server] || 'custom';
 
     Page.setTitle('Settings');
 
     function save(form) {
-        if (!form.$valid)
+        if (self.selectedServer != 'custom')
+            self.settings.server = self.selectedServer;
+        if (!form.$valid) {
+            console.log("form is not valid");
             return;
+        }
         settingsService.save(self.settings);
         $mdToast.showSimple('Settings saved');
     }

@@ -1,15 +1,34 @@
 <md-progress-linear ng-if="pl.loading < 100" class="md-warn" md-mode="buffer" value="{{pl.loading}}" md-buffer-value="{{pl.loading}}"></md-progress-linear>
 
 <form layout-padding name="userForm" ng-submit="ctrl.save(userForm)" ng-cloak>
+
+    <md-input-container flex>
+        <md-radio-group ng-model="ctrl.selectedServer">
+            <md-radio-button class="md-primary"
+                    ng-repeat="(name, server) in ctrl.predefinedServers" value="{{server}}">
+                {{name}}
+            </md-radio-button>
+            <md-radio-button class="md-primary" value="custom">
+                Custom
+            </md-radio-button>
+        </md-radio-group>
+    </md-input-container>
+
     <md-input-container flex>
         <label>Server address</label>
-        <input ng-model="ctrl.settings.server" required>
+        <input type="url" ng-model="ctrl.settings.server"
+            ng-required="ctrl.selectedServer == 'custom'"
+            ng-disabled="ctrl.selectedServer != 'custom'">
     </md-input-container>
+
     <md-input-container flex>
         <label>API key</label>
         <input ng-model="ctrl.settings.apiKey" required>
     </md-input-container>
+
     <md-input-container>
-        <md-button aria-label="submit form" class="md-primary" type="submit">Submit</md-button>
+        <md-button aria-label="submit form" class="md-primary" type="submit">
+                Submit
+        </md-button>
     </md-input-container>
 </form>
