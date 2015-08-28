@@ -146,6 +146,10 @@ span.name {
     color: #4747FF;
 }
 
+.issue-description {
+    white-space: pre-wrap;
+}
+
 /*.issue-priority-high {
     color: #900 !important;
     background-color: #FFE8E8;
@@ -155,4 +159,8 @@ span.name {
 .issue-key {
     color: #3894B2;
     font-weight: 500;
+}
+
+img.issue-user-avatar {
+    vertical-align: middle;
 }

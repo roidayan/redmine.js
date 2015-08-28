@@ -61,6 +61,9 @@
     }
 
     function setIssueItems() {
+        function getItemName(item) {
+            return self.issue[item] ? self.issue[item]['name'] : '-';
+        }
         // project status assignee
         var items = {
             'Project': {
@@ -79,6 +82,12 @@
             'Assignee': {
                 'name': self.issue.assigned_to.name,
                 'avatar': null
+            },
+            'Target Version': {
+                'name': getItemName('fixed_version')
+            },
+            'Category': {
+                'name': getItemName('category')
             },
             'Created': {
                 'name': $filter('date')(self.issue.created_on, 'medium')
@@ -99,6 +108,7 @@
         }).$promise.then(function(data) {
             console.log(data);
             self.author = data.user;
+            self.author.avatar = getAvatar(self.author);
         });
 
         return q;
@@ -112,8 +122,8 @@
         }).$promise.then(function(data) {
             console.log(data);
             self.assignee = data.user;
-            var avatar = getAvatar(self.assignee);
-            self.issueItems['Assignee']['avatar'] = avatar;
+            self.assignee.avatar = getAvatar(self.assignee);
+            self.issueItems['Assignee']['avatar'] = self.assignee.avatar;
         });
 
         return q;

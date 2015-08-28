@@ -7,13 +7,20 @@
     </h4>
     <h3 class="md-headline">{{ctrl.issue.subject}}</h3>
 
+    <div>
+        <span class="issue-key">Author</span>
+        <img class="issue-user-avatar" ng-if="ctrl.author.avatar" ng-src="{{ctrl.author.avatar}}" />
+        {{ctrl.issue.author.name}}
+    </div>
+    <div class="issue-description" layout-padding>{{ctrl.issue.description}}</div>
+
     <br/>
 
     <table style="border: 0;">
         <tr ng-repeat="(key, item) in ctrl.issueItems">
             <td class="issue-key">{{key}}</td>
             <td>
-                <img ng-if="item.avatar" ng-src="{{item.avatar}}" />
+                <img class="issue-user-avatar" ng-if="item.avatar" ng-src="{{item.avatar}}" />
                 <span>{{item.name}}</span>
             </td>
         </tr>
