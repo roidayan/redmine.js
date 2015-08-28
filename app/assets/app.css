@@ -134,15 +134,15 @@ span.name {
     height: auto;
 }
 
-.issue-status-bug_report {
+.issue-tracker-bug {
     color: #FF6565;
 }
 
-.issue-status-description {
+.issue-tracker-task {
     color: #FFA83A;
 }
 
-.issue-status-class {
+.issue-tracker-feature {
     color: #4747FF;
 }
 

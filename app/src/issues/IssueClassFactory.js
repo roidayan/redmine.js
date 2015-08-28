@@ -12,20 +12,16 @@
   function IssueClassFactory() {
       var _icon = {
           'Bug': {
-              icon: 'bug_report',
-              color: 'red'
+              icon: 'bug_report'
           },
           'Feature': {
-              icon: 'description',
-              color: 'blue'
+              icon: 'description'
           },
           'Task': {
-              icon: 'class',
-              color: 'orange'
+              icon: 'class'
           },
           'Deliverable': {
-              icon: '',
-              color: ''
+              icon: ''
           }
       };
 
@@ -50,10 +46,8 @@
           return _i == '' ? '' : _i.icon;
       }
 
-      function getIconClass(issue) {
-          var _i = _getIcon(issue);
-
-          return _i == '' ? '' : 'issue-status-' + _i.icon;
+      function getTrackerClass(issue) {
+          return issue.tracker ? 'issue-tracker-' + issue.tracker.name.toLowerCase() : '';
       }
 
       function getPriorityClass(issue) {
@@ -62,7 +56,7 @@
 
       return {
           getIcon: getIcon,
-          getIconClass: getIconClass,
+          getTrackerClass: getTrackerClass,
           getPriorityClass: getPriorityClass
       };
   }

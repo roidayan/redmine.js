@@ -25,7 +25,7 @@
     self.loading = false;
     self.issues = [];
     self.getIcon = IssueClassFactory.getIcon;
-    self.getIconClass = IssueClassFactory.getIconClass;
+    self.getTrackerClass = IssueClassFactory.getTrackerClass;
     self.getPriorityClass = IssueClassFactory.getPriorityClass;
     self.showIssue = showIssue;
 

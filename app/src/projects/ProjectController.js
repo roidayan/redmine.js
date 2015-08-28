@@ -27,7 +27,7 @@
     self.project = null;
     self.issues = null;
     self.getIcon = IssueClassFactory.getIcon;
-    self.getIconClass = IssueClassFactory.getIconClass;
+    self.getTrackerClass = IssueClassFactory.getTrackerClass;
     self.getPriorityClass = IssueClassFactory.getPriorityClass;
     self.showIssue = showIssue;
 

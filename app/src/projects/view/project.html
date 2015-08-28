@@ -10,7 +10,7 @@
 <md-list ng-cloak ng-show="ctrl.project">
       <md-subheader class="md-no-sticky">Project issues</md-subheader>
       <md-list-item ng-repeat="issue in ctrl.issues" ng-click="ctrl.showIssue(issue)">
-            <md-icon ng-class="ctrl.getIconClass(issue)">{{ctrl.getIcon(issue)}}</md-icon>
+            <md-icon ng-class="ctrl.getTrackerClass(issue)">{{ctrl.getIcon(issue)}}</md-icon>
             <p class="md-body-1" ng-class="ctrl.getPriorityClass(issue)">{{ issue.subject }}</p>
       </md-list-item>
 </md-list>

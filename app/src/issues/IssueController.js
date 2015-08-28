@@ -53,7 +53,7 @@
             self.issue = data.issue;
             setIssueItems();
             self.issueIcon = IssueClassFactory.getIcon(self.issue);
-            self.issueIconClass = IssueClassFactory.getIconClass(self.issue);
+            self.issueIconClass = IssueClassFactory.getTrackerClass(self.issue);
             return getAuthor() && getAssignee();
         });
 
