@@ -20,12 +20,12 @@
           '$filter',
           '$q',
           'Page',
+          'gravatar',
           IssueController
        ]);
 
-  function IssueController( issueService, userService, projectService, IssueClassFactory, issueStatuses, $routeParams, $log, $location, $localStorage, $filter, $q, Page ) {
+  function IssueController( issueService, userService, projectService, IssueClassFactory, issueStatuses, $routeParams, $log, $location, $localStorage, $filter, $q, Page, gravatar ) {
     var self = this;
-    var cache = {};
 
     self.issueId = $routeParams.issueId;
     self.issue = null;
@@ -159,7 +159,7 @@
         }).$promise.then(function(data) {
             console.log(data);
             self.author = data.user;
-            self.author.avatar = getAvatar(self.author);
+            self.author.avatar = gravatar.get(self.author.mail);
             self.users[self.author.id] = self.author;
         });
 
@@ -174,22 +174,12 @@
         }).$promise.then(function(data) {
             console.log(data);
             self.assignee = data.user;
-            self.assignee.avatar = getAvatar(self.assignee);
+            self.assignee.avatar = gravatar.get(self.assignee.mail);
             self.issueItems['Assignee']['avatar'] = self.assignee.avatar;
             self.users[self.assignee.id] = self.assignee;
         });
 
         return q;
-    }
-
-    function getAvatar(user) {
-        if (!user || !user.mail)
-            return '';
-
-        if (!cache[user.mail])
-            cache[user.mail] = "http://www.gravatar.com/avatar/"+md5(user.mail)+"?s=24&d=identicon";
-
-        return cache[user.mail];
     }
 
     function getUserAvatar(user) {

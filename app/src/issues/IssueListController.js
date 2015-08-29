@@ -20,7 +20,6 @@
 
   function IssueListController( $scope, issueService, IssueClassFactory, $log, $location, $localStorage, Page ) {
     var self = this;
-    var cache = {};
 
     self.loading = false;
     self.issues = [];

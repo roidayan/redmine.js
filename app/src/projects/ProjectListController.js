@@ -19,7 +19,6 @@
 
   function ProjectListController( projectService, $log, $location, $localStorage, $filter, Page ) {
     var self = this;
-    var cache = {};
 
     self.projects = [];
     self.goProject = goProject;

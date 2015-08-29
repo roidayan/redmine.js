@@ -19,7 +19,6 @@
 
   function FavProjectController( projectService, debounce, $log, $location, $localStorage, $q ) {
     var self = this;
-    var cache = {};
 
     self.projectId = null;
     self.project = null;

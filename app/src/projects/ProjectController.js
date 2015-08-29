@@ -21,7 +21,6 @@
 
   function ProjectController( projectService, issueService, IssueClassFactory, $log, $location, $routeParams, $q, Page ) {
     var self = this;
-    var cache = {};
 
     self.projectId = $routeParams.projectId;
     self.project = null;

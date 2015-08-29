@@ -16,7 +16,6 @@
 
   function SettingsController( $mdToast, settingsService, Page ) {
     var self = this;
-    var cache = {};
 
     self.settings = settingsService.read() || {};
     self.save = save;
