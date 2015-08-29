@@ -23,6 +23,7 @@
 
     self.loading = false;
     self.issues = [];
+    self.total_count = 0;
     self.getIcon = IssueClassFactory.getIcon;
     self.getTrackerClass = IssueClassFactory.getTrackerClass;
     self.getPriorityClass = IssueClassFactory.getPriorityClass;
@@ -43,6 +44,7 @@
         }).$promise.then(function(data) {
             console.log(data);
             self.issues = data.issues;
+            self.total_count = data.total_count;
             self.loading = false;
         });
 

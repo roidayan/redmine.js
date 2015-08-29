@@ -1,6 +1,6 @@
 <md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
-<div layout-padding ng-show="ctrl.issue">
+<div ng-cloak layout-padding ng-show="ctrl.issue">
     <h4 class="md-subhead">
         <md-icon ng-class="ctrl.issueIconClass">{{ctrl.issueIcon}}</md-icon>
         {{ctrl.issue.tracker.name}} #{{ctrl.issue.id}}
