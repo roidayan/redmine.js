@@ -3,6 +3,7 @@
  * @license GPLv2
  */
 (function(){
+  'use strict';
 
   angular
        .module('redmineApp')
