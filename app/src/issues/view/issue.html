@@ -38,12 +38,12 @@
                     <span flex></span>
                     {{journal.created_on}}
                 </div>
+                <ul>
+                    <li ng-repeat="detail in journal.details">
+                        {{detail.text}}
+                    </li>
+                </ul>
                 <p>
-                    <ul>
-                        <li ng-repeat="detail in journal.details">
-                            {{detail.text}}
-                        </li>
-                    </ul>
                     {{journal.notes}}
                 </p>
             </md-card-content>
