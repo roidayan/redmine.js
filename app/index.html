@@ -38,9 +38,15 @@
                   </md-button>
                   <h2 class="md-title fill-height">{{ctrl.page.title()}}</h2>
                   <span flex></span>
-                  <!-- <md-button class="md-icon-button" hide-gt-md ng-click="null" aria-label="null">
+                  <!-- <md-button class="md-icon-button" ng-click="null" aria-label="Refresh">
                       <md-icon>refresh</md-icon>
                   </md-button> -->
+                  <md-button class="md-icon-button"
+                             aria-label="Open link"
+                             ng-if="ctrl.page.extLink()"
+                             ng-click="ctrl.page.openExtLink()">
+                      <md-icon>open_in_new</md-icon>
+                  </md-button>
                 </div>
             </md-toolbar>
 

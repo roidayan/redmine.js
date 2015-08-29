@@ -6,17 +6,25 @@
 
   angular
        .module('redmineApp')
-       .factory('Page', PageService);
+       .factory('Page', ['$window', PageService]);
 
-  function PageService() {
+  function PageService($window) {
       var title = 'title';
       var rightButton = {};
+      var extLink = '';
 
       return {
+          reset: function() {
+              this.setTitle('');
+              this.setExtLink('');
+          },
           title: function() { return title; },
           setTitle: function(newTitle) { title = newTitle; },
           rightButton: function() { return rightButton; },
-          setRightButton: function(icon, cb) { rightButton = {'cb': cb, 'icon': icon } }
+          setRightButton: function(icon, cb) { rightButton = {'cb': cb, 'icon': icon } },
+          extLink: function() { return extLink; },
+          setExtLink: function(link) { extLink = link; },
+          openExtLink: function(link) { $window.open(extLink, '_system'); }
       };
   }
 

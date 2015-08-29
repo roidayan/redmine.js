@@ -44,6 +44,7 @@
     };
 
     Page.setTitle('Issue');
+    Page.setExtLink(issueService.issuesUrl + '/' + self.issueId);
 
     self.loading = true;
     getIssue().then(function() {

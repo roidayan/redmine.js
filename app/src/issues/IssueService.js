@@ -38,7 +38,9 @@
               }
           };
 
-          return $resource(_url, _params, _actions);
+          var _r = $resource(_url, _params, _actions);
+          _r.issuesUrl = apiRemoteUrl + '/issues';
+          return _r;
       }
 
       _resource = createResource();

@@ -68,6 +68,13 @@
           });
 
         //$locationProvider.html5Mode(true);
+    })
+
+    .run(function($rootScope, Page) {
+        $rootScope.$on('$routeChangeSuccess',
+        function(event, curr, prev) {
+            Page.reset();
+        });
     });
 
 })();
