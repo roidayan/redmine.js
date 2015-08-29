@@ -20,14 +20,15 @@
           query: {
               method: 'GET',
               isArray: false,
+              cache: true,
+              timeout: 10000,
               headers: {
                   'X-Redmine-API-Key': apiKey,
               }
           }
       };
-      var _resource = $resource(_url, _params, _actions);
 
-      return _resource;
+      return $resource(_url, _params, _actions);
   }
 
 })();

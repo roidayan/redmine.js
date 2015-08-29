@@ -5,7 +5,7 @@
 (function(){
   'use strict';
 
-  angular.module('rmIssues', [ 'ngMaterial', 'ngResource', 'ngStorage', 'rmSettings', 'rmProjects' ]);
+  angular.module('rmIssues', [ 'ngMaterial', 'ngResource', 'ngStorage', 'rmUsers', 'rmSettings', 'rmProjects' ]);
 
 
 })();

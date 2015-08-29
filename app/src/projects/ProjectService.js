@@ -28,9 +28,8 @@
               }
           }
       };
-      var _resource = $resource(_url, _params, _actions);
 
-      return _resource;
+      return $resource(_url, _params, _actions);
   }
 
 })();
