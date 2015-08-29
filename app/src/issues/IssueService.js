@@ -31,7 +31,8 @@
                   method: 'GET',
                   isArray: false,
                   cache: true,
-                  timeout: aborter.promise,
+                  timeout: 10000,
+                  //timeout: aborter.promise,
                   headers: {
                       'X-Redmine-API-Key': apiKey,
                   }

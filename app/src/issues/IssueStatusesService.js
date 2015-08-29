@@ -24,6 +24,7 @@
               method: 'GET',
               isArray: false,
               cache: true,
+              timeout: 10000,
               headers: {
                   'X-Redmine-API-Key': apiKey,
               }
