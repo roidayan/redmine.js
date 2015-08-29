@@ -8,3 +8,4 @@ Angular based Redmine REST API client
 <img src="/assets/screenshots/Capture3.PNG?raw=true" width="250px">
 <img src="/assets/screenshots/Capture4.PNG?raw=true" width="250px">
 <img src="/assets/screenshots/Capture5.PNG?raw=true" width="250px">
+<img src="/assets/screenshots/Capture6.PNG?raw=true" width="250px">
