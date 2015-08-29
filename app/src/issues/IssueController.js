@@ -13,6 +13,7 @@
           'projectService',
           'IssueClassFactory',
           'issueStatuses',
+          'issuePriorities',
           '$routeParams',
           '$log',
           '$location',
@@ -24,7 +25,7 @@
           IssueController
        ]);
 
-  function IssueController( issueService, userService, projectService, IssueClassFactory, issueStatuses, $routeParams, $log, $location, $localStorage, $filter, $q, Page, gravatar ) {
+  function IssueController( issueService, userService, projectService, IssueClassFactory, issueStatuses, issuePriorities, $routeParams, $log, $location, $localStorage, $filter, $q, Page, gravatar ) {
     var self = this;
 
     self.issueId = $routeParams.issueId;
@@ -40,7 +41,8 @@
     /* meta names by meta id and key id */
     self.meta = {
         'fixed_version_id': {},
-        'status_id': {}
+        'status_id': {},
+        'priority_id': {}
     };
 
     Page.setTitle('Issue');
@@ -71,7 +73,8 @@
                 getAuthor(),
                 getAssignee(),
                 getProjectVersions(),
-                getIssueStatuses()
+                getIssueStatuses(),
+                getIssuePriorities()
             ]);
         });
 
@@ -83,7 +86,9 @@
         var id_to_name = {
             'fixed_version_id': 'Target version',
             'status_id': 'Status',
-            'assigned_to_id': 'Assignee'
+            'assigned_to_id': 'Assignee',
+            'priority_id': 'Priority',
+            'subject': 'Subject'
         };
 
         self.issue.journals.forEach(function(journal) {
@@ -99,7 +104,7 @@
                     new_value = '[' + detail.new_value + ']';
                 }
 
-                if (name == 'description')
+                if (detail.name == 'description')
                     detail.text = "Description updated";
                 else if (!detail.old_value)
                     detail.text = name + " set to " + new_value;
@@ -212,6 +217,17 @@
             console.log(data);
             data.issue_statuses.forEach(function(status) {
                 self.meta['status_id'][status.id] = status.name;
+            });
+        });
+
+        return q;
+    }
+
+    function getIssuePriorities() {
+        var q = issuePriorities.query().$promise.then(function(data) {
+            console.log(data);
+            data.issue_priorities.forEach(function(priority) {
+                self.meta['priority_id'][priority.id] = priority.name;
             });
         });
 
