@@ -6,7 +6,7 @@
 
 <md-list>
     <md-subheader class="md-no-sticky">My projects</md-subheader>
-    <md-list-item  ng-repeat="project in ctrl.projects" ng-click="ctrl.goProject(project);">
+    <md-list-item class="project-list-item" ng-repeat="project in ctrl.projects" ng-click="ctrl.goProject(project);">
         <md-icon>store</md-icon>
         <p class="md-body-2">{{ project.name }}</p>
     </md-list-item>

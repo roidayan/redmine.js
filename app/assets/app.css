@@ -135,7 +135,7 @@ span.name {
 }
 
 .issue-tracker-bug {
-    color: #FF6565;
+    color: #E42929;
 }
 
 .issue-tracker-task {
@@ -168,4 +168,8 @@ img.issue-user-avatar {
     width: 24px;
     height: 24px;
     margin: auto 4px auto auto;
+}
+
+.project-list-item md-icon {
+    color: #24A238;
 }
