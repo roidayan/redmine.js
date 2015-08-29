@@ -163,4 +163,9 @@ span.name {
 
 img.issue-user-avatar {
     vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    width: 24px;
+    height: 24px;
+    margin: auto 4px auto auto;
 }

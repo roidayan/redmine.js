@@ -6,16 +6,18 @@
   'use strict';
 
   angular
-        .module('rmProjects')
-        .service('projectService', [
+        .module('rmIssues')
+        .service('issueStatuses', [
             '$resource',
+            '$q',
             'settingsService',
-            ProjectService]);
+            IssueStatusesService]);
 
-  function ProjectService( $resource, settingsService ) {
+  function IssueStatusesService( $resource, $q, settingsService ) {
+      var _resource = null;
       var apiRemoteUrl = settingsService.getRemoteUrl();
       var apiKey = settingsService.getApiKey();
-      var _url = apiRemoteUrl + '/projects/:project_id/:query.json';
+      var _url = apiRemoteUrl + '/issue_statuses.json';
       var _params = {};
       var _actions = {
           query: {
@@ -27,9 +29,8 @@
               }
           }
       };
-      var _resource = $resource(_url, _params, _actions);
 
-      return _resource;
+      return $resource(_url, _params, _actions);
   }
 
 })();

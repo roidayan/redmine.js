@@ -10,7 +10,9 @@
        .controller('IssueController', [
           'issueService',
           'userService',
+          'projectService',
           'IssueClassFactory',
+          'issueStatuses',
           '$routeParams',
           '$log',
           '$location',
@@ -21,7 +23,7 @@
           IssueController
        ]);
 
-  function IssueController( issueService, userService, IssueClassFactory, $routeParams, $log, $location, $localStorage, $filter, $q, Page ) {
+  function IssueController( issueService, userService, projectService, IssueClassFactory, issueStatuses, $routeParams, $log, $location, $localStorage, $filter, $q, Page ) {
     var self = this;
     var cache = {};
 
@@ -32,11 +34,20 @@
     self.issueItems = [];
     self.author = {};
     self.assignee = {};
+    /* users participating in the ticket by id */
+    self.users = {};
+    self.getUserAvatar = getUserAvatar;
+    /* meta names by meta id and key id */
+    self.meta = {
+        'fixed_version_id': {},
+        'status_id': {}
+    };
 
     Page.setTitle('Issue');
 
     self.loading = true;
-    $q.when( getIssue() ).then(function() {
+    getIssue().then(function() {
+        updateJournals();
         self.loading = false;
     });
 
@@ -47,17 +58,56 @@
         }
 
         var q = issueService.query({
-            'issue_id': self.issueId
+            'issue_id': self.issueId,
+            'include': 'journals'
         }).$promise.then(function(data) {
             console.log(data);
             self.issue = data.issue;
             setIssueItems();
             self.issueIcon = IssueClassFactory.getIcon(self.issue);
             self.issueIconClass = IssueClassFactory.getTrackerClass(self.issue);
-            return getAuthor() && getAssignee();
+            return $q.all([
+                getAuthor(),
+                getAssignee(),
+                getProjectVersions(),
+                getIssueStatuses()
+            ]);
         });
 
         return q;
+    }
+
+    function updateJournals() {
+
+        var id_to_name = {
+            'fixed_version_id': 'Target version',
+            'status_id': 'Status',
+            'assigned_to_id': 'Assignee'
+        };
+
+        self.issue.journals.forEach(function(journal) {
+            journal.details.forEach(function(detail) {
+                var name = id_to_name[detail.name] || detail.name;
+                var old_value, new_value;
+
+                if (self.meta[detail.name]) {
+                    old_value = self.meta[detail.name][detail.old_value] || '[' + detail.old_value + ']';
+                    new_value = self.meta[detail.name][detail.new_value] || '[' + detail.new_value + ']';
+                } else {
+                    old_value = '[' + detail.old_value + ']';
+                    new_value = '[' + detail.new_value + ']';
+                }
+
+                if (name == 'description')
+                    detail.text = "Description updated";
+                else if (!detail.old_value)
+                    detail.text = name + " set to " + new_value;
+                else if (!detail.new_value)
+                    detail.text = name + " deleted (" + old_value + ")";
+                else
+                    detail.text = name + " changed from " + old_value + " to " + new_value;
+            });
+        });
     }
 
     function setIssueItems() {
@@ -81,7 +131,7 @@
             },
             'Assignee': {
                 'name': self.issue.assigned_to.name,
-                'avatar': null
+                'avatar': ''
             },
             'Target Version': {
                 'name': getItemName('fixed_version')
@@ -109,6 +159,7 @@
             console.log(data);
             self.author = data.user;
             self.author.avatar = getAvatar(self.author);
+            self.users[self.author.id] = self.author;
         });
 
         return q;
@@ -124,6 +175,7 @@
             self.assignee = data.user;
             self.assignee.avatar = getAvatar(self.assignee);
             self.issueItems['Assignee']['avatar'] = self.assignee.avatar;
+            self.users[self.assignee.id] = self.assignee;
         });
 
         return q;
@@ -137,6 +189,42 @@
             cache[user.mail] = "http://www.gravatar.com/avatar/"+md5(user.mail)+"?s=24&d=identicon";
 
         return cache[user.mail];
+    }
+
+    function getUserAvatar(user) {
+        return (self.users[user.id] && self.users[user.id].avatar) || '';
+    }
+
+    function getProjectVersions() {
+        var projectId = self.issue.project.id;
+
+        if (!projectId) {
+            console.error("no project id");
+            return $q.when(true);
+        }
+
+        var q = projectService.query({
+            'project_id': projectId,
+            'query': 'versions'
+        }).$promise.then(function(data) {
+            console.log(data);
+            data.versions.forEach(function(version) {
+                self.meta['fixed_version_id'][version.id] = version.name;
+            });
+        });
+
+        return q;
+    }
+
+    function getIssueStatuses() {
+        var q = issueStatuses.query().$promise.then(function(data) {
+            console.log(data);
+            data.issue_statuses.forEach(function(status) {
+                self.meta['status_id'][status.id] = status.name;
+            });
+        });
+
+        return q;
     }
 
   }

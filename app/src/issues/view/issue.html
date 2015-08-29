@@ -10,20 +10,43 @@
     <div>
         <span class="issue-key">Author</span>
         <img class="issue-user-avatar" ng-if="ctrl.author.avatar" ng-src="{{ctrl.author.avatar}}" />
+        <md-icon ng-if="!ctrl.author.avatar">person</md-icon>
         {{ctrl.issue.author.name}}
     </div>
     <div class="issue-description" layout-padding>{{ctrl.issue.description}}</div>
 
-    <br/>
-
-    <table style="border: 0;">
+    <h3>Details</h3>
+    <table>
         <tr ng-repeat="(key, item) in ctrl.issueItems">
             <td class="issue-key">{{key}}</td>
             <td>
                 <img class="issue-user-avatar" ng-if="item.avatar" ng-src="{{item.avatar}}" />
+                <md-icon ng-if="item.avatar === ''">person</md-icon>
                 <span>{{item.name}}</span>
             </td>
         </tr>
     </table>
 
+    <h3>History</h3>
+    <md-content class="md-padding">
+        <md-card ng-repeat="journal in ctrl.issue.journals">
+            <md-card-content>
+                <div layout="row" class="issue-user-line">
+                    <img class="issue-user-avatar" ng-if="ctrl.getUserAvatar(journal.user)" ng-src="{{ctrl.getUserAvatar(journal.user)}}" />
+                    <md-icon ng-if="!ctrl.getUserAvatar(journal.user)">person</md-icon>
+                    <p>{{journal.user.name}}</p>
+                    <span flex></span>
+                    {{journal.created_on}}
+                </div>
+                <p>
+                    <ul>
+                        <li ng-repeat="detail in journal.details">
+                            {{detail.text}}
+                        </li>
+                    </ul>
+                    {{journal.notes}}
+                </p>
+            </md-card-content>
+        </md-card>
+    </md-content>
 </div>
