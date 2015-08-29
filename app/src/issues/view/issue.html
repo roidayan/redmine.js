@@ -13,6 +13,8 @@
         <md-icon ng-if="!ctrl.author.avatar">person</md-icon>
         {{ctrl.issue.author.name}}
     </div>
+
+    <h3>Description</h3>
     <div class="issue-description" layout-padding>{{ctrl.issue.description}}</div>
 
     <h3>Details</h3>
@@ -28,7 +30,7 @@
     </table>
 
     <h3>History</h3>
-    <md-content class="md-padding">
+    <md-content>
         <md-card ng-repeat="journal in ctrl.issue.journals">
             <md-card-content>
                 <div layout="row" class="issue-user-line">
