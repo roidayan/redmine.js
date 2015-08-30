@@ -23,7 +23,7 @@
     .value('appVersion', '0.0.0')
     .value('appAuthor', 'Roi Dayan')
 
-    .config( function( $mdThemingProvider, $routeProvider, $locationProvider, $localStorageProvider ) {
+    .config( function( $mdThemingProvider, $routeProvider, $locationProvider, $localStorageProvider, $httpProvider ) {
 
         $localStorageProvider.setKeyPrefix('redmineApp-');
 
@@ -67,6 +67,7 @@
               redirectTo: '/projects'
           });
 
+        $httpProvider.useLegacyPromiseExtensions = false;
         //$locationProvider.html5Mode(true);
     })
 
