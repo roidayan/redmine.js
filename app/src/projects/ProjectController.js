@@ -24,7 +24,7 @@
 
     self.projectId = $routeParams.projectId;
     self.project = null;
-    self.issues = null;
+    self.issues = [];
     self.total_count = 0;
     self.getIcon = IssueClassFactory.getIcon;
     self.getTrackerClass = IssueClassFactory.getTrackerClass;
