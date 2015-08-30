@@ -9,18 +9,19 @@
        .module('rmSettings')
        .controller('SettingsController', [
           '$mdToast',
+          '$window',
           'settingsService',
           'Page',
           SettingsController
        ]);
 
-  function SettingsController( $mdToast, settingsService, Page ) {
+  function SettingsController( $mdToast, $window, settingsService, Page ) {
     var self = this;
 
     self.settings = settingsService.read() || {};
     self.save = save;
     self.predefinedServers = {
-        'hostedredmine.com': 'http://hostedredmine.com/'
+        'hostedredmine.com': 'http://hostedredmine.com'
     };
     self.selectedServer = self.predefinedServers[self.settings.server] || 'custom';
 
@@ -35,6 +36,10 @@
         }
         settingsService.save(self.settings);
         $mdToast.showSimple('Settings saved');
+        /* requires reload */
+        // .then(function(){
+        //     $window.location.reload();
+        // });
     }
 
   }

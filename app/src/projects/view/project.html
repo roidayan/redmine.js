@@ -14,3 +14,7 @@
             <p class="md-body-1" ng-class="ctrl.getPriorityClass(issue)">{{ issue.subject }}</p>
       </md-list-item>
 </md-list>
+
+<div layout-fill ng-if="ctrl.errorLoading">
+    <md-button class="md-accent" ng-click="ctrl.setup()">Retry</md-button>
+</div>

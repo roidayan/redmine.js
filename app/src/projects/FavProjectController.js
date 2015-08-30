@@ -89,7 +89,8 @@
         }).$promise.then(function(data) {
             console.log(data);
             self.project = data.project;
-        }).catch(function(e){
+        }).catch(function(e) {
+            console.debug(e);
             self.statusText = e.statusText;
         });
 
