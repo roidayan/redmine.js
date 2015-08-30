@@ -19,9 +19,10 @@
         'rmUsers'
     ])
 
-    .value('appName', 'Reminde.js')
-    .value('appVersion', '0.0.0')
-    .value('appAuthor', 'Roi Dayan')
+    .value('appName',       'Reminde.js')
+    .value('appVersion',    '0.0.0')
+    .value('appAuthor',     'Roi Dayan')
+    .value('appCopyright',  '(c) 2015 Roi Dayan')
 
     .config( function( $mdThemingProvider, $routeProvider, $locationProvider, $localStorageProvider, $httpProvider ) {
 
@@ -58,9 +59,13 @@
               controller: 'SettingsController as ctrl'
           })
           .when('/about', {
+              scope: {},
               templateUrl: './src/index/view/about.html',
-              controller: function(Page) {
+              controller: function($scope, Page, appName, appVersion, appCopyright) {
                   Page.setTitle('About');
+                  $scope.appName = appName;
+                  $scope.appVersion = appVersion;
+                  $scope.appCopyright = appCopyright;
               }
           })
           .otherwise({
