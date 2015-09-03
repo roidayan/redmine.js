@@ -146,7 +146,8 @@ span.name {
     color: #4747FF;
 }
 
-.issue-description {
+.issue-description,
+.journal-notes {
     white-space: pre-wrap;
 }
 
