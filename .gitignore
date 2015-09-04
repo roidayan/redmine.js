@@ -6,4 +6,7 @@ tmp
 .DS_Store
 .idea
 app/jspm_packages
+# build
 www
+# cordova plugins
+plugins
