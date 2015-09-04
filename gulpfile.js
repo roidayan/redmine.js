@@ -4,10 +4,10 @@ var config = {
 
 	src: {
 		/* warning: beware of ./app/bower_components */
-		css: ['./app/assets/**/*.css'],
+		css: ['./app/css/*.css'],
 		js: ['./app/src/**/*.js'],
 		views: ['./app/src/**/view/*.html'],
-		images: ['./app/assets/images/*']
+		images: ['./app/images/*.png']
 	}
 };
 
@@ -44,10 +44,12 @@ var gulp 			= require('gulp'),
 /* refresh sources in index.html */
 gulp.task('index', function() {
   var target = gulp.src('./app/index.html');
-  var sources = gulp.src(config.src.js).pipe(ngFilesort());
-
-  target.pipe(inject(sources, {relative: true}))
-	.pipe(inject(gulp.src(bower(), {read: false}), {name: 'bower', relative: true}))
+  var sources = streamqueue({ objectMode: true },
+    gulp.src(bower(), {read: false}),
+	gulp.src(config.src.css, {read: false}),
+	gulp.src(config.src.js).pipe(ngFilesort())
+  );
+  return target.pipe(inject(sources, {relative: true}))
     .pipe(gulp.dest('./app'));
 });
 
@@ -63,7 +65,7 @@ gulp.task('clean', function() {
 	]);
 });
 
-/* minify images */
+/* optimize images */
 gulp.task('images', function() {
   return gulp.src(config.src.images)
     .pipe(optipng()())
@@ -74,7 +76,7 @@ gulp.task('images', function() {
 gulp.task('js', function() {
     return streamqueue({ objectMode: true },
 	  gulp.src(path.join(config.tmp, '*.js')),
-      gulp.src(config.src.js).pipe(ngFilesort()),
+      gulp.src(config.src.js).pipe(ngFilesort()).pipe(replace('./src/', '')),
       gulp.src(config.src.views).pipe(templateCache({ module: 'redmineApp' }))
     )
     .pipe(sourcemaps.init())
@@ -132,8 +134,8 @@ gulp.task('html', function() {
 	var target = gulp.src('./app/index.html').pipe(gulp.dest(config.dest));
 
 	var sources = gulp.src([
-		path.join(config.dest, '**/*.js'),
-		path.join(config.dest, '**/*.css'),
+		path.join(config.dest, 'js/*.js'),
+		path.join(config.dest, 'css/*.css'),
 	], {read: false});
 	var extra = ['<script src="cordova.js"></script>'];
 
