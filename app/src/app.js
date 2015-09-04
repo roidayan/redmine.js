@@ -31,7 +31,8 @@
         $mdThemingProvider.theme('default')
             .primaryPalette('indigo')
             .accentPalette('pink')
-            .warnPalette('red');
+            .warnPalette('red')
+            .backgroundPalette('blue-grey', {'default': '50'});
 
         $routeProvider
           .when('/projects', {

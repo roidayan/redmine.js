@@ -30,23 +30,21 @@
     </table>
 
     <h3>History</h3>
-    <md-content>
-        <md-card ng-repeat="journal in ctrl.issue.journals">
-            <md-card-content>
-                <div layout="row" class="issue-user-line">
-                    <img class="issue-user-avatar" ng-if="ctrl.getUserAvatar(journal.user)" ng-src="{{ctrl.getUserAvatar(journal.user)}}" />
-                    <md-icon ng-if="!ctrl.getUserAvatar(journal.user)">person</md-icon>
-                    <p>{{journal.user.name}}</p>
-                    <span flex></span>
-                    {{journal.created_on}}
-                </div>
-                <ul>
-                    <li ng-repeat="detail in journal.details">
-                        {{detail.text || "[loading]"}}
-                    </li>
-                </ul>
-                <p class="journal-notes">{{journal.notes}}</p>
-            </md-card-content>
-        </md-card>
-    </md-content>
+    <md-card ng-repeat="journal in ctrl.issue.journals">
+        <md-card-content>
+            <div layout="row" class="issue-user-line">
+                <img class="issue-user-avatar" ng-if="ctrl.getUserAvatar(journal.user)" ng-src="{{ctrl.getUserAvatar(journal.user)}}" />
+                <md-icon ng-if="!ctrl.getUserAvatar(journal.user)">person</md-icon>
+                <p>{{journal.user.name}}</p>
+                <span flex></span>
+                {{journal.created_on}}
+            </div>
+            <ul>
+                <li ng-repeat="detail in journal.details">
+                    {{detail.text || "[loading]"}}
+                </li>
+            </ul>
+            <p class="journal-notes">{{journal.notes}}</p>
+        </md-card-content>
+    </md-card>
 </div>

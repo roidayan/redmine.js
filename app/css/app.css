@@ -22,6 +22,10 @@ md-toolbar h1 {
 
 /* Sidenav area */
 
+.site-sidenav {
+    background-color: #F3F0EB;
+}
+
 md-list .md-button {
   color: inherit;
   font-weight: 500;
@@ -89,27 +93,6 @@ md-button.menuBtn > md-icon {
 
 /* Utils */
 
-.content-wrapper {
-  position: relative;
-}
-
-.avatar {
-  position: relative;
-  width: 128px;
-  height: 128px;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  display: inline-block;
-  overflow: hidden;
-  margin: 0px;
-  vertical-align: middle;
-  zoom:0.70;
-  transform: translateZ(0);
-  -webkit-transform: scale(0.70);
-  -moz-transform:scale(0.70);
-}
-
-
 md-bottom-sheet  md-icon {
   margin-right:20px;
 }
@@ -127,11 +110,6 @@ span.name {
  */
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;
-}
-
-.sidenav-avatar {
-    width: 50px;
-    height: auto;
 }
 
 .issue-tracker-bug {
