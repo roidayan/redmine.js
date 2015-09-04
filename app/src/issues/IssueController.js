@@ -107,14 +107,29 @@
                     new_value = '[' + detail.new_value + ']';
                 }
 
-                if (detail.name == 'description')
-                    detail.text = "Description updated";
-                else if (!detail.old_value)
-                    detail.text = name + " set to " + new_value;
-                else if (!detail.new_value)
-                    detail.text = name + " deleted (" + old_value + ")";
-                else
-                    detail.text = name + " changed from " + old_value + " to " + new_value;
+                function updateText(detail) {
+                    if (detail.name == 'description')
+                        detail.text = "Description updated";
+                    else if (!detail.old_value)
+                        detail.text = name + " set to " + new_value;
+                    else if (!detail.new_value)
+                        detail.text = name + " deleted (was " + old_value + ")";
+                    else
+                        detail.text = name + " changed from " + old_value + " to " + new_value;
+                }
+
+                updateText(detail);
+
+                if (detail.name == 'assigned_to_id') {
+                    var id = detail.old_value || detail.new_value;
+                    getUser(id).then(function(user) {
+                        if (detail.old_value)
+                            old_value = user.firstname + ' ' + user.lastname;
+                        else
+                            new_value = user.firstname + ' ' + user.lastname;
+                        updateText(detail);
+                    });
+                }
             });
         });
     }
@@ -187,6 +202,25 @@
             self.assignee.avatar = gravatar.get(self.assignee.mail);
             self.issueItems['Assignee']['avatar'] = self.assignee.avatar;
             self.users[self.assignee.id] = self.assignee;
+        });
+
+        return q;
+    }
+
+    function getUser(user_id) {
+        if (!user_id)
+            return $q.when(true);
+        if (self.users[user_id])
+            return $q.when(self.users[user_id]);
+
+        var q = userService.query({
+            'user_id': user_id
+        }).$promise.then(function(data) {
+            console.log(data);
+            var _user = data.user;
+            _user.avatar = gravatar.get(_user.mail);
+            self.users[_user.id] = _user;
+            return _user;
         });
 
         return q;
