@@ -32,7 +32,13 @@
     Page.setTitle('Issues');
 
     var _services = [];
-    var q = getIssues();
+    getIssues().catch(function(e) {
+        self.loading = false;
+        // self.errorLoading = true;
+        // self.errorMessage = e.statusText || 'error occured';
+        console.debug('error');
+        console.debug(e);
+    });
 
     function getIssues() {
         self.loading = true;
