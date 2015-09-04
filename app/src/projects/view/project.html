@@ -15,6 +15,9 @@
       </md-list-item>
 </md-list>
 
-<div layout-fill ng-if="ctrl.errorLoading">
-    <md-button class="md-accent" ng-click="ctrl.setup()">Retry</md-button>
+<div class="md-padding" ng-if="ctrl.errorLoading">
+    <div class="md-warn">
+        {{ctrl.errorMessage}}
+    </div>
+    <md-button class="md-warn" ng-click="ctrl.setup()">Retry</md-button>
 </div>

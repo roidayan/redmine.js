@@ -38,21 +38,24 @@
     function setup() {
         self.loading = true;
         self.errorLoading = false;
+        self.errorMessage = '';
         $q.all([
             getProject(),
             getProjectIssues()
         ]).then(function() {
             self.loading = false;
         }).catch(function(e) {
-            console.error('error');
             self.loading = false;
             self.errorLoading = true;
+            self.errorMessage = e.statusText || 'error occured';
+            console.debug('error');
+            console.debug(e);
         });
     }
 
     function getProject() {
         if (!self.projectId){
-            console.error("no project id");
+            console.debug("no project id");
             return $q.when(true);
         }
 
@@ -63,8 +66,8 @@
             self.project = data.project;
         })
         .catch(function(e) {
-            console.error('error getting project');
-            console.debug(e);
+            if (e.status === 0 && e.statusText === '')
+                e.statusText = 'error getting project info';
             return $q.reject(e);
         });
 
@@ -73,7 +76,7 @@
 
     function getProjectIssues() {
         if (!self.projectId){
-            console.error("no project id");
+            console.debug("no project id");
             return $q.when(true);
         }
 
@@ -84,13 +87,8 @@
             self.issues = data.issues;
             self.total_count = data.total_count;
         }).catch(function(e) {
-            console.error('error getting project issues');
-            console.debug(e);
-            if (e.status === 0 && e.data === null) {
-                // Request has been canceled
-            } else {
-                // Server error
-            }
+            if (e.status === 0 && e.statusText === '')
+                e.statusText = 'error getting project issues';
             return $q.reject(e);
         });
 
