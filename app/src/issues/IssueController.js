@@ -96,7 +96,10 @@
                 var name = id_to_name[detail.name] || detail.name;
                 var old_value, new_value;
 
-                if (self.meta[detail.name]) {
+                if (detail.name == 'subject') {
+                    old_value = '"' + detail.old_value + '"';
+                    new_value = '"' + detail.new_value + '"';
+                } else if (self.meta[detail.name]) {
                     old_value = self.meta[detail.name][detail.old_value] || '[' + detail.old_value + ']';
                     new_value = self.meta[detail.name][detail.new_value] || '[' + detail.new_value + ']';
                 } else {
