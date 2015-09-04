@@ -133,13 +133,13 @@
                  */
             },
             'Status': {
-                'name': self.issue.status.name
+                'name': getItemName('status')
             },
             'Priority': {
-                'name': self.issue.priority.name
+                'name': getItemName('priority')
             },
             'Assignee': {
-                'name': self.issue.assigned_to.name,
+                'name': getItemName('assigned_to'),
                 'avatar': ''
             },
             'Target Version': {
@@ -175,6 +175,8 @@
     }
 
     function getAssignee() {
+        if (!self.issue.assigned_to)
+            return $q.when(true);
         var assigned_to_id = self.issue.assigned_to.id;
 
         var q = userService.query({
