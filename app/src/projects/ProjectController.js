@@ -48,21 +48,21 @@
             self.loading = false;
             self.errorLoading = true;
             self.errorMessage = e.statusText || 'error occured';
-            console.debug('error');
-            console.debug(e);
+            $log.debug('error');
+            $log.debug(e);
         });
     }
 
     function getProject() {
         if (!self.projectId){
-            console.debug("no project id");
+            $log.debug("no project id");
             return $q.when(true);
         }
 
         var q = projectService.query({
             'project_id': self.projectId
         }).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             self.project = data.project;
         })
         .catch(function(e) {
@@ -76,14 +76,14 @@
 
     function getProjectIssues() {
         if (!self.projectId){
-            console.debug("no project id");
+            $log.debug("no project id");
             return $q.when(true);
         }
 
         var q = issueService.query({
             'project_id': self.projectId
         }).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             self.issues = data.issues;
             self.total_count = data.total_count;
         }).catch(function(e) {

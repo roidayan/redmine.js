@@ -31,7 +31,7 @@
         if (self.selectedServer != 'custom')
             self.settings.server = self.selectedServer;
         if (!form.$valid) {
-            console.log("form is not valid");
+            $log.debug("form is not valid");
             return;
         }
         settingsService.save(self.settings);

@@ -56,13 +56,13 @@
         self.loading = false;
         // self.errorLoading = true;
         // self.errorMessage = e.statusText || 'error occured';
-        console.debug('error');
-        console.debug(e);
+        $log.debug('error');
+        $log.debug(e);
     });
 
     function getIssue() {
         if (!self.issueId) {
-            console.error("missing issue id");
+            $log.error("missing issue id");
             return;
         }
 
@@ -70,7 +70,7 @@
             'issue_id': self.issueId,
             'include': 'journals'
         }).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             self.issue = data.issue;
             setIssueItems();
             self.issueIcon = IssueClassFactory.getIcon(self.issue);
@@ -186,7 +186,7 @@
         var q = userService.query({
             'user_id': author_id
         }).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             self.author = data.user;
             self.author.avatar = gravatar.get(self.author.mail);
             self.users[self.author.id] = self.author;
@@ -203,7 +203,7 @@
         var q = userService.query({
             'user_id': assigned_to_id
         }).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             self.assignee = data.user;
             self.assignee.avatar = gravatar.get(self.assignee.mail);
             self.issueItems['Assignee']['avatar'] = self.assignee.avatar;
@@ -222,7 +222,7 @@
         var q = userService.query({
             'user_id': user_id
         }).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             var _user = data.user;
             _user.avatar = gravatar.get(_user.mail);
             self.users[_user.id] = _user;
@@ -240,7 +240,7 @@
         var projectId = self.issue.project.id;
 
         if (!projectId) {
-            console.error("no project id");
+            $log.error("no project id");
             return $q.when(true);
         }
 
@@ -248,7 +248,7 @@
             'project_id': projectId,
             'query': 'versions'
         }).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             data.versions.forEach(function(version) {
                 self.meta['fixed_version_id'][version.id] = version.name;
             });
@@ -259,7 +259,7 @@
 
     function getIssueStatuses() {
         var q = issueStatuses.query().$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             data.issue_statuses.forEach(function(status) {
                 self.meta['status_id'][status.id] = status.name;
             });
@@ -270,7 +270,7 @@
 
     function getIssuePriorities() {
         var q = issuePriorities.query().$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             data.issue_priorities.forEach(function(priority) {
                 self.meta['priority_id'][priority.id] = priority.name;
             });

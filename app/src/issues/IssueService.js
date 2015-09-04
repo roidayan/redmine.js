@@ -51,10 +51,10 @@
            * XXX: abort not working because of bug in ngResource.
            * https://github.com/angular/angular.js/pull/12657
            */
-          console.debug("resource aborter");
+          $log.debug("resource aborter");
           aborter.resolve();
           /* TODO renew */
-          console.log("new aborter");
+          $log.debug("new aborter");
           aborter = $q.defer();
           _resource = createResource();
       };

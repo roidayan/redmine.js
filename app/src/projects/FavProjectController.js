@@ -41,7 +41,7 @@
 
     function addFav() {
         if (canAddFav()) {
-            console.log("add to fav");
+            $log.debug("add to fav");
             self.projects.items.push(self.project);
             saveLocal();
             self.favIds.push(self.project.id);
@@ -71,7 +71,7 @@
             self.projects = {items: []};
         }
 
-        console.log(self.favIds);
+        $log.debug(self.favIds);
     }
 
     function saveLocal() {
@@ -80,17 +80,17 @@
 
     function getProject() {
         if (!self.projectId){
-            console.error("no project id");
+            $log.error("no project id");
             return $q.when(true);
         }
 
         var q = projectService.query({
             'project_id': self.projectId
         }).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             self.project = data.project;
         }).catch(function(e) {
-            console.debug(e);
+            $log.debug(e);
             self.statusText = e.statusText;
         });
 
@@ -109,7 +109,7 @@
 
     function refresh() {
         projectService.query({limit: 1000}).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             self.projects = data.projects;
             self.total_count = data.total_count;
             self.limit = data.limit;
@@ -124,7 +124,7 @@
             saveLocal();
             return;
         }
-        console.log("load from offset " + self.offset);
+        $log.debug("load from offset " + self.offset);
         self.loading = self.offset * 100 / self.total_count;
         projectService.query({offset: self.offset, limit: self.limit}).$promise.then(function(data) {
             self.projects = self.projects.concat(data.projects);

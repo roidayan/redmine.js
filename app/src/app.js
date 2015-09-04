@@ -24,9 +24,12 @@
     .value('appAuthor',     'Roi Dayan')
     .value('appCopyright',  '(c) 2015 Roi Dayan')
 
-    .config( function( $mdThemingProvider, $routeProvider, $locationProvider, $localStorageProvider, $httpProvider ) {
+    .config( function( $mdThemingProvider, $routeProvider, $locationProvider, $localStorageProvider, $httpProvider, $logProvider ) {
 
         $localStorageProvider.setKeyPrefix('redmineApp-');
+
+        // if ( on device )
+        //     $logProvider.debugEnabled(false);
 
         $mdThemingProvider.theme('default')
             .primaryPalette('indigo')

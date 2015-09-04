@@ -36,8 +36,8 @@
         self.loading = false;
         // self.errorLoading = true;
         // self.errorMessage = e.statusText || 'error occured';
-        console.debug('error');
-        console.debug(e);
+        $log.debug('error');
+        $log.debug(e);
     });
 
     function getIssues() {
@@ -48,7 +48,7 @@
         var q = service.query({
             'assigned_to_id': 'me'
         }).$promise.then(function(data) {
-            console.log(data);
+            $log.debug(data);
             self.issues = data.issues;
             self.total_count = data.total_count;
             self.loading = false;

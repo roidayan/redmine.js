@@ -27,15 +27,15 @@
 
       function _getIcon(issue) {
           if (!issue || !issue.tracker) {
-              console.error('cannot get icon');
-              console.log(issue);
+              $log.error('cannot get icon');
+              $log.debug(issue);
               return '';
           }
 
           var _i = _icon[issue.tracker.name] ? _icon[issue.tracker.name] : '';
 
           if (_i == '')
-              console.log("no icon for " + issue.tracker.name);
+              $log.debug("no icon for " + issue.tracker.name);
 
           return _i;
       }
