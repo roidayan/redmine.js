@@ -1,6 +1,8 @@
 var config = {
 	dest: 'www',
 	tmp: 'tmp',
+	/* Don't generate sourcemaps and set appProduction to true */
+	production: true,
 
 	src: {
 		/* warning: beware of ./app/bower_components */
@@ -39,7 +41,8 @@ var gulp 			= require('gulp'),
 	bower 			= require('main-bower-files'),
 	filter 			= require('gulp-filter'),
 	header 			= require('gulp-header'),
-	optipng			= require('imagemin-optipng');
+	optipng			= require('imagemin-optipng'),
+	gulpif			= require('gulp-if');
 
 /* refresh sources in index.html */
 gulp.task('index', function() {
@@ -79,12 +82,13 @@ gulp.task('js', function() {
       gulp.src(config.src.js).pipe(ngFilesort()).pipe(replace('./src/', '')),
       gulp.src(config.src.views).pipe(templateCache({ module: 'redmineApp' }))
     )
-    .pipe(sourcemaps.init())
+	.pipe(gulpif('**/app.js' && config.production, replace(/appProduction',\s*\w*/, 'appProduction\', true')))
+    .pipe(gulpif(!config.production, sourcemaps.init()))
     .pipe(ngAnnotate())
     .pipe(concat('app.js'))
     .pipe(uglify())
     .pipe(rename({suffix: '.min'}))
-    .pipe(sourcemaps.write('.'))
+    .pipe(gulpif(!config.production, sourcemaps.write('.')))
 	.pipe(header(banner, {pkg: pkg}))
     .pipe(gulp.dest(path.join(config.dest, 'js')));
 });
@@ -95,11 +99,11 @@ gulp.task('css', function() {
 	  gulp.src(path.join(config.tmp, '*.css')),
       gulp.src(config.src.css)
     )
-    .pipe(sourcemaps.init())
+    .pipe(gulpif(!config.production, sourcemaps.init()))
     .pipe(concat('app.css'))
     .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
-    .pipe(sourcemaps.write('.'))
+    .pipe(gulpif(!config.production, sourcemaps.write('.')))
 	.pipe(header(banner, {pkg: pkg}))
     .pipe(gulp.dest(path.join(config.dest, 'css')));
 });
@@ -150,6 +154,3 @@ gulp.task('build', function(cb) {
 	var tasks = ['bower', 'js', 'css', 'html'];
 	sequence('clean', ['bower', 'images'], ['js', 'css'], 'html', cb);
 });
-
-// var jsDest = path.join(config.dest, 'js');
-// var cssDest = path.join(config.dest, 'css');
