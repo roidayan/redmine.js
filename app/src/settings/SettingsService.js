@@ -19,11 +19,11 @@
               $localStorage.settings = data;
           },
           getRemoteUrl: function() {
-              var _settings = this.read();
+              var _settings = this.read() || {};
               return _settings.server;
           },
           getApiKey: function() {
-              var _settings = this.read();
+              var _settings = this.read() || {};
               return _settings.apiKey;
           }
       };
