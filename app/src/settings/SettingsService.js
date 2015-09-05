@@ -25,6 +25,9 @@
           getApiKey: function() {
               var _settings = this.read() || {};
               return _settings.apiKey;
+          },
+          isConfigured: function() {
+              return this.getApiKey() && this.getRemoteUrl();
           }
       };
   }

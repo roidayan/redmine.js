@@ -15,10 +15,11 @@
           '$location',
           '$localStorage',
           'Page',
+          'settingsService',
           IssueListController
        ]);
 
-  function IssueListController( $scope, issueService, IssueClassFactory, $log, $location, $localStorage, Page ) {
+  function IssueListController( $scope, issueService, IssueClassFactory, $log, $location, $localStorage, Page, settingsService ) {
     var self = this;
 
     self.loading = false;
@@ -31,21 +32,25 @@
 
     Page.setTitle('Issues');
 
-    var _services = [];
-    getIssues().catch(function(e) {
-        self.loading = false;
-        // self.errorLoading = true;
-        // self.errorMessage = e.statusText || 'error occured';
-        $log.debug('error');
-        $log.debug(e);
-    });
+    if (settingsService.isConfigured())
+        setup();
+    else
+        $location.path('/settings');
+
+    function setup() {
+        getIssues().catch(function(e) {
+            self.loading = false;
+            // self.errorLoading = true;
+            // self.errorMessage = e.statusText || 'error occured';
+            $log.debug('error');
+            $log.debug(e);
+        });
+    }
 
     function getIssues() {
         self.loading = true;
 
-        var service = issueService;
-        _services.push(service);
-        var q = service.query({
+        var q = issueService.query({
             'assigned_to_id': 'me'
         }).$promise.then(function(data) {
             $log.debug(data);

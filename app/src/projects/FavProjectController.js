@@ -10,6 +10,7 @@
        .controller('FavProjectController', [
           'projectService',
           'debounce',
+          'settingsService',
           '$log',
           '$location',
           '$localStorage',
@@ -17,19 +18,20 @@
           FavProjectController
        ]);
 
-  function FavProjectController( projectService, debounce, $log, $location, $localStorage, $q ) {
+  function FavProjectController( projectService, debounce, settingsService, $log, $location, $localStorage, $q ) {
     var self = this;
 
     self.projectId = null;
-    self.project = null;
     self.loading = false;
-    self.statusText = null;
     self.lookFor = lookFor;
     self.addFav = addFav;
     self.canAddFav = canAddFav;
     self.favIds = [];
 
-    loadLocal();
+    if (settingsService.isConfigured())
+        loadLocal();
+    else
+        $location.path('/settings');
 
     function alreadyFav() {
         return self.favIds.indexOf(self.project.id) > -1;
@@ -51,7 +53,7 @@
     function lookFor() {
         self.loading = true;
         self.project = null;
-        self.statusText = null;
+        self.errorMessage = null;
 
         if (self.projectId) {
             getProject().then(function(){
@@ -91,7 +93,7 @@
             self.project = data.project;
         }).catch(function(e) {
             $log.debug(e);
-            self.statusText = e.statusText;
+            self.errorMessage = e.status + ' ' + e.statusText;
         });
 
         return q;
