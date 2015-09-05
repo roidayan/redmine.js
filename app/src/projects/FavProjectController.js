@@ -51,12 +51,12 @@
     }
 
     function lookFor() {
-        self.loading = true;
         self.project = null;
         self.errorMessage = null;
 
         if (self.projectId) {
-            getProject().then(function(){
+            self.loading = true;
+            getProject().then(function() {
                 self.loading = false;
             });
         }
@@ -66,7 +66,7 @@
         var _projects = $localStorage.projects;
         if (_projects) {
             self.projects = _projects;
-            _projects.items.forEach(function(i){
+            _projects.items.forEach(function(i) {
                 self.favIds.push(i.id);
             });
         } else {
