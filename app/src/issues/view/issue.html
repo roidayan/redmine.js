@@ -3,19 +3,19 @@
 <div ng-cloak layout-padding ng-show="ctrl.issue">
     <h4 class="md-subhead">
         <md-icon ng-class="ctrl.issueIconClass">{{ctrl.issueIcon}}</md-icon>
-        {{ctrl.issue.tracker.name}} #{{ctrl.issue.id}}
+        {{::ctrl.issue.tracker.name}} #{{::ctrl.issue.id}}
     </h4>
-    <h3 class="md-headline">{{ctrl.issue.subject}}</h3>
+    <h3 class="md-headline">{{::ctrl.issue.subject}}</h3>
 
     <div>
         <span class="issue-key">Author</span>
         <img class="issue-user-avatar" ng-if="ctrl.author.avatar" ng-src="{{ctrl.author.avatar}}" />
         <md-icon ng-if="!ctrl.author.avatar">person</md-icon>
-        {{ctrl.issue.author.name}}
+        {{::ctrl.issue.author.name}}
     </div>
 
     <h3>Description</h3>
-    <div class="issue-description" layout-padding>{{ctrl.issue.description}}</div>
+    <div class="issue-description" layout-padding>{{::ctrl.issue.description}}</div>
 
     <h3>Details</h3>
     <table>
@@ -24,7 +24,8 @@
             <td>
                 <img class="issue-user-avatar" ng-if="item.avatar" ng-src="{{item.avatar}}" />
                 <md-icon ng-if="item.avatar === ''">person</md-icon>
-                <span>{{item.name}}</span>
+                <span ng-if="::item.click" ng-click="item.click()">{{::item.name}}</span>
+                <span ng-if="::!item.click">{{::item.name}}</span>
             </td>
         </tr>
     </table>
