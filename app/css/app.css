@@ -20,6 +20,10 @@ md-toolbar h1 {
   margin: auto;
 }
 
+.md-fab {
+    position: fixed !important;
+}
+
 /* Sidenav area */
 
 .site-sidenav {
@@ -42,12 +46,6 @@ md-sidenav  md-list {
 }
 
 /* Primary content area */
-
-#content {
-  /*overflow: hidden;*/
-  overflow-x: hidden;
-  overflow-y: auto;
-}
 
 #content .md-button.contact {
   background-color: transparent;

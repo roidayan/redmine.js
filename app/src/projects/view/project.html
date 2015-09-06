@@ -1,5 +1,9 @@
 <md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
+<md-button class="md-fab md-fab-bottom-right md-primary" aria-label="Add issue" ng-click="ctrl.addIssue()">
+    <md-icon>add</md-icon>
+</md-button>
+
 <div ng-cloak layout-padding ng-show="ctrl.project">
     <h3 class="md-headline">
         <md-icon>store</md-icon>

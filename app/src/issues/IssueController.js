@@ -60,6 +60,10 @@
         $log.debug(e);
     });
 
+    function goProject(project) {
+        $location.path('/projects/' + project.id);
+    }
+
     function getIssue() {
         if (!self.issueId) {
             $log.error("missing issue id");
@@ -147,11 +151,8 @@
         // project status assignee
         var items = {
             'Project': {
-                'name': self.issue.project.name
-                /**
-                 * TODO link to project issues
-                 * /projects/:id
-                 */
+                'name': self.issue.project.name,
+                'click': function() { goProject(self.issue.project); }
             },
             'Status': {
                 'name': getItemName('status')
