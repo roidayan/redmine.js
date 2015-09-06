@@ -19,6 +19,7 @@
     var self = this;
 
     self.toggleSidenav = toggleSidenav;
+    self.closeSidenav = closeSidenav;
     self.page = Page;
 
     self.go = function( path ) {
@@ -50,19 +51,11 @@
     ];
 
     function toggleSidenav() {
-      var pending = $q.when(true);
-
-      pending.then(function(){
         $mdSidenav('left').toggle();
-      });
     }
 
     function closeSidenav() {
-        var pending = $q.when(true);
-
-        pending.then(function(){
-          $mdSidenav('left').close();
-        });
+        $mdSidenav('left').close();
     }
 
   }
