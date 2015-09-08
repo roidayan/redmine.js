@@ -49,6 +49,14 @@
                              ng-click="ctrl.page.openExtLink()">
                       <md-icon>open_in_new</md-icon>
                   </md-button>
+                  <md-button class="md-icon-button"
+                             aria-label="Favorite"
+                             ng-if="ctrl.page.isFavorite !== null"
+                             ng-click="ctrl.page.toggleFavorite()">
+                      <md-icon ng-if="ctrl.page.isFavorite()">star</md-icon>
+                      <md-icon ng-if="!ctrl.page.isFavorite()">star_border</md-icon>
+                  </md-button>
+
                 </div>
             </md-toolbar>
 

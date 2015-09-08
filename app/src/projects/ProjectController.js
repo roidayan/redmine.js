@@ -26,7 +26,6 @@
 
     self.projectId = $routeParams.projectId;
     self.project = null;
-    self.projectFavorite = false;
     self.issues = [];
     self.total_count = 0;
     self.getIcon = IssueClassFactory.getIcon;
@@ -36,7 +35,18 @@
     self.setup = setup;
 
     Page.setTitle('Project');
+    Page.isFavorite = isFav;
+    Page.toggleFavorite = toggleFav;
+
     setup();
+
+    function toggleFav() {
+        self.project && favProject.toggleFavorite(self.project);
+    }
+
+    function isFav() {
+        return favProject.isFavorite(self.projectId);
+    }
 
     function setup() {
         self.loading = true;

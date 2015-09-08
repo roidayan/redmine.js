@@ -36,10 +36,18 @@
             }
         }
 
+        function toggleFav(project) {
+            if (isFav(project.id))
+                removeFav(project);
+            else
+                addFav(project);
+        }
+
         return {
           isFavorite: isFav,
           addFavorite: addFav,
           removeFavorite: removeFav,
+          toggleFavorite: toggleFav,
           getFavorites: function(){ return favProjects.items; }
         };
     }
