@@ -11,6 +11,7 @@
           'projectService',
           'debounce',
           'settingsService',
+          'favProject',
           '$log',
           '$location',
           '$localStorage',
@@ -18,82 +19,57 @@
           FavProjectController
        ]);
 
-  function FavProjectController( projectService, debounce, settingsService, $log, $location, $localStorage, $q ) {
+  function FavProjectController( projectService, debounce, settingsService, favProject, $log, $location, $localStorage, $q ) {
     var self = this;
 
-    self.projectId = null;
+    self.projectSearchText = null;
     self.loading = false;
     self.lookFor = lookFor;
     self.addFav = addFav;
-    self.canAddFav = canAddFav;
-    self.favIds = [];
+    self.canAdd = canAdd;
 
-    if (settingsService.isConfigured())
-        loadLocal();
-    else
+    if (!settingsService.isConfigured())
         $location.path('/settings');
 
-    function alreadyFav() {
-        return self.favIds.indexOf(self.project.id) > -1;
-    }
-
-    function canAddFav() {
-        return (self.project && !alreadyFav());
+    function canAdd() {
+        if (!self.project || favProject.isFavorite(self.project.id))
+            return false;
+        return true;
     }
 
     function addFav() {
-        if (canAddFav()) {
-            $log.debug("add to fav");
-            self.projects.items.push(self.project);
-            saveLocal();
-            self.favIds.push(self.project.id);
+        if (canAdd()) {
+            favProject.addFavorite(self.project);
         }
     }
 
     function lookFor() {
         self.project = null;
+        self.canAddFav = false;
         self.errorMessage = null;
 
-        if (self.projectId) {
+        if (self.projectSearchText) {
             self.loading = true;
-            getProject().then(function() {
+            getProject(self.projectSearchText).then(function() {
                 self.loading = false;
             });
         }
     }
 
-    function loadLocal() {
-        var _projects = $localStorage.projects;
-        if (_projects) {
-            self.projects = _projects;
-            _projects.items.forEach(function(i) {
-                self.favIds.push(i.id);
-            });
-        } else {
-            self.projects = {items: []};
-        }
-
-        $log.debug(self.favIds);
-    }
-
-    function saveLocal() {
-        $localStorage.projects = self.projects;
-    }
-
-    function getProject() {
-        if (!self.projectId){
-            $log.error("no project id");
-            return $q.when(true);
-        }
-
+    function getProject(search) {
         var q = projectService.query({
-            'project_id': self.projectId
+            'project_id': search
         }).$promise.then(function(data) {
             $log.debug(data);
             self.project = data.project;
+            if (!favProject.isFavorite(self.project.id))
+                self.canAddFav = true;
         }).catch(function(e) {
-            $log.debug(e);
-            self.errorMessage = e.status + ' ' + e.statusText;
+            if (e.status === 0 && e.statusText === '')
+                e.statusText = self.errorMessage = 'Not found';
+            else
+                self.errorMessage = e.status + ' ' + e.statusText;
+            return $q.reject(e);
         });
 
         return q;

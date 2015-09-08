@@ -11,6 +11,8 @@
           'projectService',
           'issueService',
           'IssueClassFactory',
+          'favProject',
+          '$localStorage',
           '$log',
           '$location',
           '$routeParams',
@@ -19,11 +21,12 @@
           ProjectController
        ]);
 
-  function ProjectController( projectService, issueService, IssueClassFactory, $log, $location, $routeParams, $q, Page ) {
+  function ProjectController( projectService, issueService, IssueClassFactory, favProject, $localStorage, $log, $location, $routeParams, $q, Page ) {
     var self = this;
 
     self.projectId = $routeParams.projectId;
     self.project = null;
+    self.projectFavorite = false;
     self.issues = [];
     self.total_count = 0;
     self.getIcon = IssueClassFactory.getIcon;

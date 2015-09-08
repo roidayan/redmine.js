@@ -1,9 +1,10 @@
 <!-- <md-progress-linear ng-if="ctrl.loading < 100" class="md-warn" md-mode="buffer" value="{{ctrl.loading}}" md-buffer-value="{{ctrl.loading}}"></md-progress-linear> -->
+<md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
 <div layout-padding>
     <md-input-container class="md-accent">
         <label>Add by project id</label>
-        <input aria-label="search" ng-model="ctrl.projectId" ng-model-options="{debounce: 500}" ng-change="ctrl.lookFor()" />
+        <input aria-label="search" ng-model="ctrl.projectSearchText" ng-model-options="{debounce: 500}" ng-change="ctrl.lookFor()" />
     </md-input-container>
 
     <div ng-if="ctrl.project">
@@ -18,8 +19,10 @@
     <br/>
 
     <md-input-container>
-        <md-button ng-disabled="!ctrl.canAddFav()" aria-label="add to my projects"
-                    class="md-primary" ng-click="ctrl.addFav()">
+        <md-button ng-disabled="!ctrl.canAdd()"
+                   aria-label="add to my projects"
+                   class="md-primary"
+                   ng-click="ctrl.addFav()">
                     Add to my projects
         </md-button>
     </md-input-container>
