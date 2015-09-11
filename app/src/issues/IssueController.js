@@ -95,26 +95,25 @@
 
         var id_to_name = {
             'fixed_version_id': 'Target version',
-            'status_id': 'Status',
-            'assigned_to_id': 'Assignee',
-            'priority_id': 'Priority',
-            'subject': 'Subject'
+            'status_id':        'Status',
+            'assigned_to_id':   'Assignee',
+            'priority_id':      'Priority',
+            'category_id':      'Category',
+            'subject':          'Subject'
         };
 
         self.issue.journals.forEach(function(journal) {
             journal.details.forEach(function(detail) {
                 var name = id_to_name[detail.name] || detail.name;
-                var old_value, new_value;
+                var old_value = '[' + detail.old_value + ']';
+                var new_value = '[' + detail.new_value + ']';
 
                 if (detail.name == 'subject') {
                     old_value = '"' + detail.old_value + '"';
                     new_value = '"' + detail.new_value + '"';
                 } else if (self.meta[detail.name]) {
-                    old_value = self.meta[detail.name][detail.old_value] || '[' + detail.old_value + ']';
-                    new_value = self.meta[detail.name][detail.new_value] || '[' + detail.new_value + ']';
-                } else {
-                    old_value = '[' + detail.old_value + ']';
-                    new_value = '[' + detail.new_value + ']';
+                    old_value = self.meta[detail.name][detail.old_value] || old_value;
+                    new_value = self.meta[detail.name][detail.new_value] || new_value;
                 }
 
                 function updateText(detail) {
