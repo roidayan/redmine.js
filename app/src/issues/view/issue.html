@@ -38,7 +38,7 @@
                 <md-icon ng-if="!ctrl.getUserAvatar(journal.user)">person</md-icon>
                 <p>{{journal.user.name}}</p>
                 <span flex></span>
-                {{journal.created_on}}
+                {{journal.created_on | timeago}}
             </div>
             <ul>
                 <li ng-repeat="detail in journal.details">
