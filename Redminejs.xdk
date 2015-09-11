@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "b1ebf536-7553-4661-982a-291ed1c484db",
-      "lastModifiedDate": 1441377671758,
+      "lastModifiedDate": 1441976053155,
       "creationDate": 1441377460995
     },
     "sourceDirectory": "www",
@@ -57,11 +57,36 @@
             "origin": "*"
           }
         ],
-        "icons_": [],
+        "icons_": [
+          {
+            "relPath": "res/mipmap-ldpi/ic_launcher.png",
+            "density": "ldpi",
+            "height": 36,
+            "width": 36
+          },
+          {
+            "relPath": "res/mipmap-mdpi/ic_launcher.png",
+            "density": "mdpi",
+            "height": 48,
+            "width": 48
+          },
+          {
+            "relPath": "res/mipmap-xhdpi/ic_launcher.png",
+            "density": "xhdpi",
+            "height": 96,
+            "width": 96
+          },
+          {
+            "relPath": "res/mipmap-hdpi/ic_launcher.png",
+            "density": "hdpi",
+            "height": 72,
+            "width": 72
+          }
+        ],
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "appVersion_": "0.0.1",
+        "appVersion_": "0.1.0",
         "appVersionCode_": "1",
         "crosswalkVersion_": "11",
         "cordovaCLIVersion_": "4.1.2",

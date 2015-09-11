@@ -9,7 +9,8 @@ var config = {
 		css: ['./app/css/*.css'],
 		js: ['./app/src/**/*.js'],
 		views: ['./app/src/**/view/*.html'],
-		images: ['./app/images/*.png']
+		images: ['./app/images/*.png'],
+		launcher: ['./assets/launcher/**/*.png']
 	}
 };
 
@@ -59,13 +60,14 @@ gulp.task('index', function() {
 /* cleanup generated files */
 gulp.task('clean', function() {
   del.sync([
-        path.join(config.dest, 'index.html'),
-        path.join(config.dest, 'images'),
-        path.join(config.dest, 'icons'),
-        path.join(config.dest, 'css'),
-        path.join(config.dest, 'js'),
-        path.join(config.dest, 'fonts')
-	]);
+    path.join(config.dest, 'index.html'),
+    path.join(config.dest, 'images'),
+    path.join(config.dest, 'res'),
+    path.join(config.dest, 'icons'),
+    path.join(config.dest, 'css'),
+    path.join(config.dest, 'js'),
+    path.join(config.dest, 'fonts')
+  ]);
 });
 
 /* optimize images */
@@ -73,6 +75,13 @@ gulp.task('images', function() {
   return gulp.src(config.src.images)
     .pipe(optipng()())
     .pipe(gulp.dest(path.join(config.dest, 'images')));
+});
+
+/* optimize launcher images */
+gulp.task('launcher', function() {
+  return gulp.src(config.src.launcher)
+    .pipe(optipng()())
+    .pipe(gulp.dest(path.join(config.dest, 'res')));
 });
 
 /* compile and minify js */
@@ -151,6 +160,10 @@ gulp.task('html', function() {
 
 /* run all steps to prepare the distribution folder */
 gulp.task('build', function(cb) {
-	var tasks = ['bower', 'js', 'css', 'html'];
-	sequence('clean', ['bower', 'images'], ['js', 'css'], 'html', cb);
+	sequence(
+		'clean',
+		['bower', 'images', 'launcher'],
+		['js', 'css'],
+		'html',
+		cb);
 });
