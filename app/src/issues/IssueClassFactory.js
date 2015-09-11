@@ -19,9 +19,6 @@
           },
           'Task': {
               icon: 'class'
-          },
-          'Deliverable': {
-              icon: ''
           }
       };
 

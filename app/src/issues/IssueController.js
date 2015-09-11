@@ -20,15 +20,18 @@
           '$localStorage',
           '$filter',
           '$q',
+          '$mdToast',
           'Page',
           'gravatar',
           IssueController
        ]);
 
-  function IssueController( issueService, userService, projectService, IssueClassFactory, issueStatuses, issuePriorities, $routeParams, $log, $location, $localStorage, $filter, $q, Page, gravatar ) {
+  function IssueController( issueService, userService, projectService, IssueClassFactory, issueStatuses, issuePriorities,
+      $routeParams, $log, $location, $localStorage, $filter, $q, $mdToast, Page, gravatar ) {
     var self = this;
 
     self.issueId = $routeParams.issueId;
+    self.action = $routeParams.action || 'view';
     self.issue = null;
     self.issueIcon = '';
     self.issueIconClass = '';
@@ -37,13 +40,25 @@
     self.assignee = {};
     /* users participating in the ticket by id */
     self.users = {};
-    self.getUserAvatar = getUserAvatar;
+
     /* meta names by meta id and key id */
     self.meta = {
         'fixed_version_id': {},
         'status_id': {},
         'priority_id': {}
     };
+
+    /* methods */
+    self.getUserAvatar = getUserAvatar;
+    self.editIssue = editIssue;
+    self.updateIssue = updateIssue;
+    self.isEmptyObject = function(ob) {
+        return ob ? Object.keys(ob).length === 0 : true;
+    };
+
+    /**
+     * init
+     */
 
     Page.setTitle('Issue');
     Page.setExtLink(issueService.issuesUrl + '/' + self.issueId);
@@ -60,8 +75,22 @@
         $log.debug(e);
     });
 
+    /**
+     * internal
+     */
+
     function goProject(project) {
         $location.path('/projects/' + project.id);
+    }
+
+    function editIssue() {
+        $location.path('/issues/' + self.issueId + '/edit');
+        //self.action = 'edit';
+    }
+
+    function viewIssue() {
+        $location.path('/issues/' + self.issueId);
+        //self.action = 'view';
     }
 
     function getIssue() {
@@ -72,17 +101,20 @@
 
         var q = issueService.query({
             'issue_id': self.issueId,
-            'include': 'journals'
         }).$promise.then(function(data) {
             $log.debug(data);
             self.issue = data.issue;
             setIssueItems();
+            setIssueFields();
             self.issueIcon = IssueClassFactory.getIcon(self.issue);
             self.issueIconClass = IssueClassFactory.getTrackerClass(self.issue);
             return $q.all([
                 getAuthor(),
                 getAssignee(),
+                getProject(),
                 getProjectVersions(),
+                getProjectMemberhips(),
+                // doesn't really require issue details first.
                 getIssueStatuses(),
                 getIssuePriorities()
             ]);
@@ -143,31 +175,93 @@
         });
     }
 
+    function getFieldValue(item) {
+        if (!self.issue || !item)
+            return '';
+        return self.issue[item] ? self.issue[item]['name'] : '';
+    }
+
+    function getFieldId(item) {
+        if (!self.issue || !item)
+            return '';
+        return self.issue[item] ? self.issue[item]['id'] : '';
+    }
+
+    function setIssueFields() {
+        // TODO: icons for fields
+        // icon for assignee
+        // icon for tracker
+        self.issueFields = [
+            {
+                label: 'Tracker',
+                key: 'tracker_id',
+                value: getFieldId('tracker'),
+                choices: function() { return self.meta['trackers'] || {}; }
+            },
+            {
+                label: 'Subject',
+                key: 'subject',
+                value: self.issue ? self.issue.subject : '',
+                flex: 100
+            },
+            {
+                label: 'Status',
+                key: 'status_id',
+                value: getFieldId('status'),
+                choices: function() { return self.meta['status_id'] || {}; }
+            },
+            {
+                label: 'Priority',
+                key: 'priority_id',
+                value: getFieldId('priority'),
+                choices: function() { return self.meta['priority_id'] || {}; }
+            },
+            {
+                label: 'Assignee',
+                key: 'assigned_to_id',
+                value: getFieldId('assigned_to'),
+                avatar: function() {
+                    var _id = getFieldId('assigned_to');
+                    return self.users[_id] ? self.users[_id].avatar : '';
+                },
+                choices: function() { return self.meta['memberships'] || {}; }
+            },
+            {
+                label: 'Target Version',
+                key: 'fixed_version_id',
+                value: getFieldId('fixed_version'),
+                choices: function() { return self.meta['fixed_version_id'] || {}; }
+            },
+            {
+                label: 'Category',
+                key: 'category_id',
+                value: getFieldId('category'),
+                choices: function() { return self.meta['categories'] || {}; }
+            }
+        ];
+    }
+
     function setIssueItems() {
-        function getItemName(item) {
-            return self.issue[item] ? self.issue[item]['name'] : '-';
-        }
-        // project status assignee
         var items = {
             'Project': {
                 'name': self.issue.project.name,
                 'click': function() { goProject(self.issue.project); }
             },
             'Status': {
-                'name': getItemName('status')
+                'name': getFieldValue('status')
             },
             'Priority': {
-                'name': getItemName('priority')
+                'name': getFieldValue('priority')
             },
             'Assignee': {
-                'name': getItemName('assigned_to'),
+                'name': getFieldValue('assigned_to'),
                 'avatar': ''
             },
             'Target Version': {
-                'name': getItemName('fixed_version')
+                'name': getFieldValue('fixed_version')
             },
             'Category': {
-                'name': getItemName('category')
+                'name': getFieldValue('category')
             },
             'Created': {
                 'name': $filter('date')(self.issue.created_on, 'medium')
@@ -236,6 +330,31 @@
         return (self.users[user.id] && self.users[user.id].avatar) || '';
     }
 
+    function getProject() {
+        var projectId = self.issue.project.id;
+
+        if (!projectId) {
+            $log.error("no project id");
+            return $q.when(true);
+        }
+
+        var q = projectService.query({
+            'project_id': projectId,
+        }).$promise.then(function(data) {
+            $log.debug(data);
+            self.meta['categories'] = {};
+            self.meta['trackers'] = {};
+            data.project.issue_categories.forEach(function(cat) {
+                self.meta['categories'][cat.id] = cat.name;
+            });
+            data.project.trackers.forEach(function(tracker) {
+                self.meta['trackers'][tracker.id] = tracker.name;
+            });
+        });
+
+        return q;
+    }
+
     function getProjectVersions() {
         var projectId = self.issue.project.id;
 
@@ -251,6 +370,28 @@
             $log.debug(data);
             data.versions.forEach(function(version) {
                 self.meta['fixed_version_id'][version.id] = version.name;
+            });
+        });
+
+        return q;
+    }
+
+    function getProjectMemberhips() {
+        var projectId = self.issue.project.id;
+
+        if (!projectId) {
+            $log.error("no project id");
+            return $q.when(true);
+        }
+
+        var q = projectService.query({
+            'project_id': projectId,
+            'query': 'memberships'
+        }).$promise.then(function(data) {
+            $log.debug(data);
+            self.meta['memberships'] = {};
+            data.memberships.forEach(function(membership) {
+                self.meta['memberships'][membership.user.id] = membership.user.name;
             });
         });
 
@@ -277,6 +418,40 @@
         });
 
         return q;
+    }
+
+    function updateIssue(form) {
+        if (!self.issueId) {
+            $log.error("no issue id");
+            return;
+        }
+
+        $log.debug('form');
+        $log.debug(form);
+        // TODO: if not dirty there is no need to send anything
+        // will need a cancel button?
+        self.loading = true;
+        // prepare post fields
+        var post_fields = {};
+        for (var i = 0; i < self.issueFields.length; i++) {
+            // TODO: take only dirty fields
+            var key = self.issueFields[i].key;
+            var value = self.issueFields[i].value;
+            post_fields[key] = value;
+        }
+        $log.debug('post fields');
+        $log.debug(post_fields);
+
+        // update issue
+        issueService.update({issue_id: self.issueId}, {'issue': post_fields})
+            .$promise.then(function(e) {
+                $log.debug('updated');
+                self.loading = false;
+                $mdToast.showSimple('Updated');
+                viewIssue();
+                //self.action = 'view';
+        });
+        // TODO refresh local issue
     }
 
   }

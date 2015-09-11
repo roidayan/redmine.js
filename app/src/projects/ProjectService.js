@@ -20,6 +20,7 @@
       var _actions = {
           query: {
               method: 'GET',
+              params: {'include': 'issue_categories,trackers'},
               isArray: false,
               cache: true,
               timeout: 10000,

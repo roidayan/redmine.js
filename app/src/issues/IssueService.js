@@ -19,18 +19,29 @@
       var apiRemoteUrl = settingsService.getRemoteUrl();
       var apiKey = settingsService.getApiKey();
       var _url = apiRemoteUrl + '/issues/:issue_id.json';
-      var _params = {
-          'status_id': 'open',
-          limit: 10,
-          sort: 'priority:desc,updated_on:desc'
-      };
+      var _params = {};
 
       function createResource() {
           var _actions = {
               query: {
                   method: 'GET',
+                  params: {
+                      'status_id':  'open',
+                      'include':    'journals',
+                      'limit':      10,
+                      'sort':       'priority:desc,updated_on:desc'
+                  },
                   isArray: false,
                   cache: true,
+                  timeout: 10000,
+                  //timeout: aborter.promise,
+                  headers: {
+                      'X-Redmine-API-Key': apiKey,
+                  }
+              },
+              update: {
+                  method: 'PUT',
+                  isArray: false,
                   timeout: 10000,
                   //timeout: aborter.promise,
                   headers: {

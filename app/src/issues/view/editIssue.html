@@ -1,0 +1,30 @@
+<div ng-cloak layout-padding>
+    <form novalidate name="editIssueForm" ng-submit="ctrl.updateIssue(editIssueForm)">
+        <md-content layout layout-wrap layout-sm="column">
+            <md-input-container flex="{{field.flex || 33}}" ng-repeat="field in ctrl.issueFields">
+                <!-- <img class="issue-user-avatar icon" ng-if="field.avatar()" ng-src="{{field.avatar()}}" />
+                <md-icon class="icon" ng-if="field.avatar() === ''">person</md-icon> -->
+
+                <label>{{::field.label}}</label>
+
+                <input ng-if="!field.choices" ng-model="field.value">
+
+                <md-select ng-if="field.choices" ng-disabled="ctrl.isEmptyObject(field.choices())" ng-model="field.value">
+                    <md-option ng-repeat="(id, name) in field.choices()" value="{{::id}}">{{::name}}</md-option>
+                </md-select>
+
+            </md-input-container>
+        </md-content>
+
+        <md-content>
+            <md-input-container>
+                <md-button type="submit"
+                           ng-disabled="ctrl.loading || !editIssueForm.$dirty"
+                           aria-label="add to my projects"
+                           class="md-primary">
+                            Update
+                </md-button>
+            </md-input-container>
+        </md-content>
+    </form>
+</div>

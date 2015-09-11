@@ -26,8 +26,17 @@ md-toolbar h1 {
   margin: auto;
 }
 
+/* fab button */
+
 .md-fab {
     position: fixed !important;
+}
+
+.md-fab.md-fab-bottom-right {
+    transition-property: transform, background-color, box-shadow;
+}
+.md-fab.md-fab-bottom-right.hide2 {
+    transform: translateY(200%);
 }
 
 /* Sidenav area */
@@ -152,6 +161,25 @@ img.issue-user-avatar {
     height: 24px;
     margin: auto 4px auto auto;
 }
+
+md-input-container > .issue-user-avatar,
+md-input-container > md-icon {
+    top: 26px;
+    left: 2px;
+    position: absolute;
+}
+
+md-input-container > .issue-user-avatar + input,
+md-input-container > .issue-user-avatar + label,
+md-input-container > .issue-user-avatar + label + md-select {
+    margin-left: 36px;
+}
+
+md-input-container.md-icon-float > .icon + label,
+md-input-container.md-icon-float > .icon + label + md-select {
+    margin-left: 36px;
+}
+
 
 .project-list-item md-icon {
     color: #24A238;

@@ -59,6 +59,10 @@
               templateUrl: './src/issues/view/issue.html',
               controller: 'IssueController as ctrl'
           })
+          .when('/issues/:issueId/:action', {
+              templateUrl: './src/issues/view/editIssue.html',
+              controller: 'IssueController as ctrl'
+          })
           .when('/settings', {
               templateUrl: './src/settings/view/settings.html',
               controller: 'SettingsController as ctrl'
