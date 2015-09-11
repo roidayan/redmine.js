@@ -69,6 +69,7 @@
                 e.statusText = self.errorMessage = 'Not found';
             else
                 self.errorMessage = e.status + ' ' + e.statusText;
+            self.loading = false;
             return $q.reject(e);
         });
 
