@@ -14,6 +14,12 @@ html, body {
   padding: 0px;
 }
 
+/* don't decorate links */
+a, a:hover, a:visited {
+  text-decoration: none;
+  color: rgb(0, 70, 128);
+}
+
 /* Toolbar area */
 
 md-toolbar h1 {
