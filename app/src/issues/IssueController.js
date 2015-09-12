@@ -201,30 +201,35 @@
                 label: 'Tracker',
                 key: 'tracker_id',
                 value: getFieldId('tracker'),
+                required: true,
                 choices: function() { return self.meta['trackers'] || {}; }
             },
             {
                 label: 'Subject',
                 key: 'subject',
                 value: self.issue ? self.issue.subject : '',
+                required: true,
                 flex: 100
             },
             {
                 label: 'Status',
                 key: 'status_id',
                 value: getFieldId('status'),
+                required: true,
                 choices: function() { return self.meta['status_id'] || {}; }
             },
             {
                 label: 'Priority',
                 key: 'priority_id',
                 value: getFieldId('priority'),
+                required: true,
                 choices: function() { return self.meta['priority_id'] || {}; }
             },
             {
                 label: 'Assignee',
                 key: 'assigned_to_id',
                 value: getFieldId('assigned_to'),
+                required: true,
                 avatar: function() {
                     var _id = getFieldId('assigned_to');
                     return self.users[_id] ? self.users[_id].avatar : '';
@@ -429,13 +434,14 @@
     }
 
     function updateIssue(form) {
+        $log.debug('form');
+        $log.debug(form);
+        if (!form.$valid)
+            return;
         if (!self.issueId) {
             $log.error("no issue id");
             return;
         }
-
-        $log.debug('form');
-        $log.debug(form);
         // TODO: if not dirty there is no need to send anything
         // will need a cancel button?
         self.loading = true;

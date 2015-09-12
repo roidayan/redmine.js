@@ -12,6 +12,7 @@
         'ngAria',
         'ngRoute',
         'ngResource',
+        'ngMessages',
         'ngStorage',
         'rmSettings',
         'rmProjects',

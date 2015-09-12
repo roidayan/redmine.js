@@ -7,12 +7,24 @@
 
                 <label>{{::field.label}}</label>
 
-                <input ng-if="!field.choices" ng-model="field.value">
+                <input ng-if="!field.choices"
+                       ng-model="field.value"
+                       name="field{{$index}}"
+                       ng-required="field.required">
 
-                <md-select ng-if="field.choices" ng-disabled="ctrl.isEmptyObject(field.choices())" ng-model="field.value">
-                    <md-option ng-repeat="(id, name) in field.choices()" value="{{::id}}">{{::name}}</md-option>
+                <md-select ng-if="field.choices"
+                           ng-disabled="ctrl.isEmptyObject(field.choices())"
+                           ng-model="field.value"
+                           name="field{{$index}}"
+                           ng-required="field.required">
+                    <md-option ng-repeat="(id, name) in field.choices()"
+                               value="{{::id}}">{{::name}}</md-option>
                 </md-select>
 
+                <div ng-messages="editIssueForm['field' + $index].$error">
+                    <div ng-message="required">This is required.</div>
+                    <!-- <div ng-message="md-maxlength">The name has to be less than 30 characters long.</div> -->
+                </div>
             </md-input-container>
         </md-content>
 

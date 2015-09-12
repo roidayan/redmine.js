@@ -61,7 +61,7 @@
             self.loading = false;
             self.errorLoading = true;
             self.errorMessage = e.statusText || 'error occured';
-            $log.debug('error');
+            $log.debug('ProjectController error');
             $log.debug(e);
         });
     }
