@@ -131,7 +131,8 @@
             'assigned_to_id':   'Assignee',
             'priority_id':      'Priority',
             'category_id':      'Category',
-            'subject':          'Subject'
+            'subject':          'Subject',
+            'done_ratio':       '% Done'
         };
 
         self.issue.journals.forEach(function(journal) {
@@ -143,6 +144,9 @@
                 if (detail.name == 'subject') {
                     old_value = '"' + detail.old_value + '"';
                     new_value = '"' + detail.new_value + '"';
+                } else if (detail.name == 'done_ratio') {
+                    old_value = detail.old_value;
+                    new_value = detail.new_value;
                 } else if (self.meta[detail.name]) {
                     old_value = self.meta[detail.name][detail.old_value] || old_value;
                     new_value = self.meta[detail.name][detail.new_value] || new_value;
@@ -268,6 +272,9 @@
             },
             'Updated': {
                 'name': $filter('date')(self.issue.updated_on, 'medium')
+            },
+            '% Done': {
+                'name': self.issue.done_ratio
             }
         };
 
