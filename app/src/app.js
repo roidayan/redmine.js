@@ -92,9 +92,11 @@
 
     .run(function($rootScope, Page) {
         $rootScope.$on('$routeChangeSuccess',
-        function(event, curr, prev) {
-            Page.reset();
+            function(event, curr, prev) {
+                Page.reset();
         });
+
+        FastClick.attach(document.body);
     });
 
 })();
