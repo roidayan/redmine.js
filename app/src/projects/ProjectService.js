@@ -18,7 +18,7 @@
       var _url = apiRemoteUrl + '/projects/:project_id/:query.json';
       var _params = {};
       var _actions = {
-          query: {
+          get: {
               method: 'GET',
               params: {'include': 'issue_categories,trackers'},
               isArray: false,

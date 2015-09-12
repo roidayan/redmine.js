@@ -23,7 +23,7 @@
 
       function createResource() {
           var _actions = {
-              query: {
+              get: {
                   method: 'GET',
                   params: {
                       'status_id':  'open',

@@ -17,7 +17,7 @@
       var _url = apiRemoteUrl + '/users/:user_id.json';
       var _params = {};
       var _actions = {
-          query: {
+          get: {
               method: 'GET',
               isArray: false,
               cache: true,

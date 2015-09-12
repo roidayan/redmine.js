@@ -50,7 +50,7 @@
     function getIssues() {
         self.loading = true;
 
-        var q = issueService.query({
+        var q = issueService.get({
             'assigned_to_id': 'me'
         }).$promise.then(function(data) {
             $log.debug(data);

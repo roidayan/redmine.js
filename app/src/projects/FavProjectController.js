@@ -57,7 +57,7 @@
     }
 
     function getProject(search) {
-        var q = projectService.query({
+        var q = projectService.get({
             'project_id': search
         }).$promise.then(function(data) {
             $log.debug(data);
@@ -87,7 +87,7 @@
     // self.total_count = 0;
 
     function refresh() {
-        projectService.query({limit: 1000}).$promise.then(function(data) {
+        projectService.get({limit: 1000}).$promise.then(function(data) {
             $log.debug(data);
             self.projects = data.projects;
             self.total_count = data.total_count;
@@ -105,7 +105,7 @@
         }
         $log.debug("load from offset " + self.offset);
         self.loading = self.offset * 100 / self.total_count;
-        projectService.query({offset: self.offset, limit: self.limit}).$promise.then(function(data) {
+        projectService.get({offset: self.offset, limit: self.limit}).$promise.then(function(data) {
             self.projects = self.projects.concat(data.projects);
             self.offset += data.limit;
             loadMore();

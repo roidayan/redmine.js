@@ -20,7 +20,7 @@
       var _url = apiRemoteUrl + '/issue_statuses.json';
       var _params = {};
       var _actions = {
-          query: {
+          get: {
               method: 'GET',
               isArray: false,
               cache: true,

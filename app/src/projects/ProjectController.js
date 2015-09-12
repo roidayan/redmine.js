@@ -72,7 +72,7 @@
             return $q.when(true);
         }
 
-        var q = projectService.query({
+        var q = projectService.get({
             'project_id': self.projectId
         }).$promise.then(function(data) {
             $log.debug(data);
@@ -93,7 +93,7 @@
             return $q.when(true);
         }
 
-        var q = issueService.query({
+        var q = issueService.get({
             'project_id': self.projectId
         }).$promise.then(function(data) {
             $log.debug(data);

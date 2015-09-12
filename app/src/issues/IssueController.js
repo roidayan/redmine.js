@@ -99,7 +99,7 @@
             return;
         }
 
-        var q = issueService.query({
+        var q = issueService.get({
             'issue_id': self.issueId,
         }).$promise.then(function(data) {
             $log.debug(data);
@@ -277,7 +277,7 @@
     function getAuthor() {
         var author_id = self.issue.author.id;
 
-        var q = userService.query({
+        var q = userService.get({
             'user_id': author_id
         }).$promise.then(function(data) {
             $log.debug(data);
@@ -294,7 +294,7 @@
             return $q.when(true);
         var assigned_to_id = self.issue.assigned_to.id;
 
-        var q = userService.query({
+        var q = userService.get({
             'user_id': assigned_to_id
         }).$promise.then(function(data) {
             $log.debug(data);
@@ -313,7 +313,7 @@
         if (self.users[user_id])
             return $q.when(self.users[user_id]);
 
-        var q = userService.query({
+        var q = userService.get({
             'user_id': user_id
         }).$promise.then(function(data) {
             $log.debug(data);
@@ -338,7 +338,7 @@
             return $q.when(true);
         }
 
-        var q = projectService.query({
+        var q = projectService.get({
             'project_id': projectId,
         }).$promise.then(function(data) {
             $log.debug(data);
@@ -363,7 +363,7 @@
             return $q.when(true);
         }
 
-        var q = projectService.query({
+        var q = projectService.get({
             'project_id': projectId,
             'query': 'versions'
         }).$promise.then(function(data) {
@@ -384,7 +384,7 @@
             return $q.when(true);
         }
 
-        var q = projectService.query({
+        var q = projectService.get({
             'project_id': projectId,
             'query': 'memberships'
         }).$promise.then(function(data) {
@@ -399,7 +399,7 @@
     }
 
     function getIssueStatuses() {
-        var q = issueStatuses.query().$promise.then(function(data) {
+        var q = issueStatuses.get().$promise.then(function(data) {
             $log.debug(data);
             data.issue_statuses.forEach(function(status) {
                 self.meta['status_id'][status.id] = status.name;
@@ -410,7 +410,7 @@
     }
 
     function getIssuePriorities() {
-        var q = issuePriorities.query().$promise.then(function(data) {
+        var q = issuePriorities.get().$promise.then(function(data) {
             $log.debug(data);
             data.issue_priorities.forEach(function(priority) {
                 self.meta['priority_id'][priority.id] = priority.name;

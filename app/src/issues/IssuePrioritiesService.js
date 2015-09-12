@@ -20,7 +20,7 @@
       var _url = apiRemoteUrl + '/enumerations/issue_priorities.json';
       var _params = {};
       var _actions = {
-          query: {
+          get: {
               method: 'GET',
               isArray: false,
               cache: true,
