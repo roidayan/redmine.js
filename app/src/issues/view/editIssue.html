@@ -1,5 +1,5 @@
 <div ng-cloak layout-padding>
-    <form novalidate name="editIssueForm" ng-submit="ctrl.updateIssue(editIssueForm)">
+    <form novalidate name="editIssueForm" ng-submit="ctrl.submitIssueForm(editIssueForm)">
         <md-content layout layout-wrap layout-sm="column">
             <md-input-container flex="{{field.flex || 33}}" ng-repeat="field in ctrl.issueFields">
                 <!-- <img class="issue-user-avatar icon" ng-if="field.avatar()" ng-src="{{field.avatar()}}" />

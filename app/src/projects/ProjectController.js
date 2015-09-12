@@ -33,12 +33,25 @@
     self.getPriorityClass = IssueClassFactory.getPriorityClass;
     self.showIssue = showIssue;
     self.setup = setup;
+    self.addIssue = addIssue;
+
+    /**
+     * init
+     */
 
     Page.setTitle('Project');
     Page.isFavorite = isFav;
     Page.toggleFavorite = toggleFav;
 
     setup();
+
+    /**
+     * internal
+     */
+
+    function addIssue() {
+        $location.path('/projects/' + self.projectId + '/issues/new');
+    }
 
     function toggleFav() {
         self.project && favProject.toggleFavorite(self.project);

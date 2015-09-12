@@ -60,6 +60,16 @@
                   headers: {
                       'X-Redmine-API-Key': apiKey,
                   }
+              },
+              save: {
+                  method: 'POST',
+                  interceptor: postInterceptor,
+                  isArray: false,
+                  timeout: 10000,
+                  //timeout: aborter.promise,
+                  headers: {
+                      'X-Redmine-API-Key': apiKey,
+                  }
               }
           };
 

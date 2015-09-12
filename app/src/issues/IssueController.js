@@ -31,6 +31,7 @@
     var self = this;
 
     self.issueId = $routeParams.issueId;
+    self.projectId = $routeParams.projectId;
     self.action = $routeParams.action || 'view';
     self.issue = null;
     self.issueIcon = '';
@@ -51,8 +52,8 @@
     /* methods */
     self.getUserAvatar = getUserAvatar;
     self.editIssue = editIssue;
-    self.updateIssue = updateIssue;
-    self.cancelEdit = viewIssue;
+    self.submitIssueForm = submitIssueForm;
+    self.cancelEdit = cancelEdit;
     self.isEmptyObject = function(ob) {
         return ob ? Object.keys(ob).length === 0 : true;
     };
@@ -62,26 +63,19 @@
      */
 
     Page.setTitle('Issue');
-    Page.setExtLink(issueService.issuesUrl + '/' + self.issueId);
+    if (self.issueId)
+        Page.setExtLink(issueService.issuesUrl + '/' + self.issueId);
 
-    self.loading = true;
-    getIssue().then(function() {
-        updateJournals();
-        self.loading = false;
-    }).catch(function(e) {
-        self.loading = false;
-        // self.errorLoading = true;
-        // self.errorMessage = e.statusText || 'error occured';
-        $log.debug('getIssue error');
-        $log.debug(e);
-    });
+    $log.debug('IssueController action: ' + self.action);
+    setup();
 
     /**
      * internal
      */
 
-    function goProject(project) {
-        $location.path('/projects/' + project.id);
+    function goProject() {
+        if (self.projectId)
+            $location.path('/projects/' + self.projectId);
     }
 
     function editIssue() {
@@ -90,8 +84,55 @@
     }
 
     function viewIssue() {
-        $location.path('/issues/' + self.issueId);
+        if (self.issueId)
+            $location.path('/issues/' + self.issueId);
         //self.action = 'view';
+    }
+
+    function cancelEdit() {
+        if (self.issueId)
+            viewIssue();
+        else
+            goProject();
+    }
+
+    function setup() {
+        self.loading = true;
+        self.errorLoading = false;
+        self.errorMessage = '';
+        var promises = [
+            getIssueStatuses(),
+            getIssuePriorities()
+        ];
+        if (self.issueId)
+            promises.push(getIssue());
+        else if (self.projectId)
+            getProjectInfo(promises);
+
+        $q.all(promises).then(function() {
+            self.loading = false;
+            if (self.projectId)
+                setIssueFields();
+        }).catch(function(e) {
+            self.loading = false;
+            self.errorLoading = true;
+            self.errorMessage = e.statusText || 'error occured';
+            $log.debug('IssueController error');
+            $log.debug(e);
+        });
+    }
+
+    /**
+     * Add project info promises to existing list
+     * @param  {[type]} promises Existing list
+     * @return {[type]}          promises
+     */
+    function getProjectInfo(promises) {
+        return promises.push.apply(promises, [
+            getProject(),
+            getProjectVersions(),
+            getProjectMemberhips()
+        ]);
     }
 
     function getIssue() {
@@ -105,26 +146,26 @@
         }).$promise.then(function(data) {
             $log.debug(data);
             self.issue = data.issue;
+            self.projectId = self.issue.project.id;
             setIssueItems();
             setIssueFields();
             self.issueIcon = IssueClassFactory.getIcon(self.issue);
             self.issueIconClass = IssueClassFactory.getTrackerClass(self.issue);
-            return $q.all([
+            var promises = [
                 getAuthor(),
-                getAssignee(),
-                getProject(),
-                getProjectVersions(),
-                getProjectMemberhips(),
-                // doesn't really require issue details first.
-                getIssueStatuses(),
-                getIssuePriorities()
-            ]);
+                getAssignee()
+            ];
+            getProjectInfo(promises);
+            return $q.all(promises).then(function() {
+                updateJournals();
+            });
         });
 
         return q;
     }
 
     function updateJournals() {
+        $log.debug('update journals');
 
         var id_to_name = {
             'fixed_version_id': 'Target version',
@@ -255,7 +296,7 @@
         var items = {
             'Project': {
                 'name': self.issue.project.name,
-                'click': function() { goProject(self.issue.project); }
+                'click': function() { goProject(); }
             },
             'Status': {
                 'name': getFieldValue('status')
@@ -344,15 +385,13 @@
     }
 
     function getProject() {
-        var projectId = self.issue.project.id;
-
-        if (!projectId) {
+        if (!self.projectId) {
             $log.error("no project id");
             return $q.when(true);
         }
 
         var q = projectService.get({
-            'project_id': projectId,
+            'project_id': self.projectId,
         }).$promise.then(function(data) {
             $log.debug(data);
             self.meta['categories'] = {};
@@ -369,15 +408,13 @@
     }
 
     function getProjectVersions() {
-        var projectId = self.issue.project.id;
-
-        if (!projectId) {
+        if (!self.projectId) {
             $log.error("no project id");
             return $q.when(true);
         }
 
         var q = projectService.get({
-            'project_id': projectId,
+            'project_id': self.projectId,
             'query': 'versions'
         }).$promise.then(function(data) {
             $log.debug(data);
@@ -390,15 +427,13 @@
     }
 
     function getProjectMemberhips() {
-        var projectId = self.issue.project.id;
-
-        if (!projectId) {
+        if (!self.projectId) {
             $log.error("no project id");
             return $q.when(true);
         }
 
         var q = projectService.get({
-            'project_id': projectId,
+            'project_id': self.projectId,
             'query': 'memberships'
         }).$promise.then(function(data) {
             $log.debug(data);
@@ -433,17 +468,13 @@
         return q;
     }
 
-    function updateIssue(form) {
+    function submitIssueForm(form) {
         $log.debug('form');
         $log.debug(form);
+
         if (!form.$valid)
             return;
-        if (!self.issueId) {
-            $log.error("no issue id");
-            return;
-        }
-        // TODO: if not dirty there is no need to send anything
-        // will need a cancel button?
+
         self.loading = true;
         // prepare post fields
         var post_fields = {};
@@ -456,16 +487,30 @@
         $log.debug('post fields');
         $log.debug(post_fields);
 
-        // update issue
-        issueService.update({issue_id: self.issueId}, {'issue': post_fields})
-            .$promise.then(function(e) {
-                $log.debug('updated');
-                self.loading = false;
-                $mdToast.showSimple('Updated');
-                viewIssue();
-                //self.action = 'view';
-        });
-        // TODO refresh local issue
+        if (self.issueId) {
+            // update issue
+            issueService.update({issue_id: self.issueId}, {'issue': post_fields})
+                .$promise.then(function(response) {
+                    $log.debug('updated existing issue');
+                    self.loading = false;
+                    $mdToast.showSimple('Issue updated');
+                    viewIssue();
+            });
+        } else if (self.projectId) {
+            // new Issue
+            post_fields['project_id'] = self.projectId;
+            issueService.save({'issue': post_fields})
+                .$promise.then(function(response) {
+                    $log.debug('created new issue');
+                    self.loading = false;
+                    $mdToast.showSimple('Created issue');
+                    self.issueId = response.issue.id;
+                    viewIssue();
+            });
+        } else {
+            $log.error('updateIssue: no issue id nor project id');
+            $mdToast.showSimple('Update error');
+        }
     }
 
   }

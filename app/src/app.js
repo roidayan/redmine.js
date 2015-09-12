@@ -48,6 +48,10 @@
               templateUrl: './src/projects/view/project.html',
               controller: 'ProjectController as ctrl'
           })
+          .when('/projects/:projectId/issues/:action', {
+              templateUrl: './src/issues/view/editIssue.html',
+              controller: 'IssueController as ctrl'
+          })
           .when('/addFavProject', {
               templateUrl: './src/projects/view/addFavProject.html',
               controller: 'FavProjectController as ctrl'
