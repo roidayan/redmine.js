@@ -5,7 +5,7 @@
 (function(){
   'use strict';
 
-  angular.module('rmSettings', [ 'ngMaterial', 'ngStorage' ]);
+  angular.module('appSettings', [ 'ngMaterial', 'ngStorage' ]);
 
 
 })();

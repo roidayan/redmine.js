@@ -14,7 +14,7 @@
         'ngResource',
         'ngMessages',
         'ngStorage',
-        'rmSettings',
+        'appSettings',
         'rmProjects',
         'rmIssues',
         'rmUsers'

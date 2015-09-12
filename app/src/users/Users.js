@@ -5,7 +5,7 @@
 (function(){
   'use strict';
 
-  angular.module('rmUsers', [ 'ngResource', 'ngStorage', 'rmSettings' ]);
+  angular.module('rmUsers', [ 'ngResource', 'ngStorage', 'appSettings' ]);
 
 
 })();

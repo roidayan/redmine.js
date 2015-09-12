@@ -5,7 +5,7 @@
 (function(){
   'use strict';
 
-  angular.module('rmSettings')
+  angular.module('appSettings')
          .service('settingsService', [
              '$localStorage',
              SettingsService]);

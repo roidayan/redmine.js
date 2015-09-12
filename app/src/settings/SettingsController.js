@@ -6,7 +6,7 @@
   'use strict';
 
   angular
-       .module('rmSettings')
+       .module('appSettings')
        .controller('SettingsController', [
           '$mdToast',
           '$window',
