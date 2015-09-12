@@ -14,6 +14,9 @@
     function FavProjectService( $localStorage ) {
         var favProjects = $localStorage.projects || { items: {} };
 
+        if (!favProjects['items'])
+            favProjects['items'] = {};
+
         function saveLocal() {
             $localStorage.projects = favProjects;
         }
