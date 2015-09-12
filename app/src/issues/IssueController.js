@@ -71,7 +71,7 @@
         self.loading = false;
         // self.errorLoading = true;
         // self.errorMessage = e.statusText || 'error occured';
-        $log.debug('error');
+        $log.debug('getIssue error');
         $log.debug(e);
     });
 
@@ -100,7 +100,7 @@
         }
 
         var q = issueService.get({
-            'issue_id': self.issueId,
+            'issue_id': self.issueId
         }).$promise.then(function(data) {
             $log.debug(data);
             self.issue = data.issue;

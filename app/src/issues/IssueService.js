@@ -10,16 +10,28 @@
         .service('issueService', [
             '$resource',
             '$q',
+            '$log',
+            '$cacheFactory',
             'settingsService',
             IssueService]);
 
-  function IssueService( $resource, $q, settingsService ) {
+  function IssueService( $resource, $q, $log, $cacheFactory, settingsService ) {
       var _resource = null;
       var aborter = $q.defer();
       var apiRemoteUrl = settingsService.getRemoteUrl();
       var apiKey = settingsService.getApiKey();
       var _url = apiRemoteUrl + '/issues/:issue_id.json';
       var _params = {};
+      var cache = $cacheFactory('resourceIssueCache');
+      var postInterceptor = {
+          response: function(response) {
+              // TODO: Need to clear key of url + query params
+              // Need to clear all keys for specific issue.
+              // cache.remove(response.config.url);
+              cache.removeAll();
+              return response.resource;
+          }
+      };
 
       function createResource() {
           var _actions = {
@@ -32,7 +44,7 @@
                       'sort':       'priority:desc,updated_on:desc'
                   },
                   isArray: false,
-                  cache: true,
+                  cache: cache,
                   timeout: 10000,
                   //timeout: aborter.promise,
                   headers: {
@@ -41,6 +53,7 @@
               },
               update: {
                   method: 'PUT',
+                  interceptor: postInterceptor,
                   isArray: false,
                   timeout: 10000,
                   //timeout: aborter.promise,
