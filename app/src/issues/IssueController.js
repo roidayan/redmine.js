@@ -52,6 +52,7 @@
     self.getUserAvatar = getUserAvatar;
     self.editIssue = editIssue;
     self.updateIssue = updateIssue;
+    self.cancelEdit = viewIssue;
     self.isEmptyObject = function(ob) {
         return ob ? Object.keys(ob).length === 0 : true;
     };

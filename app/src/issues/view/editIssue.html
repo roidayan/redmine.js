@@ -17,12 +17,19 @@
         </md-content>
 
         <md-content>
-            <md-input-container>
-                <md-button type="submit"
+            <md-input-container layout="row">
+                <md-button type="submit" flex
                            ng-disabled="ctrl.loading || !editIssueForm.$dirty"
-                           aria-label="add to my projects"
+                           aria-label="Update issue"
                            class="md-primary">
                             Update
+                </md-button>
+                <md-button type="button" flex
+                           ng-click="ctrl.cancelEdit()"
+                           ng-disabled="crl.loading"
+                           aria-label="Cancel edit issue"
+                           class="md-secondary">
+                            Cancel
                 </md-button>
             </md-input-container>
         </md-content>
