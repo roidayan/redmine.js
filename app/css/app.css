@@ -184,3 +184,7 @@ md-input-container.md-icon-float > .icon + label + md-select {
 .project-list-item md-icon {
     color: #24A238;
 }
+
+form md-input-container {
+    padding-bottom: 10px;
+}
