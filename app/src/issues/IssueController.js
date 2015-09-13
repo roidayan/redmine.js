@@ -62,7 +62,7 @@
 
     Page.setTitle('Issue');
     if (self.issueId)
-        Page.setExtLink(issueService.issuesUrl + '/' + self.issueId);
+        Page.setExtLink(issueService.getUrl(self.issueId));
 
     $log.debug('IssueController action: ' + self.action);
     setup();

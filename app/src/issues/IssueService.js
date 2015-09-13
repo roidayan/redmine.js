@@ -88,9 +88,7 @@
           };
 
           cache.removeAll();
-          var _r = $resource(url, params, actions);
-          _r.issuesUrl = apiRemoteUrl + '/issues';
-          return _r;
+          return $resource(url, params, actions);
       }
 
     //   _resource.abort = function() {
@@ -121,6 +119,9 @@
       }
 
       return {
+          getUrl: function(issue_id) {
+              return settingsService.getRemoteUrl() + '/issues/' + issue_id;
+          },
           get: function() {
               return getResource().get.apply(this, arguments);
           },
