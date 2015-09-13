@@ -6,7 +6,7 @@
   'use strict';
 
   angular.module('appSettings')
-         .service('settingsService', [
+         .factory('settingsService', [
              '$localStorage',
              SettingsService]);
 

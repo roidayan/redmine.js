@@ -12,8 +12,6 @@
           'userService',
           'projectService',
           'IssueClassFactory',
-          'issueStatuses',
-          'issuePriorities',
           '$routeParams',
           '$log',
           '$location',
@@ -26,7 +24,7 @@
           IssueController
        ]);
 
-  function IssueController( issueService, userService, projectService, IssueClassFactory, issueStatuses, issuePriorities,
+  function IssueController( issueService, userService, projectService, IssueClassFactory,
       $routeParams, $log, $location, $localStorage, $filter, $q, $mdToast, Page, gravatar ) {
     var self = this;
 
@@ -447,7 +445,7 @@
     }
 
     function getIssueStatuses() {
-        var q = issueStatuses.get().$promise.then(function(data) {
+        var q = issueService.queryStatuses().$promise.then(function(data) {
             $log.debug(data);
             data.issue_statuses.forEach(function(status) {
                 self.meta['status_id'][status.id] = status.name;
@@ -458,7 +456,7 @@
     }
 
     function getIssuePriorities() {
-        var q = issuePriorities.get().$promise.then(function(data) {
+        var q = issueService.queryPriorities().$promise.then(function(data) {
             $log.debug(data);
             data.issue_priorities.forEach(function(priority) {
                 self.meta['priority_id'][priority.id] = priority.name;

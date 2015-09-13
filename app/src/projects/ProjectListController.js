@@ -8,7 +8,6 @@
   angular
        .module('rmProjects')
        .controller('ProjectListController', [
-          'projectService',
           'favProject',
           '$log',
           '$location',
@@ -17,7 +16,7 @@
           ProjectListController
        ]);
 
-  function ProjectListController( projectService, favProject, $log, $location, $filter, Page ) {
+  function ProjectListController( favProject, $log, $location, $filter, Page ) {
     var self = this;
 
     self.projects = [];
