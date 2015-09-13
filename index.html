@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Redmine.js</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+        <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'/>
+        <link rel="stylesheet" href="http://fonts.googleapis.com/icon?family=Material+Icons"/>
+
+        <!-- inject:css -->
+        <link rel="stylesheet" href="css/app.min.css">
+        <!-- endinject -->
+    </head>
+
+    <body ng-app="redmineApp" layout="row" ng-controller="MainController as ctrl" ng-cloak>
+        <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+                    md-component-id="left"
+                    md-is-locked-open="$mdMedia('gt-md')">
+            <md-toolbar class="md-tall md-whiteframe-z1" layout-padding layout-align="center center" ng-click="ctrl.closeSidenav()">
+                <img class="sidenav-avatar" src="images/redmine.png" />
+                <h1 class="md-headline">Redmine.js</h1>
+            </md-toolbar>
+            <md-list ng-cloak>
+                <md-list-item ng-repeat="item in ctrl.menu_items" ng-click="ctrl.go( item.link )">
+                    <md-icon aria-label="{{ item.icon }}">{{ item.icon }}</md-icon>
+                    <p>{{ item.title }}</p>
+                </md-list-item>
+            </md-list>
+        </md-sidenav>
+
+        <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+            <md-toolbar layout="row" class="md-whiteframe-z1">
+                <div class="md-toolbar-tools">
+                  <md-button class="md-icon-button menu" hide-gt-md ng-click="ctrl.toggleSidenav()" aria-label="Show Sidenav">
+                      <md-icon aria-label="menu">menu</md-icon>
+                  </md-button>
+                  <h2 class="md-title fill-height">{{ctrl.page.title()}}</h2>
+                  <span flex></span>
+                  <!-- <md-button class="md-icon-button" ng-click="null" aria-label="Refresh">
+                      <md-icon>refresh</md-icon>
+                  </md-button> -->
+                  <md-button class="md-icon-button"
+                             aria-label="Open link"
+                             ng-if="ctrl.page.extLink()"
+                             ng-click="ctrl.page.openExtLink()">
+                      <md-icon>open_in_new</md-icon>
+                  </md-button>
+                  <md-button class="md-icon-button"
+                             aria-label="Favorite"
+                             ng-if="ctrl.page.isFavorite !== null"
+                             ng-click="ctrl.page.toggleFavorite()">
+                      <md-icon ng-if="ctrl.page.isFavorite()">star</md-icon>
+                      <md-icon ng-if="!ctrl.page.isFavorite()">star_border</md-icon>
+                  </md-button>
+
+                </div>
+            </md-toolbar>
+
+            <md-content id="content" ng-view flex md-scroll-y>
+            </md-content>
+        </div>
+
+        <script src="cordova.js"></script>
+        <!-- inject:js -->
+        <script src="js/app.min.js"></script>
+        <!-- endinject -->
+
+    </body>
+</html>
