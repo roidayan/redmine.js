@@ -16,7 +16,7 @@
         <!-- endinject -->
     </head>
 
-    <body ng-app="redmineApp" layout="row" ng-controller="MainController as ctrl" ng-cloak>
+    <body ng-app="redmineApp" class="md-body-1" layout="row" ng-controller="MainController as ctrl" ng-cloak>
         <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
                     md-component-id="left"
                     md-is-locked-open="$mdMedia('gt-md')">
@@ -24,7 +24,7 @@
                 <img class="sidenav-avatar" src="images/redmine.png" />
                 <h1 class="md-headline">Redmine.js</h1>
             </md-toolbar>
-            <md-list ng-cloak>
+            <md-list>
                 <md-list-item ng-repeat="item in ctrl.menu_items" ng-click="ctrl.go( item.link )">
                     <md-icon aria-label="{{ item.icon }}">{{ item.icon }}</md-icon>
                     <p>{{ item.title }}</p>

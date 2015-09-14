@@ -44,21 +44,6 @@ md-toolbar h1 {
     background-color: #F3F0EB;
 }
 
-md-list .md-button {
-  color: inherit;
-  font-weight: 500;
-  text-align: left;
-  width: 100%;
-}
-
-md-list .md-button.selected {
-    color: #03a9f4;
-}
-
-md-sidenav  md-list {
-    padding: 0px 0px 8px 0px;
-}
-
 /* Primary content area */
 
 #content .md-button.contact {
@@ -185,4 +170,16 @@ md-input-container > .issue-user-avatar + label + md-select {
 md-input-container.md-icon-float > .icon + label,
 md-input-container.md-icon-float > .icon + label + md-select {
     margin-left: 36px;
+}
+
+
+/*
+ * fixes
+ */
+/*
+ * list height should be 48px. md milestone 0.12.0
+ * https://github.com/angular/material/issues/4208
+ */
+md-list-item, md-list-item .md-list-item-inner {
+  min-height: 48px;
 }
