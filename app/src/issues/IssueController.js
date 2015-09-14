@@ -291,14 +291,16 @@
                 key: 'fixed_version_id',
                 value: getFieldId('fixed_version'),
                 type: 'select',
-                choices: function() { return self.meta['fixed_version_id'] || {}; }
+                choices: function() { return self.meta['fixed_version_id'] || {}; },
+                show: function() { return !self.isEmptyObject(this.choices()); }
             },
             {
                 label: 'Category',
                 key: 'category_id',
                 value: getFieldId('category'),
                 type: 'select',
-                choices: function() { return self.meta['categories'] || {}; }
+                choices: function() { return self.meta['categories'] || {}; },
+                show: function() { return !self.isEmptyObject(this.choices()); }
             },
             {
                 label: 'Notes',
@@ -306,7 +308,7 @@
                 value: '',
                 flex: 100,
                 type: 'textarea',
-                if: self.action === 'edit',
+                show: function() { return self.action === 'edit'; },
                 focus: true
             },
         ];
