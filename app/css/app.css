@@ -180,6 +180,9 @@ md-input-container.md-icon-float > .icon + label + md-select {
  * list height should be 48px. md milestone 0.12.0
  * https://github.com/angular/material/issues/4208
  */
+md-list-item > div.md-primary > md-icon, md-list-item > div.md-secondary > md-icon, md-list-item > md-icon:first-child, md-list-item > md-icon.md-secondary, md-list-item .md-list-item-inner > div.md-primary > md-icon, md-list-item .md-list-item-inner > div.md-secondary > md-icon, md-list-item .md-list-item-inner > md-icon:first-child, md-list-item .md-list-item-inner > md-icon.md-secondary {
+    margin-top: 12px;
+}
 md-list-item, md-list-item .md-list-item-inner {
   min-height: 48px;
 }
