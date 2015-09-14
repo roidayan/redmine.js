@@ -108,9 +108,9 @@
             getProjectInfo(promises);
 
         $q.all(promises).then(function() {
-            self.loading = false;
             if (self.projectId)
                 setIssueFields();
+            self.loading = false;
         }).catch(function(e) {
             self.loading = false;
             self.errorLoading = true;
@@ -241,6 +241,7 @@
                 key: 'tracker_id',
                 value: getFieldId('tracker'),
                 required: true,
+                type: 'select',
                 choices: function() { return self.meta['trackers'] || {}; }
             },
             {
@@ -251,10 +252,18 @@
                 flex: 100
             },
             {
+                label: 'Description',
+                key: 'description',
+                value: self.issue ? self.issue.description : '',
+                flex: 100,
+                type: 'textarea'
+            },
+            {
                 label: 'Status',
                 key: 'status_id',
                 value: getFieldId('status'),
                 required: true,
+                type: 'select',
                 choices: function() { return self.meta['status_id'] || {}; }
             },
             {
@@ -262,6 +271,7 @@
                 key: 'priority_id',
                 value: getFieldId('priority'),
                 required: true,
+                type: 'select',
                 choices: function() { return self.meta['priority_id'] || {}; }
             },
             {
@@ -273,20 +283,32 @@
                     var _id = getFieldId('assigned_to');
                     return self.users[_id] ? self.users[_id].avatar : '';
                 },
+                type: 'select',
                 choices: function() { return self.meta['memberships'] || {}; }
             },
             {
                 label: 'Target Version',
                 key: 'fixed_version_id',
                 value: getFieldId('fixed_version'),
+                type: 'select',
                 choices: function() { return self.meta['fixed_version_id'] || {}; }
             },
             {
                 label: 'Category',
                 key: 'category_id',
                 value: getFieldId('category'),
+                type: 'select',
                 choices: function() { return self.meta['categories'] || {}; }
-            }
+            },
+            {
+                label: 'Notes',
+                key: 'notes',
+                value: '',
+                flex: 100,
+                type: 'textarea',
+                if: self.action === 'edit',
+                focus: true
+            },
         ];
     }
 

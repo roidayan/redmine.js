@@ -5,7 +5,6 @@
 html, body {
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
-  font-size: 14px;
   font-weight: 400;
   letter-spacing: 0.01em;
   line-height: 20px;
@@ -125,6 +124,8 @@ span.name {
   display: none !important;
 }
 
+/* icon colors */
+
 .issue-tracker-bug {
     color: #E42929;
 }
@@ -136,6 +137,12 @@ span.name {
 .issue-tracker-feature {
     color: #4747FF;
 }
+
+.project-list-item md-icon {
+    color: #24A238;
+}
+
+/* issue page style */
 
 .issue-description,
 .journal-notes {
@@ -178,13 +185,4 @@ md-input-container > .issue-user-avatar + label + md-select {
 md-input-container.md-icon-float > .icon + label,
 md-input-container.md-icon-float > .icon + label + md-select {
     margin-left: 36px;
-}
-
-
-.project-list-item md-icon {
-    color: #24A238;
-}
-
-form md-input-container {
-    padding-bottom: 10px;
 }
