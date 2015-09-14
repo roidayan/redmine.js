@@ -10,7 +10,6 @@
        .controller('IssueListController', [
           '$scope',
           'issueService',
-          'IssueClassFactory',
           '$log',
           '$location',
           '$localStorage',
@@ -19,16 +18,12 @@
           IssueListController
        ]);
 
-  function IssueListController( $scope, issueService, IssueClassFactory, $log, $location, $localStorage, Page, settingsService ) {
+  function IssueListController( $scope, issueService, $log, $location, $localStorage, Page, settingsService ) {
     var self = this;
 
     self.loading = false;
     self.issues = [];
     self.total_count = 0;
-    self.getIcon = IssueClassFactory.getIcon;
-    self.getTrackerClass = IssueClassFactory.getTrackerClass;
-    self.getPriorityClass = IssueClassFactory.getPriorityClass;
-    self.showIssue = showIssue;
 
     Page.setTitle('Issues');
 
@@ -38,7 +33,10 @@
         $location.path('/settings');
 
     function setup() {
-        getIssues().catch(function(e) {
+        self.loading = true;
+        getIssues().then(function() {
+            self.loading = false;
+        }).catch(function(e) {
             self.loading = false;
             // self.errorLoading = true;
             // self.errorMessage = e.statusText || 'error occured';
@@ -48,22 +46,15 @@
     }
 
     function getIssues() {
-        self.loading = true;
-
         var q = issueService.get({
             'assigned_to_id': 'me'
         }).$promise.then(function(data) {
             $log.debug(data);
             self.issues = data.issues;
             self.total_count = data.total_count;
-            self.loading = false;
         });
 
         return q;
-    }
-
-    function showIssue(issue) {
-        $location.path('/issues/' + issue.id);
     }
 
     /**

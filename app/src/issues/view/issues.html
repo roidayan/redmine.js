@@ -1,9 +1,3 @@
 <md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
-<md-list ng-cloak>
-    <md-subheader class="md-no-sticky">Issues assigned to me ({{ctrl.issues.length}}/{{ctrl.total_count}})</md-subheader>
-    <md-list-item ng-repeat="issue in ctrl.issues" ng-click="ctrl.showIssue(issue)">
-        <md-icon ng-class="ctrl.getTrackerClass(issue)">{{ctrl.getIcon(issue)}}</md-icon>
-        <p class="md-body-1" ng-class="ctrl.getPriorityClass(issue)">{{ issue.subject }}</p>
-    </md-list-item>
-</md-list>
+<rm-issues-list title="Issues assigned to me" issues="ctrl.issues" total-count="ctrl.total_count"></rm-issues-list>

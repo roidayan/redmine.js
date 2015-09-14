@@ -10,7 +10,6 @@
        .controller('ProjectController', [
           'projectService',
           'issueService',
-          'IssueClassFactory',
           'favProject',
           '$localStorage',
           '$log',
@@ -21,17 +20,13 @@
           ProjectController
        ]);
 
-  function ProjectController( projectService, issueService, IssueClassFactory, favProject, $localStorage, $log, $location, $routeParams, $q, Page ) {
+  function ProjectController( projectService, issueService, favProject, $localStorage, $log, $location, $routeParams, $q, Page ) {
     var self = this;
 
     self.projectId = $routeParams.projectId;
     self.project = null;
     self.issues = [];
     self.total_count = 0;
-    self.getIcon = IssueClassFactory.getIcon;
-    self.getTrackerClass = IssueClassFactory.getTrackerClass;
-    self.getPriorityClass = IssueClassFactory.getPriorityClass;
-    self.showIssue = showIssue;
     self.setup = setup;
     self.addIssue = addIssue;
 
@@ -119,10 +114,6 @@
         });
 
         return q;
-    }
-
-    function showIssue(issue) {
-        $location.path('/issues/' + issue.id);
     }
 
   }

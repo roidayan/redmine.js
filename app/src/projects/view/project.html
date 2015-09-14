@@ -11,13 +11,7 @@
     </h3>
 </div>
 
-<md-list ng-cloak ng-show="ctrl.project">
-      <md-subheader class="md-no-sticky">Project issues ({{ctrl.issues.length}}/{{ctrl.total_count}})</md-subheader>
-      <md-list-item ng-repeat="issue in ctrl.issues" ng-click="ctrl.showIssue(issue)">
-            <md-icon ng-class="ctrl.getTrackerClass(issue)">{{ctrl.getIcon(issue)}}</md-icon>
-            <p class="md-body-1" ng-class="ctrl.getPriorityClass(issue)">{{ issue.subject }}</p>
-      </md-list-item>
-</md-list>
+<rm-issues-list title="Project issues" issues="ctrl.issues" total-count="ctrl.total_count"></rm-issues-list>
 
 <div class="md-padding" ng-if="ctrl.errorLoading">
     <div class="md-warn">
