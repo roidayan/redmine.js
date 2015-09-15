@@ -65,6 +65,7 @@
             getProjectIssues()
         ]).then(function() {
             self.loading = false;
+            Page.setTitle(self.project.name);
         }).catch(function(e) {
             self.loading = false;
             self.errorLoading = true;
