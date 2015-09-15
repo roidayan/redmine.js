@@ -13,7 +13,7 @@
       return {
           restrict: 'E',
           scope: {
-              title: '@',
+              listTitle: '@',
               issues: '=',
               totalCount: '='
           },
