@@ -1,6 +1,7 @@
 <md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
 <md-button app-scroll ng-if="ctrl.action === 'view'" class="md-fab md-fab-bottom-right md-primary" aria-label="Edit issue" ng-click="ctrl.editIssue()">
+    <md-tooltip>Edit issue</md-tooltip>
     <md-icon>edit</md-icon>
 </md-button>
 

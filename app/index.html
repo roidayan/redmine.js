@@ -53,6 +53,7 @@
                              aria-label="Favorite"
                              ng-if="ctrl.page.isFavorite !== null"
                              ng-click="ctrl.page.toggleFavorite()">
+                      <md-tooltip>Favorite</md-tooltip>
                       <md-icon ng-if="ctrl.page.isFavorite()">star</md-icon>
                       <md-icon ng-if="!ctrl.page.isFavorite()">star_border</md-icon>
                   </md-button>
