@@ -1,7 +1,12 @@
 <md-list ng-cloak>
     <md-subheader class="md-no-sticky">{{listTitle}} ({{issues.length}}/{{totalCount}})</md-subheader>
-    <md-list-item ng-repeat="issue in issues" ng-click="showIssue(issue)">
+    <md-list-item ng-repeat="issue in issues" ng-click="showIssue(issue)" class="md-3-line">
         <md-icon ng-class="getTrackerClass(issue)">{{getIcon(issue)}}</md-icon>
-        <p ng-class="getPriorityClass(issue)">{{issue.subject}}</p>
+        <div class="md-list-item-text">
+            <h3 ng-class="getPriorityClass(issue)">{{issue.subject}}</h3>
+            <h4>{{issue.assigned_to.name}}</h4>
+            <p>{{issue.priority.name}}</p>
+        </div>
+        <md-divider></md-divider>
     </md-list-item>
 </md-list>
