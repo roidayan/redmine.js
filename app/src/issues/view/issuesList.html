@@ -1,5 +1,5 @@
 <md-list ng-cloak>
-    <md-subheader class="md-no-sticky">{{title}} ({{issues.length}}/{{totalCount}})</md-subheader>
+    <md-subheader class="md-no-sticky">{{listTitle}} ({{issues.length}}/{{totalCount}})</md-subheader>
     <md-list-item ng-repeat="issue in issues" ng-click="showIssue(issue)">
         <md-icon ng-class="getTrackerClass(issue)">{{getIcon(issue)}}</md-icon>
         <p ng-class="getPriorityClass(issue)">{{issue.subject}}</p>
