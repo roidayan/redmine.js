@@ -60,7 +60,10 @@
      * init
      */
 
-    Page.setTitle('Issue');
+    if (self.action === 'new')
+        Page.setTitle('New Issue');
+    else
+        Page.setTitle('Issue');
     if (self.issueId)
         Page.setExtLink(issueService.getUrl(self.issueId));
 
@@ -144,6 +147,7 @@
         }).$promise.then(function(data) {
             $log.debug(data);
             self.issue = data.issue;
+            Page.setTitle(self.issue.tracker.name + ' #' + self.issue.id);
             self.projectId = self.issue.project.id;
             setIssueItems();
             setIssueFields();
