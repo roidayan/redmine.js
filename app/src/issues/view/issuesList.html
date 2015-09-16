@@ -2,7 +2,7 @@
     <md-subheader class="md-no-sticky">{{listTitle}} ({{issues.length}}/{{totalCount}})</md-subheader>
     <md-list-item ng-repeat="issue in issues" ng-click="showIssue(issue)" class="md-3-line">
         <md-icon ng-class="getTrackerClass(issue)">{{getIcon(issue)}}</md-icon>
-        <div class="md-list-item-text">
+        <div class="md-list-item-text cut-text">
             <h3 ng-class="getPriorityClass(issue)">{{issue.subject}}</h3>
             <h4>{{issue.assigned_to.name}}</h4>
             <p>{{issue.priority.name}}</p>

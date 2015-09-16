@@ -186,3 +186,10 @@ md-list-item > div.md-primary > md-icon, md-list-item > div.md-secondary > md-ic
 md-list-item, md-list-item .md-list-item-inner {
   min-height: 48px;
 }
+
+md-list-item .md-list-item-text.cut-text h3 {
+    line-height: 1em !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
