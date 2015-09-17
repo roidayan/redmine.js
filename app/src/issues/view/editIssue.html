@@ -1,9 +1,10 @@
 <md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
 <div ng-cloak layout-padding>
-    <form novalidate name="editIssueForm" ng-submit="ctrl.submitIssueForm(editIssueForm)">
-        <md-content layout layout-wrap layout-sm="column" ng-if="!ctrl.loading">
+    <form novalidate name="editIssueForm" ng-submit="ctrl.submitIssueForm(editIssueForm)" ng-disabled="ctrl.loading">
+        <div layout layout-wrap layout-sm="column">
             <md-input-container ng-repeat="field in ctrl.issueFields"
+                                ng-disabled="!ctrl.loading"
                                 flex="{{field.flex || 33}}"
                                 ng-if="field.show === undefined || field.show()">
                 <!-- <img class="issue-user-avatar icon" ng-if="field.avatar()" ng-src="{{field.avatar()}}" />
@@ -12,24 +13,27 @@
                 <label>{{::field.label}}</label>
 
                 <input ng-if="!field.type"
+                       ng-disabled="ctrl.loading"
                        ng-model="field.value"
                        name="field{{$index}}"
                        ng-required="field.required"
                        md-maxlength="250">
 
                <textarea ng-if="field.type === 'textarea'"
-                      ng-model="field.value"
-                      name="field{{$index}}"
-                      ng-required="field.required"
-                      ng-attr-autofocus="{{field.focus}}"></textarea>
+                         ng-disabled="ctrl.loading"
+                         ng-model="field.value"
+                         name="field{{$index}}"
+                         ng-required="field.required"
+                         ng-attr-autofocus="{{field.focus}}"></textarea>
 
                 <md-select ng-if="field.type === 'select'"
+                           ng-disabled="ctrl.loading"
                            ng-disabled="ctrl.isEmptyObject(field.choices())"
                            ng-model="field.value"
                            name="field{{$index}}"
                            ng-required="field.required">
-                    <md-option ng-repeat="(id, name) in field.choices()"
-                               value="{{::id}}">{{::name}}</md-option>
+                    <md-option ng-repeat="item in field.choices()"
+                               value="{{::item.id}}">{{::item.name}}</md-option>
                 </md-select>
 
                 <div ng-messages="editIssueForm['field' + $index].$error">
@@ -37,9 +41,9 @@
                     <div ng-message="md-maxlength">This field has to be less than 250 characters long.</div>
                 </div>
             </md-input-container>
-        </md-content>
+        </div>
 
-        <md-content>
+        <div>
             <md-input-container layout="row">
                 <md-button type="submit" flex
                            ng-disabled="ctrl.loading || !editIssueForm.$dirty"
@@ -55,6 +59,6 @@
                             Cancel
                 </md-button>
             </md-input-container>
-        </md-content>
+        </div>
     </form>
 </div>

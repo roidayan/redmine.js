@@ -212,6 +212,8 @@
                 if (detail.name == 'assigned_to_id') {
                     var id = detail.old_value || detail.new_value;
                     getUser(id).then(function(user) {
+                        if (!user)
+                            return;
                         if (detail.old_value)
                             old_value = user.firstname + ' ' + user.lastname;
                         else
@@ -268,7 +270,7 @@
                 value: getFieldId('status'),
                 required: true,
                 type: 'select',
-                choices: function() { return self.meta['status_id'] || {}; }
+                choices: function() { return self.meta['statuses'] || {}; }
             },
             {
                 label: 'Priority',
@@ -276,7 +278,7 @@
                 value: getFieldId('priority'),
                 required: true,
                 type: 'select',
-                choices: function() { return self.meta['priority_id'] || {}; }
+                choices: function() { return self.meta['priorities'] || {}; }
             },
             {
                 label: 'Assignee',
@@ -295,7 +297,7 @@
                 key: 'fixed_version_id',
                 value: getFieldId('fixed_version'),
                 type: 'select',
-                choices: function() { return self.meta['fixed_version_id'] || {}; },
+                choices: function() { return self.meta['versions'] || {}; },
                 show: function() { return !self.isEmptyObject(this.choices()); }
             },
             {
@@ -420,14 +422,8 @@
             'project_id': self.projectId,
         }).$promise.then(function(data) {
             $log.debug(data);
-            self.meta['categories'] = {};
-            self.meta['trackers'] = {};
-            data.project.issue_categories.forEach(function(cat) {
-                self.meta['categories'][cat.id] = cat.name;
-            });
-            data.project.trackers.forEach(function(tracker) {
-                self.meta['trackers'][tracker.id] = tracker.name;
-            });
+            self.meta['categories'] = data.project.issue_categories;
+            self.meta['trackers'] = data.project.trackers;
         });
 
         return q;
@@ -444,6 +440,7 @@
             'query': 'versions'
         }).$promise.then(function(data) {
             $log.debug(data);
+            self.meta['versions'] = data.versions;
             data.versions.forEach(function(version) {
                 self.meta['fixed_version_id'][version.id] = version.name;
             });
@@ -463,10 +460,10 @@
             'query': 'memberships'
         }).$promise.then(function(data) {
             $log.debug(data);
-            self.meta['memberships'] = {};
-            data.memberships.forEach(function(membership) {
-                self.meta['memberships'][membership.user.id] = membership.user.name;
-            });
+            self.meta['memberships'] = [];
+            for (var i = 0; i < data.memberships.length; i++) {
+                self.meta['memberships'].push(data.memberships[i].user);
+            }
         });
 
         return q;
@@ -475,6 +472,7 @@
     function getIssueStatuses() {
         var q = issueService.queryStatuses().$promise.then(function(data) {
             $log.debug(data);
+            self.meta['statuses'] = data.issue_statuses;
             data.issue_statuses.forEach(function(status) {
                 self.meta['status_id'][status.id] = status.name;
             });
@@ -486,6 +484,7 @@
     function getIssuePriorities() {
         var q = issueService.queryPriorities().$promise.then(function(data) {
             $log.debug(data);
+            self.meta['priorities'] = data.issue_priorities;
             data.issue_priorities.forEach(function(priority) {
                 self.meta['priority_id'][priority.id] = priority.name;
             });
