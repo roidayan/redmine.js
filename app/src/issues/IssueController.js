@@ -521,6 +521,11 @@
                     self.loading = false;
                     $mdToast.showSimple('Issue updated');
                     viewIssue();
+            }).catch(function(e) {
+                if (e.status === 0 && e.statusText === '')
+                    e.statusText = 'Error updating issue';
+                $mdToast.showSimple(e.statusText);
+                return $q.reject(e);
             });
         } else if (self.projectId) {
             // new Issue
@@ -532,10 +537,15 @@
                     $mdToast.showSimple('Created issue');
                     self.issueId = response.issue.id;
                     viewIssue();
+            }).catch(function(e) {
+                if (e.status === 0 && e.statusText === '')
+                    e.statusText = 'Error creating issue';
+                $mdToast.showSimple(e.statusText);
+                return $q.reject(e);
             });
         } else {
-            $log.error('updateIssue: no issue id nor project id');
-            $mdToast.showSimple('Update error');
+            $log.error('submit error: no issue id nor project id');
+            $mdToast.showSimple('Submit error');
         }
     }
 
