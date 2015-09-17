@@ -1,3 +1,4 @@
 <md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
+<chips-filter ng-show="ctrl.statuses" placeholder="Status" items="ctrl.statuses" change="ctrl.statusFilter(newItems, oldItems)"></chips-filter>
 <rm-issues-list list-title="Issues assigned to me" issues="ctrl.issues" total-count="ctrl.total_count"></rm-issues-list>

@@ -7,7 +7,10 @@
 
   angular
         .module('rmIssues')
-        .directive('rmIssuesList', ['IssueClassFactory', '$location', IssuesListDirective]);
+        .directive('rmIssuesList', [
+            'IssueClassFactory',
+            '$location',
+            IssuesListDirective]);
 
   function IssuesListDirective( IssueClassFactory, $location ) {
       return {

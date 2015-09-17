@@ -118,6 +118,33 @@
           return resource;
       }
 
+      /**
+       * This function add params with the f[] op[] v[] structure as
+       * the redmine UI uses.
+       * @param  {string} name    Filter name
+       * @param  {list}   value   List of values
+       * @param  {object} params  Output object
+       */
+      function addParam(name, value, params) {
+          var f = params['f[]'] || [];
+          if (f.indexOf(name) < 0) {
+              f.push(name);
+              params['f[]'] = f;
+          }
+          // TODO: status_id strings needs here 'o' for open.
+          params['op['+name+']'] = '=';
+          var v = params['v['+name+'][]'] || [];
+          params['v['+name+'][]'] = value;
+          return params;
+      }
+
+      function addParams(newParams, params) {
+          for (var param in newParams) {
+              addParam(param, newParams[param], params);
+          }
+          return params;
+      }
+
       return {
           getUrl: function(issue_id) {
               return settingsService.getRemoteUrl() + '/issues/' + issue_id;
@@ -136,7 +163,9 @@
           },
           queryPriorities: function() {
               return getResource().queryPriorities.apply(this, arguments);
-          }
+          },
+          addParam: addParam,
+          addParams: addParams
       }
   }
 
