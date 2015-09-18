@@ -5,7 +5,7 @@
     <md-icon>add</md-icon>
 </md-button>
 
-<chips-filter ng-show="ctrl.statuses" placeholder="Status" items="ctrl.statuses" change="ctrl.statusFilter(newItems, oldItems)"></chips-filter>
+<chips-filter ng-if="ctrl.statuses" placeholder="Status" items="ctrl.statuses" change="ctrl.statusFilter(newItems, oldItems)"></chips-filter>
 <rm-issues-list list-title="Project issues" issues="ctrl.issues" total-count="ctrl.total_count"></rm-issues-list>
 
 <div class="md-padding" ng-if="ctrl.errorLoading">
