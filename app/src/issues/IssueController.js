@@ -210,14 +210,20 @@
                 updateText(detail);
 
                 if (detail.name == 'assigned_to_id') {
-                    var id = detail.old_value || detail.new_value;
-                    getUser(id).then(function(user) {
-                        if (!user)
-                            return;
-                        if (detail.old_value)
-                            old_value = user.firstname + ' ' + user.lastname;
-                        else
-                            new_value = user.firstname + ' ' + user.lastname;
+                    var promises = [];
+                    if (detail.old_value) {
+                        promises.push(getUser(detail.old_value));
+                    }
+                    if (detail.new_value) {
+                        promises.push(getUser(detail.new_value));
+                    }
+                    $q.all(promises).then(function() {
+                        var old_user = self.users[detail.old_value];
+                        var new_user = self.users[detail.new_value];
+                        if (detail.old_value && old_user)
+                            old_value = old_user.firstname + ' ' + old_user.lastname;
+                        if (detail.new_value && new_user)
+                            new_value = new_user.firstname + ' ' + new_user.lastname;
                         updateText(detail);
                     });
                 }
@@ -366,6 +372,9 @@
             self.author = data.user;
             self.author.avatar = gravatar.get(self.author.mail);
             self.users[self.author.id] = self.author;
+        }).catch(function(e) {
+            $log.error("failed to get author " + assigned_to_id);
+            $q.reject();
         });
 
         return q;
@@ -384,6 +393,9 @@
             self.assignee.avatar = gravatar.get(self.assignee.mail);
             self.issueItems['Assignee']['avatar'] = self.assignee.avatar;
             self.users[self.assignee.id] = self.assignee;
+        }).catch(function(e) {
+            $log.error("failed to get assignee " + assigned_to_id);
+            $q.reject();
         });
 
         return q;
@@ -403,6 +415,9 @@
             _user.avatar = gravatar.get(_user.mail);
             self.users[_user.id] = _user;
             return _user;
+        }).catch(function(e) {
+            $log.error("failed to get user " + user_id);
+            $q.reject();
         });
 
         return q;
