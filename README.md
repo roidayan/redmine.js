@@ -1,13 +1,12 @@
 # redmine.js
 Angular based Redmine REST API client
 
-Check if out: http://roidayan.github.io/redmine.js
+Check it out: http://roidayan.github.io/redmine.js
 
 # Screenshots
 
-<img src="/assets/screenshots/Capture1.PNG?raw=true" width="250px">
-<img src="/assets/screenshots/Capture2.PNG?raw=true" width="250px">
-<img src="/assets/screenshots/Capture3.PNG?raw=true" width="250px">
-<img src="/assets/screenshots/Capture4.PNG?raw=true" width="250px">
-<img src="/assets/screenshots/Capture5.PNG?raw=true" width="250px">
-<img src="/assets/screenshots/Capture6.PNG?raw=true" width="250px">
+<img src="/assets/screenshots/screenshot-1.png?raw=true" width="250px">
+<img src="/assets/screenshots/screenshot-2.png?raw=true" width="250px">
+<img src="/assets/screenshots/screenshot-3.png?raw=true" width="250px">
+<img src="/assets/screenshots/screenshot-4.png?raw=true" width="250px">
+<img src="/assets/screenshots/screenshot-5.png?raw=true" width="250px">
