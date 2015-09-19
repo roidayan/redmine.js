@@ -8,7 +8,7 @@
 <div ng-if="ctrl.action === 'view'" ng-show="ctrl.issue" ng-cloak layout-padding>
     <h3 class="md-subhead">
         <md-icon ng-class="ctrl.issueIconClass">{{ctrl.issueIcon}}</md-icon>
-        {{::ctrl.issue.tracker.name}} #{{::ctrl.issue.id}}
+        <span>{{::ctrl.issue.tracker.name}} #{{::ctrl.issue.id}}</span>
     </h3>
     <h1 class="md-headline">{{::ctrl.issue.subject}}</h1>
 
@@ -16,7 +16,7 @@
         <span class="issue-attribute">Author</span>
         <img class="issue-user-avatar" ng-if="ctrl.author.avatar" ng-src="{{ctrl.author.avatar}}" />
         <md-icon ng-if="!ctrl.author.avatar">person</md-icon>
-        {{::ctrl.issue.author.name}}
+        <span>{{::ctrl.issue.author.name}}</span>
     </div>
 
     <h3 class="md-subhead">Description</h3>
@@ -51,7 +51,7 @@
                 <md-icon ng-if="!ctrl.getUserAvatar(journal.user)">person</md-icon>
                 <span>{{journal.user.name}}</span>
                 <span flex></span>
-                {{journal.created_on | timeago}}
+                <span>{{journal.created_on | timeago}}</span>
             </div>
             <ul>
                 <li ng-repeat="detail in journal.details">
