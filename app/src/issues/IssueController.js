@@ -156,6 +156,7 @@
             setIssueItems();
             setIssueFields();
             updateRelations();
+            updateJournals();
             self.issueIcon = IssueClassFactory.getIcon(self.issue);
             self.issueIconClass = IssueClassFactory.getTrackerClass(self.issue);
             var promises = [
