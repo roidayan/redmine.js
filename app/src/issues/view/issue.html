@@ -13,7 +13,7 @@
     <h3 class="md-headline">{{::ctrl.issue.subject}}</h3>
 
     <div>
-        <span class="issue-key">Author</span>
+        <span class="issue-attribute">Author</span>
         <img class="issue-user-avatar" ng-if="ctrl.author.avatar" ng-src="{{ctrl.author.avatar}}" />
         <md-icon ng-if="!ctrl.author.avatar">person</md-icon>
         {{::ctrl.issue.author.name}}
@@ -25,7 +25,7 @@
     <h3>Details</h3>
     <table>
         <tr ng-repeat="(key, item) in ctrl.issueItems">
-            <td class="issue-key">{{key}}</td>
+            <td class="issue-attribute">{{key}}</td>
             <td>
                 <img class="issue-user-avatar" ng-if="item.avatar" ng-src="{{item.avatar}}" />
                 <md-icon ng-if="item.avatar === ''">person</md-icon>
