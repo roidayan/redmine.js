@@ -20,10 +20,10 @@
         'rmUsers'
     ])
 
-    .value('appName',       'Reminde.js')
-    .value('appVersion',    '0.0.0')
-    .value('appAuthor',     'Roi Dayan')
-    .value('appCopyright',  '(c) 2015 Roi Dayan')
+    .constant('appName',       'Reminde.js')
+    .constant('appVersion',    '0.0.0')
+    .constant('appAuthor',     'Roi Dayan')
+    .constant('appCopyright',  '(c) 2015 Roi Dayan')
     .constant('appProduction', false)
 
     .config( function( $mdThemingProvider, $routeProvider, $locationProvider, $localStorageProvider, $httpProvider, $logProvider, appProduction ) {
