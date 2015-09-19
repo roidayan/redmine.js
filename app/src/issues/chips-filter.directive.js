@@ -15,6 +15,7 @@
           scope: {
               placeholder: '@',
               items: '=',
+              selectedItems: '=',
               change: '&'
           },
           templateUrl: './src/issues/view/chipsFilter.html',
@@ -24,7 +25,6 @@
                * so we use $watchCollection
                * https://github.com/angular/material/issues/3857
                */
-              scope.selectedItems = [];
               scope.querySearch = querySearch;
               scope.queryUnselectedItems = queryUnselectedItems;
 

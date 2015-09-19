@@ -12,6 +12,7 @@
           'issueService',
           'favProject',
           '$localStorage',
+          '$cacheFactory',
           '$log',
           '$location',
           '$routeParams',
@@ -20,7 +21,7 @@
           ProjectController
        ]);
 
-  function ProjectController( projectService, issueService, favProject, $localStorage, $log, $location, $routeParams, $q, Page ) {
+  function ProjectController( projectService, issueService, favProject, $localStorage, $cacheFactory, $log, $location, $routeParams, $q, Page ) {
     var self = this;
 
     self.projectId = $routeParams.projectId;
@@ -37,6 +38,9 @@
     Page.setTitle('Project');
     Page.isFavorite = isFav;
     Page.toggleFavorite = toggleFav;
+
+    var cache = $cacheFactory.get('projectCtrlCache') || $cacheFactory('projectCtrlCache');
+    self.selectedStatuses = cache.get('statusFilter') || [];
 
     setup();
 
@@ -108,8 +112,13 @@
             'status_id': 'open'
         };
 
-        if (self.filter_by_status_id && self.filter_by_status_id.length > 0) {
-            params['status_id'] = self.filter_by_status_id.join('|');
+        if (self.selectedStatuses && self.selectedStatuses.length > 0) {
+            var ids = self.selectedStatuses.map(
+                function(item) {
+                    return item.id;
+                }
+            );
+            params['status_id'] = ids.join('|');
         }
 
         // params = issueService.addParams(params, {});
@@ -140,8 +149,11 @@
         if (oldItems === newItems)
             return;
         self.filter_by_status = newItems;
-        self.filter_by_status_id = newItems.map(function(item) { return item.id; });
-        getProjectIssues();
+        cache.put('statusFilter', newItems);
+        self.loading = true;
+        getProjectIssues().finally(function() {
+            self.loading = false;
+        });
     };
 
   }

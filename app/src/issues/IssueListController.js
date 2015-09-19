@@ -13,12 +13,13 @@
           '$log',
           '$location',
           '$localStorage',
+          '$cacheFactory',
           'Page',
           'settingsService',
           IssueListController
        ]);
 
-  function IssueListController( $scope, issueService, $log, $location, $localStorage, Page, settingsService ) {
+  function IssueListController( $scope, issueService, $log, $location, $localStorage, $cacheFactory, Page, settingsService ) {
     var self = this;
 
     self.loading = false;
@@ -26,6 +27,9 @@
     self.total_count = 0;
 
     Page.setTitle('Issues');
+
+    var cache = $cacheFactory.get('issueListCtrlCache') || $cacheFactory('issueListCtrlCache');
+    self.selectedStatuses = cache.get('statusFilter') || [];
 
     if (settingsService.isConfigured())
         setup();
@@ -52,8 +56,13 @@
             'status_id': 'open'
         };
 
-        if (self.filter_by_status_id && self.filter_by_status_id.length > 0) {
-            params['status_id'] = self.filter_by_status_id.join('|');
+        if (self.selectedStatuses && self.selectedStatuses.length > 0) {
+            var ids = self.selectedStatuses.map(
+                function(item) {
+                    return item.id;
+                }
+            );
+            params['status_id'] = ids.join('|');
         }
 
         // params = issueService.addParams(params, {});
@@ -79,9 +88,11 @@
     self.statusFilter = function(newItems, oldItems) {
         if (oldItems === newItems)
             return;
-        self.filter_by_status = newItems;
-        self.filter_by_status_id = newItems.map(function(item) { return item.id; });
-        getIssues();
+        cache.put('statusFilter', newItems);
+        self.loading = true;
+        getIssues().finally(function() {
+            self.loading = false;
+        });
     };
 
     /**
