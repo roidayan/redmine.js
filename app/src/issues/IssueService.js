@@ -44,7 +44,7 @@
                   params: {
                       'status_id':  'open',
                       'include':    'journals',
-                      'limit':      10,
+                      'limit':      100,
                       'sort':       'priority:desc,updated_on:desc'
                   },
                   isArray: false,

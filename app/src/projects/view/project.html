@@ -10,7 +10,7 @@
               items="ctrl.statuses"
               selected-items="ctrl.selectedStatuses"
               change="ctrl.statusFilter(newItems, oldItems)"></chips-filter>
-<rm-issues-list list-title="Project issues" issues="ctrl.issues" total-count="ctrl.total_count"></rm-issues-list>
+<rm-issues-list list-title="Project issues" issues="ctrl.issues" limit="10" total-count="ctrl.total_count"></rm-issues-list>
 
 <div class="md-padding" ng-if="ctrl.errorLoading">
     <div class="md-warn">
