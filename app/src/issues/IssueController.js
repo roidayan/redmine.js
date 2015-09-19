@@ -373,7 +373,7 @@
             self.author.avatar = gravatar.get(self.author.mail);
             self.users[self.author.id] = self.author;
         }).catch(function(e) {
-            $log.error("failed to get author " + assigned_to_id);
+            $log.error("failed to get author " + author_id);
             $q.reject();
         });
 
