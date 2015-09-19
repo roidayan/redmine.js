@@ -186,7 +186,7 @@
             switch (relation.relation_type) {
                 case 'blocks':
                     var rel;
-                    if (relation.issue_id == self.issue.id) {
+                    if (relation.issue_id === self.issue.id) {
                         relation.text = 'Blocks #' + relation.issue_to_id;
                         relation.target_issue_id = relation.issue_to_id;
                     } else {
@@ -198,8 +198,11 @@
                     var rel = type_to_text[relation.relation_type] ?
                                 type_to_text[relation.relation_type] :
                                     relation.relation_type;
-                    relation.text = rel + ' #' + relation.issue_to_id;
-                    relation.target_issue_id = relation.issue_to_id;
+                    var target_issue_id = relation.issue_id !== self.issue.id ?
+                                            relation.issue_id :
+                                            relation.issue_to_id;
+                    relation.text = rel + ' #' + target_issue_id;
+                    relation.target_issue_id = target_issue_id;
                     break;
             }
         });
