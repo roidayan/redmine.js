@@ -1,7 +1,11 @@
 var config = {
 	dest: 'www',
 	tmp: 'tmp',
-	/* Don't generate sourcemaps and set appProduction to true */
+	/**
+	 *  Don't generate sourcemaps
+	 *  Set appProduction to true
+	 *  Set appVersion to package.json version
+	 */
 	production: true,
 
 	src: {
@@ -91,7 +95,8 @@ gulp.task('js', function() {
       gulp.src(config.src.js).pipe(ngFilesort()).pipe(replace('./src/', '')),
       gulp.src(config.src.views).pipe(templateCache({ module: 'redmineApp' }))
     )
-	.pipe(gulpif('**/app.js' && config.production, replace(/appProduction',\s*\w*/, 'appProduction\', true')))
+	.pipe(gulpif('**/app.js' && config.production, replace(/appProduction',\s*\w+/, 'appProduction\', true')))
+	.pipe(gulpif('**/app.js' && config.production, replace(/appVersion',[\s\w\d.']+/, 'appVersion\', \''+pkg.version+'\'')))
     .pipe(gulpif(!config.production, sourcemaps.init()))
     .pipe(ngAnnotate())
     .pipe(concat('app.js'))
