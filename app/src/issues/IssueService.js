@@ -43,7 +43,7 @@
                   method: 'GET',
                   params: {
                       'status_id':  'open',
-                      'include':    'journals',
+                      'include':    'journals,relations',
                       'limit':      100,
                       'sort':       'priority:desc,updated_on:desc'
                   },

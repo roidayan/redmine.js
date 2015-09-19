@@ -50,6 +50,7 @@
     /* methods */
     self.getUserAvatar = getUserAvatar;
     self.editIssue = editIssue;
+    self.viewIssue = viewIssue;
     self.submitIssueForm = submitIssueForm;
     self.cancelEdit = cancelEdit;
     self.isEmptyObject = function(ob) {
@@ -84,9 +85,12 @@
         //self.action = 'edit';
     }
 
-    function viewIssue() {
-        if (self.issueId)
+    function viewIssue(issue_id) {
+        if (issue_id) {
+            $location.path('/issues/' + issue_id);
+        } else if (self.issueId) {
             $location.path('/issues/' + self.issueId);
+        }
         //self.action = 'view';
     }
 
@@ -151,6 +155,7 @@
             self.projectId = self.issue.project.id;
             setIssueItems();
             setIssueFields();
+            updateRelations();
             self.issueIcon = IssueClassFactory.getIcon(self.issue);
             self.issueIconClass = IssueClassFactory.getTrackerClass(self.issue);
             var promises = [
@@ -166,8 +171,44 @@
         return q;
     }
 
+    function updateRelations() {
+        $log.debug('update relations');
+
+        if (!self.issue.relations)
+            return;
+
+        var type_to_text = {
+            'relates': 'Related to'
+        };
+
+        self.issue.relations.forEach(function(relation) {
+            switch (relation.relation_type) {
+                case 'blocks':
+                    var rel;
+                    if (relation.issue_id == self.issue.id) {
+                        relation.text = 'Blocks #' + relation.issue_to_id;
+                        relation.target_issue_id = relation.issue_to_id;
+                    } else {
+                        relation.text = 'Blocked by #' + relation.issue_id;
+                        relation.target_issue_id = relation.issue_id;
+                    }
+                    break;
+                default:
+                    var rel = type_to_text[relation.relation_type] ?
+                                type_to_text[relation.relation_type] :
+                                    relation.relation_type;
+                    relation.text = rel + ' #' + relation.issue_to_id;
+                    relation.target_issue_id = relation.issue_to_id;
+                    break;
+            }
+        });
+    }
+
     function updateJournals() {
         $log.debug('update journals');
+
+        if (!self.issue.journals)
+            return;
 
         var id_to_name = {
             'fixed_version_id': 'Target version',
