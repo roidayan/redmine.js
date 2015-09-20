@@ -25,9 +25,9 @@
           setTitle: function(newTitle) { title = newTitle; },
           rightButton: function() { return rightButton; },
           setRightButton: function(icon, cb) { rightButton = {'cb': cb, 'icon': icon } },
-          extLink: function() { return extLink; },
+          getExtLink: function() { return extLink; },
           setExtLink: function(link) { extLink = link; },
-          openExtLink: function(link) { $window.open(extLink, '_system'); },
+          openExtLink: function() { $window.open(extLink, '_system'); },
           isFavorite: null,
           toggleFavorite: null
       };
