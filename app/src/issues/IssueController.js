@@ -44,7 +44,9 @@
     self.meta = {
         'fixed_version_id': {},
         'status_id': {},
-        'priority_id': {}
+        'priority_id': {},
+        'category_id': {},
+        'tracker_id': {}
     };
 
     /* methods */
@@ -65,6 +67,7 @@
         Page.setTitle('New Issue');
     else
         Page.setTitle('Issue');
+
     if (self.issueId)
         Page.setExtLink(issueService.getUrl(self.issueId));
 
@@ -221,7 +224,8 @@
             'priority_id':      'Priority',
             'category_id':      'Category',
             'subject':          'Subject',
-            'done_ratio':       '% Done'
+            'done_ratio':       '% Done',
+            'tracker_id':       'Tracker'
         };
 
         self.issue.journals.forEach(function(journal) {
@@ -484,6 +488,12 @@
             $log.debug(data);
             self.meta['categories'] = data.project.issue_categories;
             self.meta['trackers'] = data.project.trackers;
+            data.project.issue_categories.forEach(function(category) {
+                self.meta['category_id'][category.id] = category.name;
+            });
+            data.project.trackers.forEach(function(tracker) {
+                self.meta['tracker_id'][tracker.id] = tracker.name;
+            });
         });
 
         return q;
