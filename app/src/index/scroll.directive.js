@@ -7,7 +7,7 @@
 
     angular
        .module('redmineApp')
-       .directive('appScroll', ['$window', ScrollDirective]);
+       .directive('hideOnScroll', ['$window', ScrollDirective]);
 
     function ScrollDirective($window) {
         return {
