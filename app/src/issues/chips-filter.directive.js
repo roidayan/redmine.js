@@ -7,9 +7,9 @@
 
   angular
         .module('rmIssues')
-        .directive('chipsFilter', ChipsFilterDirective);
+        .directive('chipsFilter', ['$timeout', ChipsFilterDirective]);
 
-  function ChipsFilterDirective() {
+  function ChipsFilterDirective($timeout) {
       return {
           restrict: 'E',
           scope: {
@@ -27,6 +27,7 @@
                */
               scope.querySearch = querySearch;
               scope.queryUnselectedItems = queryUnselectedItems;
+              scope.blur = blur;
 
               scope.$watchCollection('selectedItems', function(newItems, oldItems) {
                   scope.change({
@@ -34,6 +35,21 @@
                       oldItems: oldItems
                   });
               });
+
+              /**
+               * TODO: Md Autocomplete: Blur on selected element
+               * https://github.com/angular/material/issues/3976
+               * TODO: md-selected-item-change called twice
+               * https://github.com/angular/material/issues/3279
+               */
+              function blur() {
+                  // XXX: using $timeout for blur to work on md-on-remove
+                  $timeout(function() {
+                      element.find('input').blur();
+                      var r = element.find('md-autocomplete-wrap');
+                      r.scope().$mdAutocompleteCtrl.hidden = true;
+                  });
+              }
 
               function queryUnselectedItems() {
                   if (!scope.items)

@@ -1,8 +1,10 @@
 <md-chips ng-model="selectedItems"
           md-autocomplete-snap
-          md-require-match="true">
+          md-require-match="true"
+          md-on-remove="blur()">
     <md-autocomplete
             md-selected-item="selectedItem"
+            md-selected-item-change="blur()"
             md-search-text="searchItem"
             md-no-cache="true"
             md-items="item in queryUnselectedItems()"
