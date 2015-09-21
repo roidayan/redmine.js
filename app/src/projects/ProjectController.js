@@ -10,7 +10,6 @@
        .controller('ProjectController', [
           'projectService',
           'issueService',
-          'favProject',
           '$localStorage',
           '$cacheFactory',
           '$log',
@@ -21,7 +20,7 @@
           ProjectController
        ]);
 
-  function ProjectController( projectService, issueService, favProject, $localStorage, $cacheFactory, $log, $location, $routeParams, $q, Page ) {
+  function ProjectController( projectService, issueService, $localStorage, $cacheFactory, $log, $location, $routeParams, $q, Page ) {
     var self = this;
 
     self.projectId = $routeParams.projectId;
@@ -36,8 +35,6 @@
      */
 
     Page.setTitle('Project');
-    Page.isFavorite = isFav;
-    Page.toggleFavorite = toggleFav;
 
     var cache = $cacheFactory.get('projectCtrlCache') || $cacheFactory('projectCtrlCache');
     self.selectedStatuses = cache.get('statusFilter') || [];
@@ -50,14 +47,6 @@
 
     function addIssue() {
         $location.path('/projects/' + self.projectId + '/issues/new');
-    }
-
-    function toggleFav() {
-        self.project && favProject.toggleFavorite(self.project);
-    }
-
-    function isFav() {
-        return favProject.isFavorite(self.projectId);
     }
 
     function setup() {

@@ -52,10 +52,6 @@
               templateUrl: './src/issues/view/editIssue.html',
               controller: 'IssueController as ctrl'
           })
-          .when('/addFavProject', {
-              templateUrl: './src/projects/view/addFavProject.html',
-              controller: 'FavProjectController as ctrl'
-          })
           .when('/issues', {
               templateUrl: './src/issues/view/issues.html',
               controller: 'IssueListController as ctrl'

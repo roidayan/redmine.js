@@ -1,12 +1,7 @@
-<md-button class="md-fab md-fab-bottom-right md-primary" aria-label="Add favorite project" ng-click="ctrl.addFavProject()">
-    <md-tooltip>Add favorite project</md-tooltip>
-    <md-icon>add</md-icon>
-</md-button>
-
 <md-list ng-cloak>
     <md-subheader class="md-no-sticky">My projects</md-subheader>
-    <md-list-item class="project-list-item" ng-repeat="project in ctrl.projects" ng-click="ctrl.goProject(project);">
+    <md-list-item class="project-list-item" ng-repeat="membership in ctrl.memberships" ng-click="ctrl.goProject(membership.project);">
         <md-icon>store</md-icon>
-        <p class="md-body-2">{{ project.name }}</p>
+        <p class="md-body-2">{{ membership.project.name }}</p>
     </md-list-item>
 </md-list>
