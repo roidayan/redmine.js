@@ -1,7 +1,9 @@
 # redmine.js
 Angular based Redmine REST API client
 
-Check it out: http://roidayan.github.io/redmine.js
+Check it out as a webapp [here](http://roidayan.github.io/redmine.js)
+
+Get it from the android play store [here](https://play.google.com/store/apps/details?id=com.roidayan.redminejs)
 
 # Screenshots
 
