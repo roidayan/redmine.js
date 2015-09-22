@@ -9,11 +9,12 @@
         .module('rmProjects')
         .factory('memberships', [
             '$log',
+            '$q',
             '$localStorage',
             'userService',
             MembershipsService]);
 
-    function MembershipsService( $log, $localStorage, userService ) {
+    function MembershipsService( $log, $q, $localStorage, userService ) {
         var memberships = $localStorage.memberships || [];
 
         function saveLocal() {
