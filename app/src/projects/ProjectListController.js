@@ -11,11 +11,12 @@
           'memberships',
           '$log',
           '$location',
+          'settingsService',
           'Page',
           ProjectListController
        ]);
 
-  function ProjectListController( memberships, $log, $location, Page ) {
+  function ProjectListController( memberships, $log, $location, settingsService, Page ) {
     var self = this;
 
     self.projects = [];
@@ -25,11 +26,18 @@
 
     Page.setTitle('Projects');
 
+    if (settingsService.isConfigured())
+        setup();
+    else
+        $location.path('/settings');
+
     function goProject(project) {
         $location.path('/projects/' + project.id);
     }
 
-    self.memberships = memberships.get();
+    function setup() {
+        self.memberships = memberships.get();
+    }
 
   }
 
