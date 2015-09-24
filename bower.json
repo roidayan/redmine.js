@@ -7,12 +7,11 @@
   "private": true,
   "dependencies": {
     "angular": "^1.4.x",
-    "angular-animate": "^1.4.x",
     "angular-aria": "^1.4.x",
-    "angular-material": "^0.11.x",
-    "angular-messages": "~1.4.5",
+    "angular-messages": "^1.4.x",
     "angular-resource": "^1.4.x",
     "angular-route": "^1.4.x",
+    "angular-material": "^0.11.x",
     "fastclick": "~1.0.6",
     "ngstorage": "x"
   }
