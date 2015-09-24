@@ -21,7 +21,7 @@
     self.settings = settingsService.read() || {};
     self.save = save;
     self.predefinedServers = {
-        'hostedredmine.com': 'http://hostedredmine.com'
+        'hostedredmine.com': 'https://hostedredmine.com'
     };
     self.selectedServer = self.predefinedServers[self.settings.server] || 'custom';
 
