@@ -14,6 +14,7 @@
         'ngResource',
         'ngMessages',
         'ngStorage',
+        'ui.gravatar',
         'appSettings',
         'rmProjects',
         'rmIssues',

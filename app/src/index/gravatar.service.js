@@ -6,30 +6,35 @@
   'use strict';
 
   angular
-       .module('redmineApp')
+       .module('ui.gravatar', [])
        .factory('gravatar', ['$httpParamSerializer', '$cacheFactory', GravatarService]);
 
   function GravatarService($httpParamSerializer, $cacheFactory) {
-      var api_url = "http://www.gravatar.com/avatar/";
-      var params = "?s=24&d=identicon";
+      var api_url = "//www.gravatar.com/avatar/";
+      var params = {
+          s: 24,
+          d: 'identicon'
+      };
+      var _params = $httpParamSerializer(params);
       var cache = $cacheFactory('gravatar');
 
-      function get(mail) {
-          if (typeof mail !== 'string')
+      function getUrl(mail) {
+          if (typeof mail !== 'string') {
               return '';
+          }
 
           var url = cache.get(mail);
 
           if (!url) {
-              url = api_url + md5(mail) + params
+              url = api_url + md5(mail) + '?' + _params;
               cache.put(mail, url);
           }
 
-          return url
+          return url;
       }
 
       return {
-          get: get
+          get: getUrl
       };
   }
 

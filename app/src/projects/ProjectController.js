@@ -10,6 +10,7 @@
        .controller('ProjectController', [
           'projectService',
           'issueService',
+          'userService',
           '$localStorage',
           '$cacheFactory',
           '$log',
@@ -20,12 +21,15 @@
           ProjectController
        ]);
 
-  function ProjectController( projectService, issueService, $localStorage, $cacheFactory, $log, $location, $routeParams, $q, Page ) {
+  function ProjectController( projectService, issueService, userService,
+                              $localStorage, $cacheFactory, $log, $location,
+                              $routeParams, $q, Page ) {
     var self = this;
 
     self.projectId = $routeParams.projectId;
     self.project = null;
     self.issues = [];
+    self.users = [];
     self.total_count = 0;
     self.setup = setup;
     self.addIssue = addIssue;
@@ -116,10 +120,36 @@
             $log.debug(data);
             self.issues = data.issues;
             self.total_count = data.total_count;
+            self.issues.forEach(function(issue) {
+                getUser(issue.author.id).then(function(user) {
+                    issue['author']['mail'] = user.mail;
+                });
+            });
         }).catch(function(e) {
             if (e.status === 0 && e.statusText === '')
                 e.statusText = 'error getting project issues';
             return $q.reject(e);
+        });
+
+        return q;
+    }
+
+    function getUser(user_id) {
+        if (!user_id)
+            return $q.when(true);
+        if (self.users[user_id])
+            return $q.when(self.users[user_id]);
+
+        var q = userService.get({
+            'user_id': user_id
+        }).$promise.then(function(data) {
+            // $log.debug(data);
+            var user = data.user;
+            self.users[user.id] = user;
+            return user;
+        }).catch(function(e) {
+            $log.error("failed to get user " + user_id);
+            $q.reject();
         });
 
         return q;

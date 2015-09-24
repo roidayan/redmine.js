@@ -24,8 +24,10 @@
           IssueController
        ]);
 
-  function IssueController( issueService, userService, projectService, IssueClassFactory,
-      $routeParams, $log, $location, $localStorage, $filter, $q, $mdToast, Page, gravatar ) {
+  function IssueController( issueService, userService, projectService,
+                            IssueClassFactory, $routeParams, $log, $location,
+                            $localStorage, $filter, $q, $mdToast, Page,
+                            gravatar ) {
     var self = this;
 
     self.issueId = $routeParams.issueId;
@@ -378,33 +380,33 @@
     function setIssueItems() {
         var items = {
             'Project': {
-                'name': self.issue.project.name,
-                'click': function() { goProject(); }
+                name: self.issue.project.name,
+                click: function() { goProject(); }
             },
             'Status': {
-                'name': getFieldValue('status')
+                name: getFieldValue('status')
             },
             'Priority': {
-                'name': getFieldValue('priority')
+                name: getFieldValue('priority')
             },
             'Assignee': {
-                'name': getFieldValue('assigned_to'),
-                'avatar': ''
+                name: getFieldValue('assigned_to'),
+                avatar: ''
             },
             'Target Version': {
-                'name': getFieldValue('fixed_version')
+                name: getFieldValue('fixed_version')
             },
             'Category': {
-                'name': getFieldValue('category')
+                name: getFieldValue('category')
             },
             'Created': {
-                'name': $filter('date')(self.issue.created_on, 'medium')
+                name: $filter('date')(self.issue.created_on, 'medium')
             },
             'Updated': {
-                'name': $filter('date')(self.issue.updated_on, 'medium')
+                name: $filter('date')(self.issue.updated_on, 'medium')
             },
             '% Done': {
-                'name': self.issue.done_ratio
+                name: self.issue.done_ratio
             }
         };
 

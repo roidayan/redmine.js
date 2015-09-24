@@ -14,7 +14,7 @@
 
     <div>
         <span class="issue-attribute">Author</span>
-        <img class="issue-user-avatar" ng-if="ctrl.author.avatar" ng-src="{{ctrl.author.avatar}}" />
+        <img class="avatar" ng-if="ctrl.author.avatar" ng-src="{{ctrl.author.avatar}}" />
         <md-icon ng-if="!ctrl.author.avatar">person</md-icon>
         <span>{{::ctrl.issue.author.name}}</span>
     </div>
@@ -27,7 +27,7 @@
         <tr ng-repeat="(key, item) in ctrl.issueItems">
             <td class="issue-attribute">{{key}}</td>
             <td>
-                <img class="issue-user-avatar" ng-if="item.avatar" ng-src="{{item.avatar}}" />
+                <img class="avatar" ng-if="item.avatar" ng-src="{{item.avatar}}" />
                 <md-icon ng-if="item.avatar === ''">person</md-icon>
                 <span ng-if="::item.click" ng-click="item.click()">{{::item.name}}</span>
                 <span ng-if="::!item.click">{{::item.name || '-'}}</span>
@@ -47,7 +47,7 @@
     <md-card ng-repeat="journal in ctrl.issue.journals">
         <md-card-content>
             <div layout="row" class="issue-user-line">
-                <img class="issue-user-avatar" ng-if="ctrl.getUserAvatar(journal.user)" ng-src="{{ctrl.getUserAvatar(journal.user)}}" />
+                <img class="avatar" ng-if="ctrl.getUserAvatar(journal.user)" ng-src="{{ctrl.getUserAvatar(journal.user)}}" />
                 <md-icon ng-if="!ctrl.getUserAvatar(journal.user)">person</md-icon>
                 <span>{{journal.user.name}}</span>
                 <span flex></span>

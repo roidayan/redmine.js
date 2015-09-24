@@ -145,25 +145,23 @@ span.name {
     font-weight: 500;
 }
 
-img.issue-user-avatar {
+img.avatar {
     vertical-align: middle;
-    width: 24px;
-    height: 24px;
     width: 24px;
     height: 24px;
     margin: auto 4px auto auto;
 }
 
-md-input-container > .issue-user-avatar,
+md-input-container > .avatar,
 md-input-container > md-icon {
     top: 26px;
     left: 2px;
     position: absolute;
 }
 
-md-input-container > .issue-user-avatar + input,
-md-input-container > .issue-user-avatar + label,
-md-input-container > .issue-user-avatar + label + md-select {
+md-input-container > .avatar + input,
+md-input-container > .avatar + label,
+md-input-container > .avatar + label + md-select {
     margin-left: 36px;
 }
 

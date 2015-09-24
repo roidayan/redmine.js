@@ -10,7 +10,9 @@
        .controller('IssueListController', [
           '$scope',
           'issueService',
+          'userService',
           '$log',
+          '$q',
           '$location',
           '$localStorage',
           '$cacheFactory',
@@ -19,11 +21,14 @@
           IssueListController
        ]);
 
-  function IssueListController( $scope, issueService, $log, $location, $localStorage, $cacheFactory, Page, settingsService ) {
+  function IssueListController( $scope, issueService, userService, $log, $q,
+                                $location, $localStorage, $cacheFactory, Page,
+                                settingsService ) {
     var self = this;
 
     self.loading = false;
     self.issues = [];
+    self.users = [];
     self.total_count = 0;
 
     Page.setTitle('Issues');
@@ -71,6 +76,11 @@
             $log.debug(data);
             self.issues = data.issues;
             self.total_count = data.total_count;
+            self.issues.forEach(function(issue) {
+                getUser(issue.author.id).then(function(user) {
+                    issue['author']['mail'] = user.mail;
+                });
+            });
         });
 
         return q;
@@ -94,6 +104,27 @@
             self.loading = false;
         });
     };
+
+    function getUser(user_id) {
+        if (!user_id)
+            return $q.when(true);
+        if (self.users[user_id])
+            return $q.when(self.users[user_id]);
+
+        var q = userService.get({
+            'user_id': user_id
+        }).$promise.then(function(data) {
+            // $log.debug(data);
+            var user = data.user;
+            self.users[user.id] = user;
+            return user;
+        }).catch(function(e) {
+            $log.error("failed to get user " + user_id);
+            $q.reject();
+        });
+
+        return q;
+    }
 
     /**
      *  XXX: this breaks all $resource calls later because the timeout

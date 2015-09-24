@@ -1,10 +1,14 @@
-<md-list ng-cloak>
+<md-list class="thin" ng-cloak>
     <md-subheader class="md-no-sticky">{{listTitle}} {{getCounterTitle()}}</md-subheader>
     <md-list-item ng-repeat="issue in issues | limitTo:limit:begin" ng-click="showIssue(issue)" class="md-3-line">
         <md-icon ng-class="getTrackerClass(issue)">{{getIcon(issue)}}</md-icon>
         <div class="md-list-item-text cut-text">
             <h3 ng-class="getPriorityClass(issue)">{{issue.subject}}</h3>
-            <h4>{{issue.assigned_to.name}}</h4>
+            <div class="md-body-1">
+                <img gravatar="{{issue.author.mail || issue.author.name}}" class="avatar"></img>
+                <span>{{issue.author.name}}</span>
+                <span class="md-caption">{{issue.created_on | timeago}}</span>
+            </div>
             <p>{{issue.priority.name}}</p>
         </div>
         <md-divider></md-divider>
