@@ -10,7 +10,7 @@
        .factory('gravatar', ['$httpParamSerializer', '$cacheFactory', GravatarService]);
 
   function GravatarService($httpParamSerializer, $cacheFactory) {
-      var api_url = "//www.gravatar.com/avatar/";
+      var api_url = "http://www.gravatar.com/avatar/";
       var params = {
           s: 24,
           d: 'identicon'
