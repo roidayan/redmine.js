@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "b1ebf536-7553-4661-982a-291ed1c484db",
-      "lastModifiedDate": 1443124396092,
+      "lastModifiedDate": 1443184779507,
       "creationDate": 1441377460995
     },
     "sourceDirectory": "www",
@@ -79,12 +79,16 @@
         "appName_": "Redmine.js",
         "appID_": "com.roidayan.redminejs",
         "appAccess_": {
-          "mode": "legacy",
+          "mode": "whitelist",
           "network": [
             "*"
           ],
-          "intents": [],
-          "navigation": []
+          "intents": [
+            "*"
+          ],
+          "navigation": [
+            "*"
+          ]
         },
         "icons_": [
           {
