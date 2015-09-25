@@ -195,3 +195,17 @@ md-list-item .md-list-item-text.cut-text h3 {
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+/*
+ * issue list
+ */
+md-list-item .md-list-item-text .md-body-1 span {
+    color: rgba(0,0,0,0.54);
+    letter-spacing: 0.01em;
+    margin: 0 0 0 0;
+    line-height: 1.6em;
+    font-weight: 500;
+}
+md-list-item .md-list-item-text .md-body-1 span.name {
+    font-size: 14px;
+}

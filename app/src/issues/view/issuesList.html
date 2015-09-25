@@ -6,7 +6,7 @@
             <h3 ng-class="getPriorityClass(issue)">{{issue.subject}}</h3>
             <div class="md-body-1">
                 <img gravatar="{{issue.author.mail || issue.author.name}}" class="avatar"></img>
-                <span>{{issue.author.name}}</span>
+                <span class="name">{{issue.author.name}}</span>
                 <span class="md-caption">{{issue.created_on | timeago}}</span>
             </div>
             <p>{{issue.priority.name}}</p>
