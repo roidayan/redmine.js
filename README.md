@@ -1,4 +1,4 @@
-# redmine.js
+# Redmine.js
 Angular based Redmine REST API client
 
 Check it out as a webapp [here](http://roidayan.github.io/redmine.js)
