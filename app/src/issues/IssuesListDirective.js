@@ -31,7 +31,6 @@
                   $location.path('/issues/' + issue.id);
               };
               scope.showMore = function() {
-                  //scope.begin += scope.limit;
                   scope.limit += 10;
               };
               scope.getCounterTitle = function() {
