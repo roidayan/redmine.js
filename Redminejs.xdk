@@ -1,12 +1,12 @@
 {
   "project": {
-    "projectSettingsVersion": "1.2",
+    "projectSettingsVersion": "2.0.0",
     "creationData": {
       "type": "Import",
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "b1ebf536-7553-4661-982a-291ed1c484db",
-      "lastModifiedDate": 1442872784237,
+      "lastModifiedDate": 1443124396092,
       "creationDate": 1441377460995
     },
     "sourceDirectory": "www",
@@ -16,26 +16,51 @@
     "startFile": "index.html",
     "projectTags": [],
     "projectFiles": {},
-    "projectDirectories": {},
+    "projectDirectories": {
+      "www/xdk": {
+        "settings": {
+          "project": {
+            "XDK-generated": "true"
+          }
+        }
+      }
+    },
     "libraries": [],
     "cordovaPlugins": [
       {
-        "id": "org.apache.cordova.device",
-        "version": "0.2.13",
-        "selectedState": "Auto",
-        "data": {},
-        "paramvals": {},
-        "dependsOn": [],
-        "dependedBy": []
-      },
-      {
-        "id": "org.apache.cordova.inappbrowser",
-        "version": "0.5.4",
+        "id": "cordova-plugin-device",
+        "version": "1.0.1",
         "selectedState": "Included",
         "data": {},
         "paramvals": {},
         "dependsOn": [],
-        "dependedBy": []
+        "dependedBy": [],
+        "originType": "cordova.io",
+        "origin": "cordova-plugin-device",
+        "permissions": {},
+        "name": "Device",
+        "topLevel": true,
+        "checksum": "adfc61ba",
+        "gitref": "",
+        "description": "Cordova Device Plugin"
+      },
+      {
+        "id": "cordova-plugin-inappbrowser",
+        "version": "1.0.1",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": [],
+        "originType": "cordova.io",
+        "origin": "cordova-plugin-inappbrowser",
+        "permissions": {},
+        "name": "InAppBrowser",
+        "topLevel": true,
+        "checksum": "56efa690",
+        "gitref": "",
+        "cordovaVersion": ">=3.1.0",
+        "description": "Cordova InAppBrowser Plugin"
       }
     ],
     "serviceMethods": [],
@@ -53,11 +78,14 @@
         "isActive_": true,
         "appName_": "Redmine.js",
         "appID_": "com.roidayan.redminejs",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [
           {
             "relPath": "res/mipmap-ldpi/ic_launcher.png",
@@ -90,7 +118,7 @@
         "appVersion_": "0.8.0",
         "appVersionCode_": "2",
         "crosswalkVersion_": "11",
-        "cordovaCLIVersion_": "4.1.2",
+        "cordovaCLIVersion_": "5.1.1",
         "appDescription_": "Redmine Client",
         "appAuthor_": "Roi Dayan"
       },
@@ -106,11 +134,14 @@
         "isActive_": false,
         "appName_": "Redminejs",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
@@ -118,7 +149,7 @@
         "appVersion_": "0.0.1",
         "appVersionCode_": "1",
         "crosswalkVersion_": "11",
-        "cordovaCLIVersion_": "4.1.2"
+        "cordovaCLIVersion_": "5.1.1"
       },
       "iOS": {
         "platform_": "ios",
@@ -131,17 +162,20 @@
         "isActive_": false,
         "appName_": "Redminejs",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
         "appVersion_": "0.0.1",
-        "cordovaCLIVersion_": "4.1.2",
+        "cordovaCLIVersion_": "5.1.1",
         "iosProvs_": []
       },
       "Windows8": {
@@ -152,17 +186,20 @@
         "isActive_": false,
         "appName_": "Redminejs",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
         "appVersion_": "0.0.0.1",
-        "cordovaCLIVersion_": "4.1.2"
+        "cordovaCLIVersion_": "5.1.1"
       },
       "WebApp": {
         "platform_": "webapp",
@@ -172,11 +209,14 @@
         "isActive_": false,
         "appName_": "Redminejs",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
@@ -191,11 +231,14 @@
         "isActive_": false,
         "appName_": "Redminejs",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
@@ -210,11 +253,14 @@
         "isActive_": false,
         "appName_": "Redminejs",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
@@ -229,17 +275,42 @@
         "isActive_": false,
         "appName_": "Redminejs",
         "appID_": "not.yet.specified",
-        "appAccess_": [
-          {
-            "origin": "*"
-          }
-        ],
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [
+            "*"
+          ],
+          "intents": [],
+          "navigation": []
+        },
         "icons_": [],
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
         "appVersion_": "0.0.1"
+      },
+      "WP81": {
+        "platform_": "wp81",
+        "runtime_": "Cordova 3.x",
+        "name_": "WP81",
+        "preferences_": {},
+        "isActive_": true,
+        "appName_": "Redminejs",
+        "appID_": "not.yet.specified",
+        "appAccess_": {
+          "mode": "legacy",
+          "network": [],
+          "intents": [],
+          "navigation": []
+        },
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.0.1",
+        "cordovaCLIVersion_": "5.1.1"
       }
-    }
+    },
+    "testDirectory": "test"
   }
 }
