@@ -14,7 +14,6 @@
           '$localStorage',
           '$cacheFactory',
           '$log',
-          '$location',
           '$routeParams',
           '$q',
           'Page',
@@ -22,7 +21,7 @@
        ]);
 
   function ProjectController( projectService, issueService, userService,
-                              $localStorage, $cacheFactory, $log, $location,
+                              $localStorage, $cacheFactory, $log,
                               $routeParams, $q, Page ) {
     var self = this;
 
@@ -50,7 +49,7 @@
      */
 
     function addIssue() {
-        $location.path('/projects/' + self.projectId + '/issues/new');
+        Page.changeView('/projects/' + self.projectId + '/issues/new');
     }
 
     function setup() {

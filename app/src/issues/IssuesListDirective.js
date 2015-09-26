@@ -9,10 +9,10 @@
         .module('rmIssues')
         .directive('rmIssuesList', [
             'IssueClassFactory',
-            '$location',
+            'Page',
             IssuesListDirective]);
 
-  function IssuesListDirective( IssueClassFactory, $location ) {
+  function IssuesListDirective( IssueClassFactory, Page ) {
       return {
           restrict: 'E',
           scope: {
@@ -28,7 +28,7 @@
               scope.getPriorityClass = IssueClassFactory.getPriorityClass;
               scope.begin = 0;
               scope.showIssue = function(issue) {
-                  $location.path('/issues/' + issue.id);
+                  Page.changeView('/issues/' + issue.id);
               };
               scope.showMore = function() {
                   scope.limit += 10;

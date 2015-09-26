@@ -13,7 +13,6 @@
           'userService',
           '$log',
           '$q',
-          '$location',
           '$localStorage',
           '$cacheFactory',
           'Page',
@@ -22,7 +21,7 @@
        ]);
 
   function IssueListController( $scope, issueService, userService, $log, $q,
-                                $location, $localStorage, $cacheFactory, Page,
+                                $localStorage, $cacheFactory, Page,
                                 settingsService ) {
     var self = this;
 
@@ -39,7 +38,7 @@
     if (settingsService.isConfigured())
         setup();
     else
-        $location.path('/settings');
+        Page.changeView('/settings');
 
     function setup() {
         self.loading = true;

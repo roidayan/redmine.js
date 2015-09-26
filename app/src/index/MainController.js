@@ -10,12 +10,11 @@
        .controller('MainController', [
           '$mdSidenav',
           '$q',
-          '$location',
           'Page',
           MainController
        ]);
 
-  function MainController( $mdSidenav, $q, $location, Page ) {
+  function MainController( $mdSidenav, $q, Page ) {
     var self = this;
 
     self.toggleSidenav = toggleSidenav;
@@ -24,7 +23,7 @@
 
     self.go = function( path ) {
         closeSidenav();
-        $location.path(path);
+        Page.changeView(path);
     }
 
     self.menu_items = [

@@ -10,13 +10,13 @@
        .controller('ProjectListController', [
           'memberships',
           '$log',
-          '$location',
+          '$timeout',
           'settingsService',
           'Page',
           ProjectListController
        ]);
 
-  function ProjectListController( memberships, $log, $location, settingsService, Page ) {
+  function ProjectListController( memberships, $log, $timeout, settingsService, Page ) {
     var self = this;
 
     self.projects = [];
@@ -29,10 +29,10 @@
     if (settingsService.isConfigured())
         setup();
     else
-        $location.path('/settings');
+        Page.changeView('/settings');
 
     function goProject(project) {
-        $location.path('/projects/' + project.id);
+        Page.changeView('/projects/' + project.id);
     }
 
     function setup() {

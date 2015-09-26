@@ -14,7 +14,6 @@
           'IssueClassFactory',
           '$routeParams',
           '$log',
-          '$location',
           '$localStorage',
           '$filter',
           '$q',
@@ -25,7 +24,7 @@
        ]);
 
   function IssueController( issueService, userService, projectService,
-                            IssueClassFactory, $routeParams, $log, $location,
+                            IssueClassFactory, $routeParams, $log,
                             $localStorage, $filter, $q, $mdToast, Page,
                             gravatar ) {
     var self = this;
@@ -82,19 +81,19 @@
 
     function goProject() {
         if (self.projectId)
-            $location.path('/projects/' + self.projectId);
+            Page.changeView('/projects/' + self.projectId);
     }
 
     function editIssue() {
-        $location.path('/issues/' + self.issueId + '/edit');
+        Page.changeView('/issues/' + self.issueId + '/edit');
         //self.action = 'edit';
     }
 
     function viewIssue(issue_id) {
         if (issue_id) {
-            $location.path('/issues/' + issue_id);
+            Page.changeView('/issues/' + issue_id);
         } else if (self.issueId) {
-            $location.path('/issues/' + self.issueId);
+            Page.changeView('/issues/' + self.issueId);
         }
         //self.action = 'view';
     }
