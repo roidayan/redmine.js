@@ -48,7 +48,17 @@
           })
           .when('/projects/:projectId', {
               templateUrl: './src/projects/view/project.html',
-              controller: 'ProjectController as ctrl'
+              controller: 'ProjectController as ctrl',
+              resolve: {
+                  /**
+                   * XXX: click/touch event is being cought in the next view.
+                   * We add some timeout to avoid it.
+                   * stopPropagation() and stopImmediatePropagation() didn't solve this.
+                   */
+                  app: function($timeout) {
+                      return $timeout(function(){}, 100);
+                  }
+              }
           })
           .when('/projects/:projectId/issues/:action', {
               templateUrl: './src/issues/view/editIssue.html',
@@ -60,7 +70,17 @@
           })
           .when('/issues/:issueId', {
               templateUrl: './src/issues/view/issue.html',
-              controller: 'IssueController as ctrl'
+              controller: 'IssueController as ctrl',
+              resolve: {
+                  /**
+                   * XXX: click/touch event is being cought in the next view.
+                   * We add some timeout to avoid it.
+                   * stopPropagation() and stopImmediatePropagation() didn't solve this.
+                   */
+                  app: function($timeout) {
+                      return $timeout(function(){}, 100);
+                  }
+              }
           })
           .when('/issues/:issueId/:action', {
               templateUrl: './src/issues/view/editIssue.html',
