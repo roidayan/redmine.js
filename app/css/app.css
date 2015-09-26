@@ -191,3 +191,6 @@ md-list-item .md-list-item-text .md-body-1 span {
 md-list-item .md-list-item-text .md-body-1 span.name {
     font-size: 14px;
 }
+md-list-item .md-list-item-text h3.title {
+    line-height: 2em !important;
+}
