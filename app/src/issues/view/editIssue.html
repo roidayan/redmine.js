@@ -5,7 +5,7 @@
         <div layout layout-wrap layout-sm="column">
             <md-input-container ng-repeat="field in ctrl.issueFields"
                                 ng-disabled="!ctrl.loading"
-                                flex="{{field.flex || 33}}"
+                                flex="{{field.flex}}"
                                 ng-if="field.show === undefined || field.show()">
                 <!-- <img class="issue-user-avatar icon" ng-if="field.avatar()" ng-src="{{field.avatar()}}" />
                 <md-icon class="icon" ng-if="field.avatar() === ''">person</md-icon> -->
