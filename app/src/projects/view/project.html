@@ -5,7 +5,7 @@
     <md-icon>add</md-icon>
 </md-button>
 
-<chips-filter ng-if="ctrl.statuses"
+<chips-filter ng-if="ctrl.statuses && ctrl.issues.length > 0"
               placeholder="Status"
               items="ctrl.statuses"
               selected-items="ctrl.selectedStatuses"

@@ -1,6 +1,6 @@
 <md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
-<chips-filter ng-if="ctrl.statuses"
+<chips-filter ng-if="ctrl.statuses && ctrl.issues.length > 0"
               placeholder="Status"
               items="ctrl.statuses"
               selected-items="ctrl.selectedStatuses"
