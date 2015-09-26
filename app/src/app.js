@@ -13,6 +13,7 @@
         'ngRoute',
         'ngResource',
         'ngMessages',
+        'ngSanitize',
         'ngStorage',
         'ui.gravatar',
         'appSettings',

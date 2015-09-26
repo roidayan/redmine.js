@@ -6,7 +6,7 @@
   'use strict';
 
   angular.module('rmIssues', [
-      'ngMaterial', 'ngResource', 'ngMessages', 'ngStorage',
+      'ngMaterial', 'ngResource', 'ngMessages', 'ngStorage', 'ngSanitize',
       'rmUsers', 'appSettings', 'rmProjects', 'ui.gravatar' ]);
 
 })();

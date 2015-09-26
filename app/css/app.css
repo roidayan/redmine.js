@@ -127,13 +127,6 @@ span.name {
     color: #24A238;
 }
 
-/* issue page style */
-
-.issue-description,
-.journal-notes {
-    white-space: pre-wrap;
-}
-
 /*.issue-priority-high {
     color: #900 !important;
     background-color: #FFE8E8;
