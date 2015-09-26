@@ -1,4 +1,4 @@
-<md-list class="thin" ng-cloak>
+<md-list ng-cloak>
     <md-subheader class="md-no-sticky">{{listTitle}} {{getCounterTitle()}}</md-subheader>
     <md-list-item ng-repeat="issue in issues | limitTo:limit:begin" ng-click="showIssue(issue)" class="md-3-line">
         <md-icon ng-class="getTrackerClass(issue)">{{getIcon(issue)}}</md-icon>
