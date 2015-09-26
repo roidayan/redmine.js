@@ -166,7 +166,7 @@
           },
           addParam: addParam,
           addParams: addParams
-      }
+      };
   }
 
 })();

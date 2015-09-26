@@ -110,7 +110,7 @@
                     return item.id;
                 }
             );
-            params['status_id'] = ids.join('|');
+            params.status_id = ids.join('|');
         }
 
         // params = issueService.addParams(params, {});
@@ -121,7 +121,7 @@
             self.total_count = data.total_count;
             self.issues.forEach(function(issue) {
                 getUser(issue.author.id).then(function(user) {
-                    issue['author']['mail'] = user.mail;
+                    issue.author.mail = user.mail;
                 });
             });
         }).catch(function(e) {

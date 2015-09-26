@@ -15,7 +15,7 @@
                 return '';
             }
             return textile(input);
-        }
+        };
     }
 
 })();

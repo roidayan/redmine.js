@@ -22,7 +22,7 @@
                   element.attr('src', gravatar.get(value));
               });
           }
-      }
+      };
   }
 
 })();

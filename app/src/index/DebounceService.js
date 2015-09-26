@@ -14,6 +14,7 @@
           var timeout, args, context, result;
 
           function debounce() {
+            /* jshint validthis: true */
             context = this;
             args = arguments;
 

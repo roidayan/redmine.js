@@ -65,7 +65,7 @@
                 return span;
 
             return (time <= local) ? span + ' ago' : 'in ' + span;
-        }
+        };
     }
 
 })();

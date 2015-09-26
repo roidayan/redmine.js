@@ -52,14 +52,17 @@
               }
 
               function queryUnselectedItems() {
-                  if (!scope.items)
-                    return [];
+                  if (!scope.items) {
+                      return [];
+                  }
                   var d = {};
-                  for (var i = 0; i < scope.selectedItems.length; i++) {
+                  var results = [];
+                  var i;
+
+                  for (i = 0; i < scope.selectedItems.length; i++) {
                       d[scope.selectedItems[i].id] = true;
                   }
-                  var results = [];
-                  for (var i = 0; i < scope.items.length; i++) {
+                  for (i = 0; i < scope.items.length; i++) {
                       if (!d[scope.items[i].id])
                         results.push(scope.items[i]);
                   }

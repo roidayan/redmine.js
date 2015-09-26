@@ -37,7 +37,7 @@
                     $p.off('scroll', onScroll);
                 });
             }
-        }
+        };
     }
 
 })();

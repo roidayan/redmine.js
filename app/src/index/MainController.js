@@ -24,7 +24,7 @@
     self.go = function( path ) {
         closeSidenav();
         Page.changeView(path);
-    }
+    };
 
     self.menu_items = [
         {

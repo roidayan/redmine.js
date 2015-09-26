@@ -31,7 +31,7 @@
 
           var _i = _icon[issue.tracker.name] ? _icon[issue.tracker.name] : '';
 
-          if (_i == '')
+          if (_i === '')
               $log.debug("no icon for " + issue.tracker.name);
 
           return _i;
@@ -40,7 +40,7 @@
       function getIcon(issue) {
           var _i = _getIcon(issue);
 
-          return _i == '' ? '' : _i.icon;
+          return _i === '' ? '' : _i.icon;
       }
 
       function getTrackerClass(issue) {

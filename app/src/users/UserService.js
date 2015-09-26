@@ -53,7 +53,7 @@
           get: function() {
               return getResource().get.apply(this, arguments);
           }
-      }
+      };
   }
 
 })();
