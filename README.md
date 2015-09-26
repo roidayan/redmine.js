@@ -1,5 +1,10 @@
 # Redmine.js
+
+[![GitHub version](https://badge.fury.io/gh/roidayan%2Fredmine.js.svg)](http://badge.fury.io/gh/roidayan%2Fredmine.js)
+[![GitHub license](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://raw.githubusercontent.com/roidayan/redmine.js/master/LICENSE)
+
 Angular based Redmine REST API client
+
 
 Check it out as a webapp [here](http://roidayan.github.io/redmine.js)
 
