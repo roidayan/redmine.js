@@ -40,7 +40,7 @@ var gulp 			= require('gulp'),
 	cssmin			= require('gulp-cssmin'),
 	rename         	= require('gulp-rename'),
 	streamqueue    	= require('streamqueue'),
-	path 			= require('path');
+	path 			= require('path'),
 	del 			= require('del'),
 	sequence 		= require('run-sequence'),
 	bower 			= require('main-bower-files'),
@@ -99,11 +99,11 @@ gulp.task('js', function() {
 	.pipe(gulpif('**/app.js' && config.production, replace(/appVersion',[\s\w\d.']+/, 'appVersion\', \''+pkg.version+'\'')))
     .pipe(gulpif(!config.production, sourcemaps.init()))
     .pipe(ngAnnotate())
+	.pipe(uglify())
     .pipe(concat('app.js'))
-    .pipe(uglify())
     .pipe(rename({suffix: '.min'}))
-    .pipe(gulpif(!config.production, sourcemaps.write('.')))
 	.pipe(header(banner, {pkg: pkg}))
+    .pipe(gulpif(!config.production, sourcemaps.write('.')))
     .pipe(gulp.dest(path.join(config.dest, 'js')));
 });
 
@@ -114,8 +114,8 @@ gulp.task('css', function() {
       gulp.src(config.src.css)
     )
     .pipe(gulpif(!config.production, sourcemaps.init()))
+	.pipe(cssmin())
     .pipe(concat('app.css'))
-    .pipe(cssmin())
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!config.production, sourcemaps.write('.')))
 	.pipe(header(banner, {pkg: pkg}))
@@ -142,7 +142,7 @@ gulp.task('bower', function() {
 		.pipe(cssFilter.restore)
 		.pipe(rename(function(path) {
 			if (~path.dirname.indexOf('fonts')) {
-				path.dirname = '/fonts'
+				path.dirname = '/fonts';
 			}
 		}));
 });
