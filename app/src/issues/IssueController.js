@@ -69,6 +69,13 @@
     else
         Page.setTitle('Issue');
 
+    Page.setBackButton(function(){
+        if (self.action === 'edit')
+            viewIssue();
+        else
+            goProject();
+    });
+
     if (self.issueId)
         Page.setExtLink(issueService.getUrl(self.issueId));
 

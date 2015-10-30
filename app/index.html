@@ -35,8 +35,15 @@
         <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
             <md-toolbar layout="row" class="md-whiteframe-z1">
                 <div class="md-toolbar-tools">
-                  <md-button class="md-icon-button menu" hide-gt-md ng-click="ctrl.toggleSidenav()" aria-label="Show Sidenav">
-                      <md-icon aria-label="menu">menu</md-icon>
+                  <md-button class="md-icon-button menu" hide-gt-md ng-click="ctrl.toggleSidenav()" aria-label="Show Sidenav"
+                             ng-if="!ctrl.page.showBackButton()">
+                      <md-icon aria-label="Menu">menu</md-icon>
+                  </md-button>
+                  <md-button class="md-icon-button"
+                             aria-label="Back"
+                             ng-if="ctrl.page.showBackButton()"
+                             ng-click="ctrl.page.backButton()">
+                      <md-icon>arrow_back</md-icon>
                   </md-button>
                   <h2 class="md-title fill-height">{{ctrl.page.title()}}</h2>
                   <span flex></span>
