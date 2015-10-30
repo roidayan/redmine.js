@@ -13,8 +13,9 @@ var config = {
 		css: ['./app/assets/*.css'],
 		js: ['./app/src/**/*.js'],
 		views: ['./app/src/**/view/*.html'],
-		images: ['./app/images/*.png'],
-		launcher: ['./assets/launcher/**/*.png']
+		images: ['./app/assets/images/*.png'],
+		launcher: ['./assets/launcher/**/*.png'],
+		fonts: ['./app/assets/fonts/*']
 	}
 };
 
@@ -65,12 +66,8 @@ gulp.task('index', function() {
 gulp.task('clean', function() {
   del.sync([
     path.join(config.dest, 'index.html'),
-    path.join(config.dest, 'images'),
     path.join(config.dest, 'res'),
-    path.join(config.dest, 'icons'),
-    path.join(config.dest, 'css'),
-    path.join(config.dest, 'js'),
-    path.join(config.dest, 'fonts')
+    path.join(config.dest, 'assets')
   ]);
 });
 
@@ -78,7 +75,7 @@ gulp.task('clean', function() {
 gulp.task('images', function() {
   return gulp.src(config.src.images)
     .pipe(optipng()())
-    .pipe(gulp.dest(path.join(config.dest, 'images')));
+    .pipe(gulp.dest(path.join(config.dest, 'assets/images')));
 });
 
 /* optimize launcher images */
@@ -104,7 +101,7 @@ gulp.task('js', function() {
     .pipe(rename({suffix: '.min'}))
 	.pipe(header(banner, {pkg: pkg}))
     .pipe(gulpif(!config.production, sourcemaps.write('.')))
-    .pipe(gulp.dest(path.join(config.dest, 'js')));
+    .pipe(gulp.dest(path.join(config.dest, 'assets')));
 });
 
 /* compile and minify css */
@@ -119,7 +116,13 @@ gulp.task('css', function() {
     .pipe(rename({suffix: '.min'}))
     .pipe(gulpif(!config.production, sourcemaps.write('.')))
 	.pipe(header(banner, {pkg: pkg}))
-    .pipe(gulp.dest(path.join(config.dest, 'css')));
+    .pipe(gulp.dest(path.join(config.dest, 'assets')));
+});
+
+/* copy fonts */
+gulp.task('fonts', function() {
+  return gulp.src(config.src.fonts)
+    .pipe(gulp.dest(path.join(config.dest, 'assets/fonts')));
 });
 
 /**
@@ -152,8 +155,8 @@ gulp.task('html', function() {
 	var target = gulp.src('./app/index.html').pipe(gulp.dest(config.dest));
 
 	var sources = gulp.src([
-		path.join(config.dest, 'js/*.js'),
-		path.join(config.dest, 'css/*.css'),
+		path.join(config.dest, 'assets/*.js'),
+		path.join(config.dest, 'assets/*.css'),
 	], {read: false});
 	var extra = ['<script src="cordova.js"></script>'];
 
