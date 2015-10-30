@@ -187,9 +187,9 @@
         };
 
         self.issue.relations.forEach(function(relation) {
+            var rel;
             switch (relation.relation_type) {
                 case 'blocks':
-                    var rel;
                     if (relation.issue_id === self.issue.id) {
                         relation.text = 'Blocks #' + relation.issue_to_id;
                         relation.target_issue_id = relation.issue_to_id;
@@ -199,7 +199,7 @@
                     }
                     break;
                 default:
-                    var rel = type_to_text[relation.relation_type] ?
+                    rel = type_to_text[relation.relation_type] ?
                                 type_to_text[relation.relation_type] :
                                     relation.relation_type;
                     var target_issue_id = relation.issue_id !== self.issue.id ?
@@ -284,13 +284,13 @@
     function getFieldValue(item) {
         if (!self.issue || !item)
             return '';
-        return self.issue[item] ? self.issue[item]['name'] : '';
+        return self.issue[item] ? self.issue[item].name : '';
     }
 
     function getFieldId(item) {
         if (!self.issue || !item)
             return '';
-        return self.issue[item] ? self.issue[item]['id'] : '';
+        return self.issue[item] ? self.issue[item].id : '';
     }
 
     function setIssueFields() {
@@ -304,7 +304,7 @@
                 value: getFieldId('tracker'),
                 required: true,
                 type: 'select',
-                choices: function() { return self.meta['trackers'] || {}; }
+                choices: function() { return self.meta.trackers || {}; }
             },
             {
                 label: 'Subject',
@@ -326,7 +326,7 @@
                 value: getFieldId('status'),
                 required: true,
                 type: 'select',
-                choices: function() { return self.meta['statuses'] || {}; }
+                choices: function() { return self.meta.statuses || {}; }
             },
             {
                 label: 'Priority',
@@ -334,7 +334,7 @@
                 value: getFieldId('priority'),
                 required: true,
                 type: 'select',
-                choices: function() { return self.meta['priorities'] || {}; }
+                choices: function() { return self.meta.priorities || {}; }
             },
             {
                 label: 'Assignee',
@@ -346,14 +346,14 @@
                     return self.users[_id] ? self.users[_id].avatar : '';
                 },
                 type: 'select',
-                choices: function() { return self.meta['memberships'] || {}; }
+                choices: function() { return self.meta.memberships || {}; }
             },
             {
                 label: 'Target Version',
                 key: 'fixed_version_id',
                 value: getFieldId('fixed_version'),
                 type: 'select',
-                choices: function() { return self.meta['versions'] || {}; },
+                choices: function() { return self.meta.versions || {}; },
                 show: function() { return !self.isEmptyObject(this.choices()); }
             },
             {
@@ -361,7 +361,7 @@
                 key: 'category_id',
                 value: getFieldId('category'),
                 type: 'select',
-                choices: function() { return self.meta['categories'] || {}; },
+                choices: function() { return self.meta.categories || {}; },
                 show: function() { return !self.isEmptyObject(this.choices()); }
             },
             {
@@ -441,7 +441,7 @@
             $log.debug(data);
             self.assignee = data.user;
             self.assignee.avatar = gravatar.get(self.assignee.mail);
-            self.issueItems['Assignee']['avatar'] = self.assignee.avatar;
+            self.issueItems.Assignee.avatar = self.assignee.avatar;
             self.users[self.assignee.id] = self.assignee;
         }).catch(function(e) {
             $log.error("failed to get assignee " + assigned_to_id);
@@ -487,13 +487,13 @@
             'project_id': self.projectId,
         }).$promise.then(function(data) {
             $log.debug(data);
-            self.meta['categories'] = data.project.issue_categories;
-            self.meta['trackers'] = data.project.trackers;
+            self.meta.categories = data.project.issue_categories;
+            self.meta.trackers = data.project.trackers;
             data.project.issue_categories.forEach(function(category) {
-                self.meta['category_id'][category.id] = category.name;
+                self.meta.category_id[category.id] = category.name;
             });
             data.project.trackers.forEach(function(tracker) {
-                self.meta['tracker_id'][tracker.id] = tracker.name;
+                self.meta.tracker_id[tracker.id] = tracker.name;
             });
         });
 
@@ -511,9 +511,9 @@
             'query': 'versions'
         }).$promise.then(function(data) {
             $log.debug(data);
-            self.meta['versions'] = data.versions;
+            self.meta.versions = data.versions;
             data.versions.forEach(function(version) {
-                self.meta['fixed_version_id'][version.id] = version.name;
+                self.meta.fixed_version_id[version.id] = version.name;
             });
         });
 
@@ -531,9 +531,9 @@
             'query': 'memberships'
         }).$promise.then(function(data) {
             $log.debug(data);
-            self.meta['memberships'] = [];
+            self.meta.memberships = [];
             for (var i = 0; i < data.memberships.length; i++) {
-                self.meta['memberships'].push(data.memberships[i].user);
+                self.meta.memberships.push(data.memberships[i].user);
             }
         });
 
@@ -543,9 +543,9 @@
     function getIssueStatuses() {
         var q = issueService.queryStatuses().$promise.then(function(data) {
             $log.debug(data);
-            self.meta['statuses'] = data.issue_statuses;
+            self.meta.statuses = data.issue_statuses;
             data.issue_statuses.forEach(function(status) {
-                self.meta['status_id'][status.id] = status.name;
+                self.meta.status_id[status.id] = status.name;
             });
         });
 
@@ -555,9 +555,9 @@
     function getIssuePriorities() {
         var q = issueService.queryPriorities().$promise.then(function(data) {
             $log.debug(data);
-            self.meta['priorities'] = data.issue_priorities;
+            self.meta.priorities = data.issue_priorities;
             data.issue_priorities.forEach(function(priority) {
-                self.meta['priority_id'][priority.id] = priority.name;
+                self.meta.priority_id[priority.id] = priority.name;
             });
         });
 
@@ -599,7 +599,7 @@
             });
         } else if (self.projectId) {
             // new Issue
-            post_fields['project_id'] = self.projectId;
+            post_fields.project_id = self.projectId;
             issueService.save({'issue': post_fields})
                 .$promise.then(function(response) {
                     $log.debug('created new issue');
