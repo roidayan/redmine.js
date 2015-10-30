@@ -194,3 +194,11 @@ md-list-item .md-list-item-text .md-body-1 span.name {
 md-list-item .md-list-item-text h3.title {
     line-height: 2em !important;
 }
+
+.journal-notes {
+    overflow-x: hidden;
+}
+
+.journal-notes > pre {
+    overflow-x: scroll;
+}
