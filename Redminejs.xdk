@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "b1ebf536-7553-4661-982a-291ed1c484db",
-      "lastModifiedDate": 1443287355800,
+      "lastModifiedDate": 1446249484820,
       "creationDate": 1441377460995
     },
     "sourceDirectory": "www",
@@ -27,23 +27,6 @@
     },
     "libraries": [],
     "cordovaPlugins": [
-      {
-        "id": "cordova-plugin-device",
-        "version": "1.0.1",
-        "selectedState": "Included",
-        "data": {},
-        "paramvals": {},
-        "dependsOn": [],
-        "dependedBy": [],
-        "originType": "cordova.io",
-        "origin": "cordova-plugin-device",
-        "permissions": {},
-        "name": "Device",
-        "topLevel": true,
-        "checksum": "adfc61ba",
-        "gitref": "",
-        "description": "Cordova Device Plugin"
-      },
       {
         "id": "cordova-plugin-inappbrowser",
         "version": "1.0.1",
@@ -73,7 +56,7 @@
           "android-minSdkVersion": "19",
           "android-targetSdkVersion": "22",
           "android-installLocation": "auto",
-          "android-signed": true
+          "android-signed": false
         },
         "isActive_": true,
         "appName_": "Redmine.js",
@@ -119,8 +102,8 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
-        "appVersion_": "0.9.0",
-        "appVersionCode_": "3",
+        "appVersion_": "0.10.0",
+        "appVersionCode_": "4",
         "crosswalkVersion_": "11",
         "cordovaCLIVersion_": "5.1.1",
         "appDescription_": "Redmine Client",
