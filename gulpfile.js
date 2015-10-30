@@ -10,7 +10,7 @@ var config = {
 
 	src: {
 		/* warning: beware of ./app/bower_components */
-		css: ['./app/css/*.css'],
+		css: ['./app/assets/*.css'],
 		js: ['./app/src/**/*.js'],
 		views: ['./app/src/**/view/*.html'],
 		images: ['./app/images/*.png'],
