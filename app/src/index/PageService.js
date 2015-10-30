@@ -11,15 +11,12 @@
 
   function PageService($window, $location) {
       var title = 'title';
-      var rightButton = {};
       var extLink = '';
 
       function reset() {
           /* jshint validthis: true */
           this.setTitle('');
           this.setExtLink('');
-          this.isFavorite = null;
-          this.toggleFavorite = null;
       }
 
       function changeView(view) {
@@ -31,13 +28,9 @@
           reset: reset,
           title: function() { return title; },
           setTitle: function(newTitle) { title = newTitle; },
-          rightButton: function() { return rightButton; },
-          setRightButton: function(icon, cb) { rightButton = {'cb': cb, 'icon': icon }; },
           getExtLink: function() { return extLink; },
           setExtLink: function(link) { extLink = link; },
           openExtLink: function() { $window.open(extLink, '_system'); },
-          isFavorite: null,
-          toggleFavorite: null
       };
   }
 

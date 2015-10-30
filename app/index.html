@@ -40,24 +40,12 @@
                   </md-button>
                   <h2 class="md-title fill-height">{{ctrl.page.title()}}</h2>
                   <span flex></span>
-                  <!-- <md-button class="md-icon-button" ng-click="null" aria-label="Refresh">
-                      <md-icon>refresh</md-icon>
-                  </md-button> -->
                   <md-button class="md-icon-button"
                              aria-label="Open link"
                              ng-if="ctrl.page.getExtLink()"
                              ng-click="ctrl.page.openExtLink()">
                       <md-icon>open_in_new</md-icon>
                   </md-button>
-                  <md-button class="md-icon-button"
-                             aria-label="Favorite"
-                             ng-if="ctrl.page.isFavorite !== null"
-                             ng-click="ctrl.page.toggleFavorite()">
-                      <md-tooltip>Favorite</md-tooltip>
-                      <md-icon ng-if="ctrl.page.isFavorite()">star</md-icon>
-                      <md-icon ng-if="!ctrl.page.isFavorite()">star_border</md-icon>
-                  </md-button>
-
                 </div>
             </md-toolbar>
 
