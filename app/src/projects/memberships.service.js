@@ -30,16 +30,17 @@
                 memberships.length = 0;
                 angular.extend(memberships, data.user.memberships);
                 saveLocal();
+                return memberships;
             }).catch(function(e) {
-                $log.error("failed to get memberships");
-                $q.reject();
+                return $q.reject("Failed to get memberships");
             });
 
             return q;
         }
 
         return {
-            get: function(){ getMemberships(); return memberships; }
+            getMemberships: getMemberships,
+            getLocal: function() { return memberships; }
         };
     }
 

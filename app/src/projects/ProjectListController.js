@@ -19,10 +19,9 @@
   function ProjectListController( memberships, $log, $timeout, settingsService, Page ) {
     var self = this;
 
-    self.projects = [];
+    self.memberships = [];
+    self.setup = setup;
     self.goProject = goProject;
-    self.loading = 100;
-    self.total_count = 0;
 
     Page.setTitle('Projects');
 
@@ -36,7 +35,14 @@
     }
 
     function setup() {
-        self.memberships = memberships.get();
+        self.errorLoading = false;
+        self.errorMessage = '';
+        self.memberships = memberships.getLocal();
+        memberships.getMemberships().catch(function(err) {
+            $log.error(err);
+            self.errorLoading = true;
+            self.errorMessage = err;
+        });
     }
 
   }

@@ -1,5 +1,12 @@
 <md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
+<div class="md-padding" ng-if="ctrl.errorLoading">
+    <div class="md-warn">
+        {{ctrl.errorMessage}}
+    </div>
+    <md-button class="md-warn" ng-click="ctrl.setup()">Retry</md-button>
+</div>
+
 <chips-filter ng-if="ctrl.statuses && ctrl.issues.length > 0"
               placeholder="Status"
               items="ctrl.statuses"

@@ -42,13 +42,15 @@
 
     function setup() {
         self.loading = true;
+        self.errorLoading = false;
+        self.errorMessage = '';
         getIssueStatuses();
         getIssues().then(function() {
             self.loading = false;
         }).catch(function(e) {
             self.loading = false;
-            // self.errorLoading = true;
-            // self.errorMessage = e.statusText || 'error occured';
+            self.errorLoading = true;
+            self.errorMessage = e.statusText || 'error occured';
             $log.debug('error');
             $log.debug(e);
         });
