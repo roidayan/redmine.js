@@ -123,6 +123,10 @@ span.name {
     color: #4747FF;
 }
 
+.issue-tracker-default {
+    color: #3F51B5;
+}
+
 .project-list-item md-icon {
     color: #24A238;
 }

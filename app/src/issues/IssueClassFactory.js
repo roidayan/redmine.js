@@ -3,59 +3,71 @@
  * @license GPLv2
  */
 (function(){
-  'use strict';
+    'use strict';
 
-  angular
-        .module('rmIssues')
-        .factory('IssueClassFactory', IssueClassFactory);
+    angular
+    .module('rmIssues')
+    .factory('IssueClassFactory', [
+        '$log',
+        IssueClassFactory
+    ]);
 
-  function IssueClassFactory() {
-      var _icon = {
-          'Bug': {
-              icon: 'bug_report'
-          },
-          'Feature': {
-              icon: 'description'
-          },
-          'Task': {
-              icon: 'class'
-          }
-      };
+    function IssueClassFactory( $log ) {
+        var _trackers = {
+            1: {
+                name: 'bug',
+                icon: 'bug_report'
+            },
+            2: {
+                name: 'feature',
+                icon: 'description'
+            },
+            4: {
+                name: 'task',
+                icon: 'class'
+            },
+            'default': {
+                name: 'default',
+                icon: 'label'
+            }
+        };
 
-      function _getIcon(issue) {
-          if (!issue || !issue.tracker) {
-              $log.error('cannot get icon');
-              $log.debug(issue);
-              return '';
-          }
+        function _getTracker(issue) {
+            if (!issue || !issue.tracker) {
+                $log.error('missing issue tracker');
+                $log.debug(issue);
+                return '';
+            }
 
-          var _i = _icon[issue.tracker.name] ? _icon[issue.tracker.name] : '';
+            var id = issue.tracker.id || 'default';
+            var _i = _trackers[id] ? _trackers[id] : _trackers['default'];
 
-          if (_i === '')
-              $log.debug("no icon for " + issue.tracker.name);
+            return _i;
+        }
 
-          return _i;
-      }
+        function getIcon(issue) {
+            var _i = _getTracker(issue);
 
-      function getIcon(issue) {
-          var _i = _getIcon(issue);
+            return _i === '' ? '' : _i.icon;
+        }
 
-          return _i === '' ? '' : _i.icon;
-      }
+        function getTrackerClass(issue) {
+            var _i = _getTracker(issue);
 
-      function getTrackerClass(issue) {
-          return issue.tracker ? 'issue-tracker-' + issue.tracker.name.toLowerCase() : '';
-      }
+            return 'issue-tracker-' + _i.name.toLowerCase();
+        }
 
-      function getPriorityClass(issue) {
-          return 'issue-priority-' + issue.priority.name.toLowerCase();
-      }
+        function getPriorityClass(issue) {
+            var _i = _getTracker(issue);
 
-      return {
-          getIcon: getIcon,
-          getTrackerClass: getTrackerClass,
-          getPriorityClass: getPriorityClass
-      };
-  }
+            return 'issue-priority-' + _i.name.toLowerCase();
+        }
+
+        return {
+            getIcon: getIcon,
+            getTrackerClass: getTrackerClass,
+            getPriorityClass: getPriorityClass
+        };
+    }
 
 })();
