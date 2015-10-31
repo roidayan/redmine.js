@@ -170,7 +170,7 @@ gulp.task('html', function() {
 gulp.task('build', function(cb) {
 	sequence(
 		'clean',
-		['bower', 'images', 'launcher'],
+		['bower', 'images', 'launcher', 'fonts'],
 		['js', 'css'],
 		'html',
 		cb);
