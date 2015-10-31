@@ -1,6 +1,6 @@
 {
   "name": "redmine.js",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Angular based Redmine REST API client",
   "license": "GPLv2",
   "private": true,
