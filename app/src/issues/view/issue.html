@@ -54,9 +54,7 @@
                 <span>{{journal.created_on | timeago}}</span>
             </div>
             <ul>
-                <li ng-repeat="detail in journal.details">
-                    {{detail.text || "[loading]"}}
-                </li>
+                <li ng-repeat="detail in journal.details" ng-bind-html="detail.text"></li>
             </ul>
             <p class="journal-notes" ng-bind-html='journal.notes | textile'></p>
         </md-card-content>

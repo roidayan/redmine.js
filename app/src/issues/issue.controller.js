@@ -183,40 +183,42 @@
         return q;
     }
 
+    function updateRelation(relation) {
+        var type_to_text = {
+            'relates': 'Related to'
+        };
+
+        switch (relation.relation_type) {
+            case 'blocks':
+                if (relation.issue_id === self.issue.id) {
+                    relation.text = 'Blocks #' + relation.issue_to_id;
+                    relation.target_issue_id = relation.issue_to_id;
+                } else {
+                    relation.text = 'Blocked by #' + relation.issue_id;
+                    relation.target_issue_id = relation.issue_id;
+                }
+                break;
+            default:
+                var rel = type_to_text[relation.relation_type] ?
+                            type_to_text[relation.relation_type] :
+                                relation.relation_type;
+                var target_issue_id = relation.issue_id !== self.issue.id ?
+                                        relation.issue_id :
+                                        relation.issue_to_id;
+                relation.text = rel + ' #' + target_issue_id;
+                relation.target_issue_id = target_issue_id;
+                break;
+        }
+        return relation;
+    }
+
     function updateRelations() {
         $log.debug('update relations');
 
         if (!self.issue.relations)
             return;
 
-        var type_to_text = {
-            'relates': 'Related to'
-        };
-
-        self.issue.relations.forEach(function(relation) {
-            var rel;
-            switch (relation.relation_type) {
-                case 'blocks':
-                    if (relation.issue_id === self.issue.id) {
-                        relation.text = 'Blocks #' + relation.issue_to_id;
-                        relation.target_issue_id = relation.issue_to_id;
-                    } else {
-                        relation.text = 'Blocked by #' + relation.issue_id;
-                        relation.target_issue_id = relation.issue_id;
-                    }
-                    break;
-                default:
-                    rel = type_to_text[relation.relation_type] ?
-                                type_to_text[relation.relation_type] :
-                                    relation.relation_type;
-                    var target_issue_id = relation.issue_id !== self.issue.id ?
-                                            relation.issue_id :
-                                            relation.issue_to_id;
-                    relation.text = rel + ' #' + target_issue_id;
-                    relation.target_issue_id = target_issue_id;
-                    break;
-            }
-        });
+        self.issue.relations.forEach(updateRelation);
     }
 
     function updateJournals() {
@@ -233,7 +235,10 @@
             'category_id':      'Category',
             'subject':          'Subject',
             'done_ratio':       '% Done',
-            'tracker_id':       'Tracker'
+            'tracker_id':       'Tracker',
+            'label_blocks':     'Blocks',
+            'label_blocked_by': 'Blocked by',
+            'label_relates_to': 'Related to'
         };
 
         self.issue.journals.forEach(function(journal) {
@@ -254,6 +259,10 @@
                 }
 
                 function updateText(detail) {
+                    if (detail.property == 'relation') {
+                        new_value = '<a href="#/issues/'+detail.new_value+'">' + new_value + '</a>';
+                        old_value = '<a href="#/issues/'+detail.old_value+'">' + old_value + '</a>';
+                    }
                     if (detail.name == 'description')
                         detail.text = "Description updated";
                     else if (!detail.old_value)
