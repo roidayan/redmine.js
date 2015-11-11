@@ -6,7 +6,7 @@
   'use strict';
 
   angular.module('rmUsers')
-         .factory('userService', [
+         .service('userService', [
              '$resource',
              '$cacheFactory',
              'settingsService',

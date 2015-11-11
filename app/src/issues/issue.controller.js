@@ -11,7 +11,7 @@
           'issueService',
           'userService',
           'projectService',
-          'IssueClassFactory',
+          'IssueClass',
           '$routeParams',
           '$log',
           '$localStorage',
@@ -24,7 +24,7 @@
        ]);
 
   function IssueController( issueService, userService, projectService,
-                            IssueClassFactory, $routeParams, $log,
+                            IssueClass, $routeParams, $log,
                             $localStorage, $filter, $q, $mdToast, Page,
                             gravatar ) {
     var self = this;
@@ -168,8 +168,8 @@
             setIssueFields();
             updateRelations();
             updateJournals();
-            self.issueIcon = IssueClassFactory.getIcon(self.issue);
-            self.issueIconClass = IssueClassFactory.getTrackerClass(self.issue);
+            self.issueIcon = IssueClass.getIcon(self.issue);
+            self.issueIconClass = IssueClass.getTrackerClass(self.issue);
             var promises = [
                 getAuthor(),
                 getAssignee()

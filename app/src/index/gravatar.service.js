@@ -7,7 +7,7 @@
 
   angular
        .module('ui.gravatar', [])
-       .factory('gravatar', ['$httpParamSerializer', '$cacheFactory', GravatarService]);
+       .service('gravatar', ['$httpParamSerializer', '$cacheFactory', GravatarService]);
 
   function GravatarService($httpParamSerializer, $cacheFactory) {
       var api_url = "http://www.gravatar.com/avatar/";

@@ -7,7 +7,7 @@
 
   angular
         .module('rmIssues')
-        .factory('issueService', [
+        .service('issueService', [
             '$resource',
             '$q',
             '$log',

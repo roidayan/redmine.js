@@ -7,7 +7,7 @@
 
     angular
         .module('rmProjects')
-        .factory('memberships', [
+        .service('memberships', [
             '$log',
             '$q',
             '$localStorage',

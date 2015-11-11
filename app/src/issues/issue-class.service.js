@@ -7,12 +7,12 @@
 
     angular
     .module('rmIssues')
-    .factory('IssueClassFactory', [
+    .service('IssueClass', [
         '$log',
-        IssueClassFactory
+        IssueClass
     ]);
 
-    function IssueClassFactory( $log ) {
+    function IssueClass( $log ) {
         var _trackers = {
             1: {
                 name: 'bug',

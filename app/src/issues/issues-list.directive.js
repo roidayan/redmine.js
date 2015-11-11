@@ -8,11 +8,11 @@
   angular
         .module('rmIssues')
         .directive('rmIssuesList', [
-            'IssueClassFactory',
+            'IssueClass',
             'Page',
             IssuesListDirective]);
 
-  function IssuesListDirective( IssueClassFactory, Page ) {
+  function IssuesListDirective( IssueClass, Page ) {
       return {
           restrict: 'E',
           scope: {
@@ -23,9 +23,9 @@
           },
           templateUrl: './src/issues/view/issuesList.html',
           link: function(scope, element, attrs) {
-              scope.getIcon = IssueClassFactory.getIcon;
-              scope.getTrackerClass = IssueClassFactory.getTrackerClass;
-              scope.getPriorityClass = IssueClassFactory.getPriorityClass;
+              scope.getIcon = IssueClass.getIcon;
+              scope.getTrackerClass = IssueClass.getTrackerClass;
+              scope.getPriorityClass = IssueClass.getPriorityClass;
               scope.begin = 0;
               scope.showIssue = function(issue) {
                   Page.changeView('/issues/' + issue.id);

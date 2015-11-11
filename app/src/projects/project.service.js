@@ -7,7 +7,7 @@
 
     angular
         .module('rmProjects')
-        .factory('projectService', [
+        .service('projectService', [
             '$resource',
             '$cacheFactory',
             'settingsService',

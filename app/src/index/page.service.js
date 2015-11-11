@@ -7,7 +7,7 @@
 
   angular
        .module('redmineApp')
-       .factory('Page', ['$window', '$location', PageService]);
+       .service('Page', ['$window', '$location', PageService]);
 
   function PageService($window, $location) {
       var title = 'title';
