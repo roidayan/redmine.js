@@ -8,9 +8,9 @@
             <span flex></span>
             <span>{{journal.created_on | timeago}}</span>
         </div>
-        <ul>
+        <ul ng-if="journal.details.length > 0">
             <li ng-repeat="detail in journal.details" ng-bind-html="detail.text"></li>
         </ul>
-        <p class="journal-notes" ng-bind-html='journal.notes | textile'></p>
+        <p class="journal-notes" ng-if="journal.notes" ng-bind-html="journal.notes | textile"></p>
     </md-card-content>
 </md-card>
