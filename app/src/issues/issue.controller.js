@@ -221,12 +221,7 @@
         self.issue.relations.forEach(updateRelation);
     }
 
-    function updateJournals() {
-        $log.debug('update journals');
-
-        if (!self.issue.journals)
-            return;
-
+    function updateJournalDetails(detail) {
         var id_to_name = {
             'fixed_version_id': 'Target version',
             'status_id':        'Status',
@@ -241,59 +236,66 @@
             'label_relates_to': 'Related to'
         };
 
-        self.issue.journals.forEach(function(journal) {
-            journal.details.forEach(function(detail) {
-                var name = id_to_name[detail.name] || detail.name;
-                var old_value = '[' + detail.old_value + ']';
-                var new_value = '[' + detail.new_value + ']';
+        var name = id_to_name[detail.name] || detail.name;
+        var old_value = '[' + detail.old_value + ']';
+        var new_value = '[' + detail.new_value + ']';
 
-                if (detail.name == 'subject') {
-                    old_value = '"' + detail.old_value + '"';
-                    new_value = '"' + detail.new_value + '"';
-                } else if (detail.name == 'done_ratio') {
-                    old_value = detail.old_value;
-                    new_value = detail.new_value;
-                } else if (self.meta[detail.name]) {
-                    old_value = self.meta[detail.name][detail.old_value] || old_value;
-                    new_value = self.meta[detail.name][detail.new_value] || new_value;
-                }
+        if (detail.name == 'subject') {
+            old_value = '"' + detail.old_value + '"';
+            new_value = '"' + detail.new_value + '"';
+        } else if (detail.name == 'done_ratio') {
+            old_value = detail.old_value;
+            new_value = detail.new_value;
+        } else if (self.meta[detail.name]) {
+            old_value = self.meta[detail.name][detail.old_value] || old_value;
+            new_value = self.meta[detail.name][detail.new_value] || new_value;
+        }
 
-                function updateText(detail) {
-                    if (detail.property == 'relation') {
-                        new_value = '<a href="#/issues/'+detail.new_value+'">' + new_value + '</a>';
-                        old_value = '<a href="#/issues/'+detail.old_value+'">' + old_value + '</a>';
-                    }
-                    if (detail.name == 'description')
-                        detail.text = "Description updated";
-                    else if (!detail.old_value)
-                        detail.text = name + " set to " + new_value;
-                    else if (!detail.new_value)
-                        detail.text = name + " deleted (was " + old_value + ")";
-                    else
-                        detail.text = name + " changed from " + old_value + " to " + new_value;
-                }
+        function updateText(detail) {
+            if (detail.property == 'relation') {
+                new_value = '<a href="#/issues/'+detail.new_value+'">' + new_value + '</a>';
+                old_value = '<a href="#/issues/'+detail.old_value+'">' + old_value + '</a>';
+            }
+            if (detail.name == 'description')
+                detail.text = "Description updated";
+            else if (!detail.old_value)
+                detail.text = name + " set to " + new_value;
+            else if (!detail.new_value)
+                detail.text = name + " deleted (was " + old_value + ")";
+            else
+                detail.text = name + " changed from " + old_value + " to " + new_value;
+        }
 
+        updateText(detail);
+
+        if (detail.name == 'assigned_to_id') {
+            var promises = [];
+            if (detail.old_value) {
+                promises.push(getUser(detail.old_value));
+            }
+            if (detail.new_value) {
+                promises.push(getUser(detail.new_value));
+            }
+            $q.all(promises).then(function() {
+                var old_user = self.users[detail.old_value];
+                var new_user = self.users[detail.new_value];
+                if (detail.old_value && old_user)
+                    old_value = old_user.firstname + ' ' + old_user.lastname;
+                if (detail.new_value && new_user)
+                    new_value = new_user.firstname + ' ' + new_user.lastname;
                 updateText(detail);
-
-                if (detail.name == 'assigned_to_id') {
-                    var promises = [];
-                    if (detail.old_value) {
-                        promises.push(getUser(detail.old_value));
-                    }
-                    if (detail.new_value) {
-                        promises.push(getUser(detail.new_value));
-                    }
-                    $q.all(promises).then(function() {
-                        var old_user = self.users[detail.old_value];
-                        var new_user = self.users[detail.new_value];
-                        if (detail.old_value && old_user)
-                            old_value = old_user.firstname + ' ' + old_user.lastname;
-                        if (detail.new_value && new_user)
-                            new_value = new_user.firstname + ' ' + new_user.lastname;
-                        updateText(detail);
-                    });
-                }
             });
+        }
+    }
+
+    function updateJournals() {
+        $log.debug('update journals');
+
+        if (!self.issue.journals)
+            return;
+
+        self.issue.journals.forEach(function(journal) {
+            journal.details.forEach(updateJournalDetails);
         });
     }
 
