@@ -1,0 +1,7 @@
+<h3 class="md-subhead">Related issues</h3>
+<md-list ng-if="ctrl.issue.relations">
+    <md-list-item ng-repeat="relation in ctrl.issue.relations" ng-click="ctrl.viewIssue(relation.target_issue_id)">
+        <div class="md-list-item-text cut-text">{{relation.text}}</div>
+        <md-divider></md-divider>
+    </md-list-item>
+</md-list>

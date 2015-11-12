@@ -22,44 +22,9 @@
     <h3 class="md-subhead">Description</h3>
     <div class="issue-description" ng-bind-html="ctrl.issue.description | textile"></div>
 
-    <h3 class="md-subhead">Details</h3>
-    <table>
-        <tr ng-repeat="(key, item) in ctrl.issueItems">
-            <td class="issue-attribute">{{key}}</td>
-            <td>
-                <img class="avatar" ng-if="item.avatar" ng-src="{{item.avatar}}" />
-                <md-icon ng-if="item.avatar === ''">person</md-icon>
-                <span ng-if="::item.click" ng-click="item.click()">{{::item.name}}</span>
-                <span ng-if="::!item.click">{{::item.name || '-'}}</span>
-            </td>
-        </tr>
-    </table>
-
-    <h3 class="md-subhead">Related issues</h3>
-    <md-list ng-if="ctrl.issue.relations">
-        <md-list-item ng-repeat="relation in ctrl.issue.relations" ng-click="ctrl.viewIssue(relation.target_issue_id)">
-            <div class="md-list-item-text cut-text">{{relation.text}}</div>
-            <md-divider></md-divider>
-        </md-list-item>
-    </md-list>
-
-    <h3 class="md-subhead">History</h3>
-    <md-card ng-repeat="journal in ctrl.issue.journals">
-        <md-card-content>
-            <div layout="row" class="issue-user-line">
-                <img class="avatar" ng-if="ctrl.getUserAvatar(journal.user)" ng-src="{{ctrl.getUserAvatar(journal.user)}}" />
-                <md-icon ng-if="!ctrl.getUserAvatar(journal.user)">person</md-icon>
-                <span>{{journal.user.name}}</span>
-                <span flex></span>
-                <span>{{journal.created_on | timeago}}</span>
-            </div>
-            <ul>
-                <li ng-repeat="detail in journal.details" ng-bind-html="detail.text"></li>
-            </ul>
-            <p class="journal-notes" ng-bind-html='journal.notes | textile'></p>
-        </md-card-content>
-    </md-card>
-
+    <issue-details></issue-details>
+    <related-issues></related-issues>
+    <issue-history></issue-history>
 </div>
 
 <edit-issue ng-if="ctrl.action === 'edit'"></edit-issue>

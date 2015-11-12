@@ -1,0 +1,16 @@
+<h3 class="md-subhead">History</h3>
+<md-card ng-repeat="journal in ctrl.issue.journals">
+    <md-card-content>
+        <div layout="row" class="issue-user-line">
+            <img class="avatar" ng-if="ctrl.getUserAvatar(journal.user)" ng-src="{{ctrl.getUserAvatar(journal.user)}}" />
+            <md-icon ng-if="!ctrl.getUserAvatar(journal.user)">person</md-icon>
+            <span>{{journal.user.name}}</span>
+            <span flex></span>
+            <span>{{journal.created_on | timeago}}</span>
+        </div>
+        <ul>
+            <li ng-repeat="detail in journal.details" ng-bind-html="detail.text"></li>
+        </ul>
+        <p class="journal-notes" ng-bind-html='journal.notes | textile'></p>
+    </md-card-content>
+</md-card>

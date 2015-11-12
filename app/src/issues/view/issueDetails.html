@@ -1,0 +1,12 @@
+<h3 class="md-subhead">Details</h3>
+<table>
+    <tr ng-repeat="(key, item) in ctrl.issueItems">
+        <td class="issue-attribute">{{key}}</td>
+        <td>
+            <img class="avatar" ng-if="item.avatar" ng-src="{{item.avatar}}" />
+            <md-icon ng-if="item.avatar === ''">person</md-icon>
+            <span ng-if="::item.click" ng-click="item.click()">{{::item.name}}</span>
+            <span ng-if="::!item.click">{{::item.name || '-'}}</span>
+        </td>
+    </tr>
+</table>
