@@ -315,6 +315,18 @@
         return self.issue[item] ? self.issue[item].id : '';
     }
 
+    function getFieldDefault(items) {
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].is_default)
+                return items[i].id;
+        }
+        return '';
+    }
+
+    function getFieldFirst(items) {
+        return items.length > 0 ? items[0].id : '';
+    }
+
     function setIssueFields() {
         // TODO: icons for fields
         // icon for assignee
@@ -323,7 +335,7 @@
             {
                 label: 'Tracker',
                 key: 'tracker_id',
-                value: getFieldId('tracker'),
+                value: getFieldId('tracker') || getFieldFirst(self.meta.trackers),
                 required: true,
                 type: 'select',
                 choices: function() { return self.meta.trackers || {}; }
@@ -345,7 +357,7 @@
             {
                 label: 'Status',
                 key: 'status_id',
-                value: getFieldId('status'),
+                value: getFieldId('status') || getFieldDefault(self.meta.statuses),
                 required: true,
                 type: 'select',
                 choices: function() { return self.meta.statuses || {}; }
@@ -353,7 +365,7 @@
             {
                 label: 'Priority',
                 key: 'priority_id',
-                value: getFieldId('priority'),
+                value: getFieldId('priority') || getFieldDefault(self.meta.priorities),
                 required: true,
                 type: 'select',
                 choices: function() { return self.meta.priorities || {}; }
@@ -362,7 +374,7 @@
                 label: 'Assignee',
                 key: 'assigned_to_id',
                 value: getFieldId('assigned_to'),
-                required: true,
+                required: false,
                 avatar: function() {
                     var _id = getFieldId('assigned_to');
                     return self.users[_id] ? self.users[_id].avatar : '';
