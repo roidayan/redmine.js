@@ -25,6 +25,10 @@
                 if ($scope.autofocus === 'true') {
                     $timeout(function() {
                         $element[0].focus();
+                    }).then(function() {
+                        return $timeout(function(){
+                            $element[0].scrollIntoView();
+                        }, 200);
                     });
                 }
             }
