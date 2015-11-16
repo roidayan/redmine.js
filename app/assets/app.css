@@ -204,5 +204,5 @@ md-list-item .md-list-item-text h3.title {
 }
 
 .journal-notes > pre {
-    overflow-x: scroll;
+    overflow-x: auto;
 }
