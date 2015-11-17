@@ -15,6 +15,7 @@
     "angular-material": "^0.11.x",
     "fastclick": "~1.0.6",
     "ngstorage": "~0.3.9",
-    "textile-js": "~1.0.2"
+    "textile-js": "~1.0.2",
+    "Autolinker.js": "~0.22.0"
   }
 }
