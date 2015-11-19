@@ -11,6 +11,6 @@
         <ul ng-if="journal.details.length > 0">
             <li ng-repeat="detail in journal.details" ng-bind-html="detail.text"></li>
         </ul>
-        <div class="journal-notes" ng-if="journal.notes2" ng-bind-html="journal.notes2 | textile"></div>
+        <div class="journal-notes" ng-if="journal.notes" ng-bind-html="journal.notes | textile"></div>
     </md-card-content>
 </md-card>

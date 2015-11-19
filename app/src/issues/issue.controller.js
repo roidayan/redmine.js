@@ -297,9 +297,6 @@
         var issue_ref = new RegExp(" (#([0-9]+)) ");
         self.issue.journals.forEach(function(journal) {
             journal.details.forEach(updateJournalDetails);
-            if (journal.notes) {
-                journal.notes2 = journal.notes.replace(issue_ref, " <a href=\"#/issues/$2\">$1</a> ");
-            }
         });
     }
 
