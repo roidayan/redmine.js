@@ -131,6 +131,10 @@ span.name {
     color: #24A238;
 }
 
+.project-list-item.closed md-icon {
+    color: #ACACAC;
+}
+
 /*.issue-priority-high {
     color: #900 !important;
     background-color: #FFE8E8;

@@ -12,13 +12,33 @@
             '$q',
             '$localStorage',
             'userService',
+            'projectService',
             MembershipsService]);
 
-    function MembershipsService( $log, $q, $localStorage, userService ) {
-        var memberships = $localStorage.memberships || [];
+    function MembershipsService( $log, $q, $localStorage, userService, projectService ) {
+        if ( ! $localStorage.memberships ) {
+            $localStorage.memberships = [];
+        }
+        var localMemberships = $localStorage.memberships;
 
-        function saveLocal() {
-            $localStorage.memberships = memberships;
+        function getProjectsStatuses(memberships) {
+            var all = [];
+            memberships.forEach(function(membership) {
+                var q = projectService.get({
+                    'project_id': membership.project.id
+                }).$promise.then(function(data) {
+                    var project = data.project;
+                    // project status is available from redmine 2.5.0 ?
+                    if (project.status) {
+                        project.status_name = projectService.get_status_name(project.status);
+                    }
+                    membership.project = project;
+                });
+                all.push(q);
+            });
+            return $q.all(all).then(function() {
+                return memberships;
+            });
         }
 
         function getMemberships() {
@@ -26,11 +46,14 @@
                 'user_id': 'current',
                 'include': 'memberships'
             }).$promise.then(function(data) {
-                $log.debug(data);
-                memberships.length = 0;
-                angular.extend(memberships, data.user.memberships);
-                saveLocal();
-                return memberships;
+                var memberships = data.user.memberships;
+                var q = getProjectsStatuses(memberships).then(function(memberships) {
+                    $log.debug(memberships);
+                    // replace local data
+                    localMemberships.length = 0;
+                    angular.extend(localMemberships, memberships);
+                });
+                return q;
             }).catch(function(e) {
                 return $q.reject("Failed to get memberships");
             });
@@ -40,7 +63,7 @@
 
         return {
             getMemberships: getMemberships,
-            getLocal: function() { return memberships; }
+            getLocal: function() { return localMemberships; }
         };
     }
 

@@ -9,6 +9,7 @@
        .module('rmProjects')
        .controller('ProjectListController', [
           'memberships',
+          'projectService',
           '$log',
           '$timeout',
           'settingsService',
@@ -16,7 +17,7 @@
           ProjectListController
        ]);
 
-  function ProjectListController( memberships, $log, $timeout, settingsService, Page ) {
+  function ProjectListController( memberships, projectService, $log, $timeout, settingsService, Page ) {
     var self = this;
 
     self.memberships = [];
@@ -33,6 +34,12 @@
     function goProject(project) {
         Page.changeView('/projects/' + project.id);
     }
+
+    self.filterActive = function(membership) {
+        if (!membership.project.status)
+            return true;
+        return membership.project.status === projectService.project_status.active;
+    };
 
     function setup() {
         self.errorLoading = false;

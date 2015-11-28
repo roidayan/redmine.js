@@ -19,6 +19,13 @@
         var params = {};
         var cache = $cacheFactory('projectCache');
 
+        // project statuses from trunk/app/helpers/admin_helper.rb
+        var project_status = {
+            active: 1,
+            closed: 5,
+            archived: 9
+        };
+
         function createResource() {
             var url = apiRemoteUrl + relative;
             var actions = {
@@ -54,7 +61,14 @@
         return {
             get: function() {
                 return getResource().get.apply(this, arguments);
-            }
+            },
+            get_status_name: function(status) {
+                for (var k in project_status)
+                    if (project_status[k] == status)
+                        return k;
+                return '';
+            },
+            project_status: project_status
         };
     }
 

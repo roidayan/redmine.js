@@ -7,7 +7,9 @@
 
 <md-list ng-cloak>
     <md-subheader class="md-no-sticky">My projects</md-subheader>
-    <md-list-item class="project-list-item" ng-repeat="membership in ctrl.memberships" ng-click="ctrl.goProject(membership.project);">
+    <md-list-item class="project-list-item {{membership.project.status_name}}"
+                  ng-repeat="membership in ctrl.memberships | filter: ctrl.filterActive"
+                  ng-click="ctrl.goProject(membership.project);">
         <md-icon>store</md-icon>
         <p class="md-body-2">{{ membership.project.name }}</p>
     </md-list-item>
