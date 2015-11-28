@@ -221,6 +221,16 @@
         self.issue.relations.forEach(updateRelation);
     }
 
+    function getIssueAttachment(id) {
+        if (self.issue.attachments) {
+            for (var i = 0; i < self.issue.attachments.length; i++) {
+                if (self.issue.attachments[i].id == id)
+                    return self.issue.attachments[i];
+            }
+        }
+        return '';
+    }
+
     function updateJournalDetails(detail) {
         var id_to_name = {
             'fixed_version_id': 'Target version',
@@ -252,10 +262,20 @@
         }
 
         function updateText(detail) {
+            if (detail.property == 'attachment') {
+                var target = detail.new_value;
+                var attachment = getIssueAttachment(detail.name);
+                if (attachment)
+                    target = '<a href="'+attachment.content_url+'">'+detail.new_value+'</a>';
+                detail.text = "File " + target + " added.";
+                return;
+            }
+
             if (detail.property == 'relation') {
                 new_value = '<a href="#/issues/'+detail.new_value+'">' + new_value + '</a>';
                 old_value = '<a href="#/issues/'+detail.old_value+'">' + old_value + '</a>';
             }
+
             if (detail.name == 'description')
                 detail.text = "Description updated";
             else if (!detail.old_value)

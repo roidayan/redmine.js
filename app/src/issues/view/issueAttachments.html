@@ -1,0 +1,9 @@
+<h3 class="md-subhead">Attachments</h3>
+<md-list ng-if="ctrl.issue.attachments.length > 0">
+    <md-list-item ng-repeat="attachment in ctrl.issue.attachments">
+        <div class="md-list-item-text">
+            <a ng-href="{{attachment.content_url}}">{{attachment.filename}}</a>
+        </div>
+        <md-divider></md-divider>
+    </md-list-item>
+</md-list>
