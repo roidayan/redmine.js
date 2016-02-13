@@ -20,6 +20,7 @@
 
     self.settings = settingsService.read() || {};
     self.save = save;
+    self.openUrl = openUrl;
     self.predefinedServers = {
         'hostedredmine.com': 'https://hostedredmine.com'
     };
@@ -40,6 +41,10 @@
         // .then(function(){
         //     $window.location.reload();
         // });
+    }
+
+    function openUrl(url) {
+        $window.open(url, '_system');
     }
 
   }

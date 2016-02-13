@@ -93,11 +93,12 @@
           .when('/about', {
               scope: {},
               templateUrl: './src/index/view/about.html',
-              controller: function($scope, Page, appName, appVersion, appCopyright) {
+              controller: function($scope, $window, Page, appName, appVersion, appCopyright) {
                   Page.setTitle('About');
                   $scope.appName = appName;
                   $scope.appVersion = appVersion;
                   $scope.appCopyright = appCopyright;
+                  $scope.openUrl = function(url) { $window.open(url, '_system'); };
               }
           })
           .otherwise({
