@@ -5,27 +5,31 @@
     <md-icon>edit</md-icon>
 </md-button>
 
-<div ng-if="ctrl.action === 'view'" ng-show="ctrl.issue" ng-cloak layout-padding>
-    <h3 class="md-subhead">
-        <md-icon ng-class="ctrl.issueIconClass">{{ctrl.issueIcon}}</md-icon>
-        <span>{{::ctrl.issue.tracker.name}} #{{::ctrl.issue.id}}</span>
-    </h3>
-    <h1 class="md-headline">{{::ctrl.issue.subject}}</h1>
+<div layout-padding>
+    <div ng-if="ctrl.action === 'view'" ng-show="ctrl.issue" ng-cloak>
 
-    <div>
-        <span class="issue-attribute">Author</span>
-        <img class="avatar" ng-if="ctrl.author.avatar" ng-src="{{ctrl.author.avatar}}" />
-        <md-icon ng-if="!ctrl.author.avatar">person</md-icon>
-        <span>{{::ctrl.issue.author.name}}</span>
+        <h3 class="md-subhead">
+            <md-icon ng-class="ctrl.issueIconClass">{{ctrl.issueIcon}}</md-icon>
+            <span>{{::ctrl.issue.tracker.name}} #{{::ctrl.issue.id}}</span>
+        </h3>
+
+        <h1 class="md-headline">{{::ctrl.issue.subject}}</h1>
+
+        <div>
+            <span class="issue-attribute">Author</span>
+            <img class="avatar" ng-if="ctrl.author.avatar" ng-src="{{ctrl.author.avatar}}" />
+            <md-icon ng-if="!ctrl.author.avatar">person</md-icon>
+            <span>{{::ctrl.issue.author.name}}</span>
+        </div>
+
+        <h3 class="md-subhead">Description</h3>
+        <div class="issue-description" ng-bind-html="ctrl.issue.description | textile | autolink"></div>
+
+        <issue-details></issue-details>
+        <issue-attachments></issue-attachments>
+        <related-issues></related-issues>
+        <issue-history></issue-history>
     </div>
-
-    <h3 class="md-subhead">Description</h3>
-    <div class="issue-description" ng-bind-html="ctrl.issue.description | textile | autolink"></div>
-
-    <issue-details></issue-details>
-    <issue-attachments></issue-attachments>
-    <related-issues></related-issues>
-    <issue-history></issue-history>
 </div>
 
 <edit-issue ng-if="ctrl.action === 'edit'"></edit-issue>

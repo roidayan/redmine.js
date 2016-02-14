@@ -1,64 +1,70 @@
 <md-progress-linear ng-if="ctrl.loading" class="md-warn" md-mode="indeterminate"></md-progress-linear>
 
-<div ng-cloak layout-padding>
+<div ng-cloak>
     <form novalidate name="editIssueForm" ng-submit="ctrl.submitIssueForm(editIssueForm)" ng-disabled="ctrl.loading">
-        <div layout layout-wrap layout-sm="column">
-            <md-input-container ng-repeat="field in ctrl.issueFields"
-                                ng-disabled="!ctrl.loading"
-                                flex="{{field.flex}}"
-                                ng-if="field.show === undefined || field.show()">
-                <!-- <img class="issue-user-avatar icon" ng-if="field.avatar()" ng-src="{{field.avatar()}}" />
-                <md-icon class="icon" ng-if="field.avatar() === ''">person</md-icon> -->
 
-                <label>{{::field.label}}</label>
+        <md-content layout-padding>
+            <div layout="column">
+                <md-input-container ng-repeat="field in ctrl.issueFields"
+                                    ng-disabled="!ctrl.loading"
+                                    flex="{{field.flex}}"
+                                    ng-if="field.show === undefined || field.show()">
+                    <!-- <img class="issue-user-avatar icon" ng-if="field.avatar()" ng-src="{{field.avatar()}}" />
+                    <md-icon class="icon" ng-if="field.avatar() === ''">person</md-icon> -->
 
-                <input ng-if="!field.type"
-                       ng-disabled="ctrl.loading"
-                       ng-model="field.value"
-                       name="field{{$index}}"
-                       ng-required="field.required"
-                       md-maxlength="250">
+                    <label>{{::field.label}}</label>
 
-               <textarea ng-if="field.type === 'textarea'"
-                         ng-disabled="ctrl.loading"
-                         ng-model="field.value"
-                         name="field{{$index}}"
-                         ng-required="field.required"
-                         ng-attr-autofocus="{{field.focus}}"></textarea>
-
-                <md-select ng-if="field.type === 'select'"
+                    <input ng-if="!field.type"
                            ng-disabled="ctrl.loading"
-                           ng-disabled="ctrl.isEmptyObject(field.choices())"
                            ng-model="field.value"
                            name="field{{$index}}"
-                           ng-required="field.required">
-                    <md-option ng-repeat="item in field.choices()"
-                               value="{{::item.id}}">{{::item.name}}</md-option>
-                </md-select>
+                           ng-required="field.required"
+                           md-maxlength="250">
 
-                <div ng-messages="editIssueForm['field' + $index].$error">
-                    <div ng-message="required">This field is required.</div>
-                    <div ng-message="md-maxlength">This field has to be less than 250 characters long.</div>
-                </div>
-            </md-input-container>
-        </div>
+                   <textarea ng-if="field.type === 'textarea'"
+                             ng-disabled="ctrl.loading"
+                             ng-model="field.value"
+                             name="field{{$index}}"
+                             ng-required="field.required"
+                             ng-attr-autofocus="{{field.focus}}"></textarea>
 
-        <div>
-            <md-input-container layout="row">
-                <md-button type="submit" flex
-                           ng-disabled="ctrl.loading || !editIssueForm.$dirty"
-                           aria-label="Update issue"
-                           class="md-primary md-raised">
-                            Update
-                </md-button>
-                <md-button type="button" flex
-                           ng-click="ctrl.cancelEdit()"
-                           ng-disabled="crl.loading"
-                           aria-label="Cancel edit issue"
-                           class="md-raised">
-                            Cancel
-                </md-button>
-            </md-input-container>
-        </div>
+                    <md-select ng-if="field.type === 'select'"
+                               ng-disabled="ctrl.loading"
+                               ng-disabled="ctrl.isEmptyObject(field.choices())"
+                               ng-model="field.value"
+                               name="field{{$index}}"
+                               ng-required="field.required">
+                        <md-option ng-repeat="item in field.choices()"
+                                   value="{{::item.id}}">{{::item.name}}</md-option>
+                    </md-select>
+
+                    <div ng-messages="editIssueForm['field' + $index].$error">
+                        <div ng-message="required">This field is required.</div>
+                        <div ng-message="md-maxlength">This field has to be less than 250 characters long.</div>
+                    </div>
+                </md-input-container>
+            </div>
+        </md-content>
+
+        <md-content>
+            <div>
+                <md-input-container layout="column">
+                    <md-button type="submit"
+                               ng-disabled="ctrl.loading || !editIssueForm.$dirty"
+                               aria-label="Update issue"
+                               class="md-primary md-raised">
+                                Update
+                    </md-button>
+                    <md-button type="button"
+                               ng-click="ctrl.cancelEdit()"
+                               ng-disabled="crl.loading"
+                               aria-label="Cancel edit issue"
+                               class="md-raised">
+                                Cancel
+                    </md-button>
+                </md-input-container>
+            </div>
+        </md-content>
+
     </form>
 </div>

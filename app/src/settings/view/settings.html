@@ -2,7 +2,7 @@
 
 <form layout-padding name="userForm" ng-submit="ctrl.save(userForm)" ng-cloak>
 
-    <md-input-container flex>
+    <md-input-container layout="row">
         <md-radio-group ng-model="ctrl.selectedServer">
             <md-radio-button class="md-primary"
                     ng-repeat="(name, server) in ctrl.predefinedServers" value="{{server}}">
@@ -13,26 +13,28 @@
             </md-radio-button>
         </md-radio-group>
 
-        <p>
-            The redmine server needs to support CORS requests. You can ask your admin to install
-            <a href="" ng-click="ctrl.openUrl('https://github.com/mcfedr/redmine_cors')">redmine-cors</a>
-            plugin and activate it.
-        </p>
     </md-input-container>
 
-    <md-input-container flex>
+    <p>
+        The redmine server needs to support CORS requests. You can ask your admin to install
+        <a href="" ng-click="ctrl.openUrl('https://github.com/mcfedr/redmine_cors')">redmine-cors</a>
+        plugin and activate it.
+    </p>
+    <br>
+
+    <md-input-container layout="row">
         <label>Server address</label>
         <input type="url" ng-model="ctrl.settings.server"
             ng-required="ctrl.selectedServer == 'custom'"
             ng-disabled="ctrl.selectedServer != 'custom'">
     </md-input-container>
 
-    <md-input-container flex>
+    <md-input-container layout="row">
         <label>API key</label>
         <input ng-model="ctrl.settings.apiKey" required>
     </md-input-container>
 
-    <md-input-container>
+    <md-input-container layout="column">
         <md-button aria-label="submit form" class="md-primary md-raised" type="submit">
                 Submit
         </md-button>
