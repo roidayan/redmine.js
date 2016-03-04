@@ -79,7 +79,7 @@
     if (self.issueId)
         Page.setExtLink(issueService.getUrl(self.issueId));
 
-    $log.debug('IssueController action: ' + self.action);
+    $log.debug('IssueController action:', self.action);
     setup();
 
     /**
@@ -133,8 +133,7 @@
             self.loading = false;
             self.errorLoading = true;
             self.errorMessage = e.statusText || 'error occured';
-            $log.debug('IssueController error');
-            $log.debug(e);
+            $log.error('IssueController::setup: error:', e);
         });
     }
 
@@ -153,14 +152,14 @@
 
     function getIssue() {
         if (!self.issueId) {
-            $log.error("missing issue id");
+            $log.error('IssueController::getIssue: missing issue id');
             return;
         }
 
         var q = issueService.get({
             'issue_id': self.issueId
         }).$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('IssueController::getIssue:', data);
             self.issue = data.issue;
             Page.setTitle(self.issue.tracker.name + ' #' + self.issue.id);
             self.projectId = self.issue.project.id;
@@ -213,7 +212,7 @@
     }
 
     function updateRelations() {
-        $log.debug('update relations');
+        $log.debug('IssueController::updateRelations');
 
         if (!self.issue.relations)
             return;
@@ -309,7 +308,7 @@
     }
 
     function updateJournals() {
-        $log.debug('update journals');
+        $log.debug('IssueController::updateJournals');
 
         if (!self.issue.journals)
             return;
@@ -469,12 +468,12 @@
         var q = userService.get({
             'user_id': author_id
         }).$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('IssueController::getAuthor:', data);
             self.author = data.user;
             self.author.avatar = gravatar.get(self.author.mail);
             self.users[self.author.id] = self.author;
         }).catch(function(e) {
-            $log.error("failed to get author " + author_id);
+            $log.error('IssueController::getAUthor: failed to get author ' + author_id);
             $q.reject();
         });
 
@@ -489,13 +488,13 @@
         var q = userService.get({
             'user_id': assigned_to_id
         }).$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('IssueController::getAssignee:', data);
             self.assignee = data.user;
             self.assignee.avatar = gravatar.get(self.assignee.mail);
             self.issueItems.Assignee.avatar = self.assignee.avatar;
             self.users[self.assignee.id] = self.assignee;
         }).catch(function(e) {
-            $log.error("failed to get assignee " + assigned_to_id);
+            $log.error('IssueController::getAssignee: failed to get assignee ' + assigned_to_id);
             $q.reject();
         });
 
@@ -511,13 +510,13 @@
         var q = userService.get({
             'user_id': user_id
         }).$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('IssueController::getUser:', data);
             var _user = data.user;
             _user.avatar = gravatar.get(_user.mail);
             self.users[_user.id] = _user;
             return _user;
         }).catch(function(e) {
-            $log.error("failed to get user " + user_id);
+            $log.error('IssueController::getUser: failed to get user ' + user_id);
             $q.reject();
         });
 
@@ -530,14 +529,14 @@
 
     function getProject() {
         if (!self.projectId) {
-            $log.error("no project id");
+            $log.error('IssueController::getProject: no project id');
             return $q.when(true);
         }
 
         var q = projectService.get({
             'project_id': self.projectId,
         }).$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('IssueController::getProject', data);
             self.meta.categories = data.project.issue_categories;
             self.meta.trackers = data.project.trackers;
             data.project.issue_categories.forEach(function(category) {
@@ -553,7 +552,7 @@
 
     function getProjectVersions() {
         if (!self.projectId) {
-            $log.error("no project id");
+            $log.error('IssueController::getProjectVersions: no project id');
             return $q.when(true);
         }
 
@@ -561,7 +560,7 @@
             'project_id': self.projectId,
             'query': 'versions'
         }).$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('IssueController::getProjectVersions:', data);
             self.meta.versions = data.versions;
             data.versions.forEach(function(version) {
                 self.meta.fixed_version_id[version.id] = version.name;
@@ -573,7 +572,7 @@
 
     function getProjectMemberhips() {
         if (!self.projectId) {
-            $log.error("no project id");
+            $log.error('IssueController::getProjectMemberhips: no project id');
             return $q.when(true);
         }
 
@@ -581,7 +580,7 @@
             'project_id': self.projectId,
             'query': 'memberships'
         }).$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('IssueController::getProjectMemberhips:', data);
             self.meta.memberships = [];
             for (var i = 0; i < data.memberships.length; i++) {
                 self.meta.memberships.push(data.memberships[i].user);
@@ -593,7 +592,7 @@
 
     function getIssueStatuses() {
         var q = issueService.queryStatuses().$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('IssueController::getIssueStatuses:', data);
             self.meta.statuses = data.issue_statuses;
             data.issue_statuses.forEach(function(status) {
                 self.meta.status_id[status.id] = status.name;
@@ -605,7 +604,7 @@
 
     function getIssuePriorities() {
         var q = issueService.queryPriorities().$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('IssueController::getIssuePriorities:', data);
             self.meta.priorities = data.issue_priorities;
             data.issue_priorities.forEach(function(priority) {
                 self.meta.priority_id[priority.id] = priority.name;
@@ -616,8 +615,7 @@
     }
 
     function submitIssueForm(form) {
-        $log.debug('form');
-        $log.debug(form);
+        $log.debug('IssueController::submitIssueForm: from:', form);
 
         if (!form.$valid)
             return;
@@ -631,14 +629,13 @@
             var value = self.issueFields[i].value;
             post_fields[key] = value;
         }
-        $log.debug('post fields');
-        $log.debug(post_fields);
+        $log.debug('IssueController::submitIssueForm: post_fields:', post_fields);
 
         if (self.issueId) {
             // update issue
             issueService.update({issue_id: self.issueId}, {'issue': post_fields})
                 .$promise.then(function(response) {
-                    $log.debug('updated existing issue');
+                    $log.debug('IssueController::submitIssueForm: updated existing issue');
                     self.loading = false;
                     $mdToast.showSimple('Issue updated');
                     viewIssue();
@@ -653,7 +650,7 @@
             post_fields.project_id = self.projectId;
             issueService.save({'issue': post_fields})
                 .$promise.then(function(response) {
-                    $log.debug('created new issue');
+                    $log.debug('IssueController::submitIssueForm: created new issue');
                     self.loading = false;
                     $mdToast.showSimple('Created issue');
                     self.issueId = response.issue.id;
@@ -665,7 +662,7 @@
                 return $q.reject(e);
             });
         } else {
-            $log.error('submit error: no issue id nor project id');
+            $log.error('IssueController::submitIssueForm: submit error: no issue id nor project id');
             $mdToast.showSimple('Submit error');
         }
     }

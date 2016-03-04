@@ -32,7 +32,7 @@
         if (self.selectedServer != 'custom')
             self.settings.server = self.selectedServer;
         if (!form.$valid) {
-            $log.debug("form is not valid");
+            $log.debug("SettingsController::save error: form is not valid");
             return;
         }
         settingsService.save(self.settings);

@@ -48,7 +48,7 @@
             }).$promise.then(function(data) {
                 var memberships = data.user.memberships;
                 var q = getProjectsStatuses(memberships).then(function(memberships) {
-                    $log.debug(memberships);
+                    $log.debug('MembershipsService::getMemberships:', memberships);
                     // replace local data
                     localMemberships.length = 0;
                     angular.extend(localMemberships, memberships);

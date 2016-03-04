@@ -46,7 +46,7 @@
         self.errorMessage = '';
         self.memberships = memberships.getLocal();
         memberships.getMemberships().catch(function(err) {
-            $log.error(err);
+            $log.error('ProjectListController::setup: error:', err);
             self.errorLoading = true;
             self.errorMessage = err;
         });

@@ -67,21 +67,20 @@
             self.loading = false;
             self.errorLoading = true;
             self.errorMessage = e.statusText || 'error occured';
-            $log.debug('ProjectController error');
-            $log.debug(e);
+            $log.error('ProjectController::setup error:', e);
         });
     }
 
     function getProject() {
         if (!self.projectId){
-            $log.debug("no project id");
+            $log.debug('ProjectController::getProject: no project id');
             return $q.when(true);
         }
 
         var q = projectService.get({
             'project_id': self.projectId
         }).$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('ProjectController::getProject:', data);
             self.project = data.project;
         })
         .catch(function(e) {
@@ -95,7 +94,7 @@
 
     function getProjectIssues() {
         if (!self.projectId){
-            $log.debug("no project id");
+            $log.debug('ProjectController::getProjectIssues: no project id');
             return $q.when(true);
         }
 
@@ -116,7 +115,7 @@
         // params = issueService.addParams(params, {});
 
         var q = issueService.get(params).$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('ProjectController::getProjectIssues:', data);
             self.issues = data.issues;
             self.total_count = data.total_count;
             self.issues.forEach(function(issue) {
@@ -142,12 +141,11 @@
         var q = userService.get({
             'user_id': user_id
         }).$promise.then(function(data) {
-            // $log.debug(data);
             var user = data.user;
             self.users[user.id] = user;
             return user;
         }).catch(function(e) {
-            $log.error("failed to get user " + user_id);
+            $log.error('ProjectController::getUser: failed to get user ' + user_id);
             $q.reject();
         });
 
@@ -156,7 +154,7 @@
 
     function getIssueStatuses() {
         var q = issueService.queryStatuses().$promise.then(function(data) {
-            $log.debug(data);
+            $log.debug('ProjectController::getIssueStatuses:', data);
             self.statuses = data.issue_statuses;
         });
 

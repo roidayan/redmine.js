@@ -34,8 +34,7 @@
 
         function _getTracker(issue) {
             if (!issue || !issue.tracker) {
-                $log.error('missing issue tracker');
-                $log.debug(issue);
+                $log.error('IssueClass::_getTracker: missing issue tracker for issue ' + issue);
                 return '';
             }
 
