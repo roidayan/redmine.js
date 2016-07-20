@@ -583,7 +583,10 @@
             $log.debug('IssueController::getProjectMemberhips:', data);
             self.meta.memberships = [];
             for (var i = 0; i < data.memberships.length; i++) {
-                self.meta.memberships.push(data.memberships[i].user);
+                if (data.memberships[i].user)
+                    self.meta.memberships.push(data.memberships[i].user);
+                else if (data.memberships[i].group)
+                    $log.debug("TODO: support assignee group", data.memberships[i].group);
             }
         });
 
