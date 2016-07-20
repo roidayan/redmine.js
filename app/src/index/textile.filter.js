@@ -19,7 +19,7 @@
             /* link markup */
             input = input.replace(issue_ref, " <a href=\"#/issues/$2\">$1</a> ");
             /* textile */
-            return textile("<p>"+input+"</p>");
+            return textile(input.trim());
         };
     }
 
