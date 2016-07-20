@@ -618,11 +618,9 @@
     }
 
     function submitIssueForm(form) {
-        $log.debug('IssueController::submitIssueForm: from:', form);
-
+        $log.debug('IssueController::submitIssueForm: valid:', form.$valid);
         if (!form.$valid)
             return;
-
         self.loading = true;
         // prepare post fields
         var post_fields = {};
@@ -643,6 +641,7 @@
                     $mdToast.showSimple('Issue updated');
                     viewIssue();
             }).catch(function(e) {
+                $log.error('IssueController::submitIssueForm: submit error:', e);
                 if (e.status === 0 && e.statusText === '')
                     e.statusText = 'Error updating issue';
                 $mdToast.showSimple(e.statusText);
@@ -659,6 +658,7 @@
                     self.issueId = response.issue.id;
                     viewIssue();
             }).catch(function(e) {
+                $log.error('IssueController::submitIssueForm: submit error:', e);
                 if (e.status === 0 && e.statusText === '')
                     e.statusText = 'Error creating issue';
                 $mdToast.showSimple(e.statusText);
