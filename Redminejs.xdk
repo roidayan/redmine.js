@@ -1,12 +1,12 @@
 {
   "project": {
-    "projectSettingsVersion": "2.0.0",
+    "projectSettingsVersion": "3.0.0",
     "creationData": {
       "type": "Import",
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "b1ebf536-7553-4661-982a-291ed1c484db",
-      "lastModifiedDate": 1457098509695,
+      "lastModifiedDate": 1470046542616,
       "creationDate": 1441377460995
     },
     "sourceDirectory": "www",
@@ -15,7 +15,15 @@
     "gameMetadata": {},
     "startFile": "index.html",
     "projectTags": [],
-    "projectFiles": {},
+    "projectFiles": {
+      "xdk-publish-meta-data.json": {
+        "settings": {
+          "project": {
+            "XDK-not-deployed": "True"
+          }
+        }
+      }
+    },
     "projectDirectories": {
       "www/xdk": {
         "settings": {
@@ -102,49 +110,21 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
+        "certificateId_": "",
         "appVersion_": "0.11.2",
         "appVersionCode_": "7",
-        "crosswalkVersion_": "11",
         "cordovaCLIVersion_": "5.1.1",
         "appDescription_": "Redmine Client",
-        "appAuthor_": "Roi Dayan"
-      },
-      "Android-Crosswalk": {
-        "platform_": "android",
-        "runtime_": "Crosswalk with Cordova 3.x",
-        "name_": "Android-Crosswalk",
-        "preferences_": {
-          "android-minSdkVersion": "14",
-          "android-targetSdkVersion": "19",
-          "android-installLocation": "auto"
-        },
-        "isActive_": false,
-        "appName_": "Redminejs",
-        "appID_": "not.yet.specified",
-        "appAccess_": {
-          "mode": "legacy",
-          "network": [
-            "*"
-          ],
-          "intents": [],
-          "navigation": []
-        },
-        "icons_": [],
-        "splashes_": [],
-        "addlPermissions_": "",
-        "excludedLibraries_": "",
-        "appVersion_": "0.0.1",
-        "appVersionCode_": "1",
-        "crosswalkVersion_": "11",
-        "cordovaCLIVersion_": "5.1.1"
+        "appAuthor_": "Roi Dayan",
+        "crosswalkVersion_": "18"
       },
       "iOS": {
         "platform_": "ios",
         "runtime_": "Cordova 3.x",
         "name_": "iOS",
         "preferences_": {
-          "ios-target": "6",
-          "ios-configuration": "adhoc"
+          "ios-configuration": "adhoc",
+          "deployment-target": "6"
         },
         "isActive_": false,
         "appName_": "Redminejs",
@@ -161,6 +141,7 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
+        "certificateId_": "",
         "appVersion_": "0.0.1",
         "cordovaCLIVersion_": "5.1.1",
         "iosProvs_": []
@@ -185,6 +166,7 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
+        "certificateId_": "",
         "appVersion_": "0.0.0.1",
         "cordovaCLIVersion_": "5.1.1"
       },
@@ -208,6 +190,7 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
+        "certificateId_": "",
         "appVersion_": "0.0.1"
       },
       "Firefox": {
@@ -230,6 +213,7 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
+        "certificateId_": "",
         "appVersion_": "0.0.1"
       },
       "Chrome": {
@@ -252,6 +236,7 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
+        "certificateId_": "",
         "appVersion_": "0.0.1"
       },
       "Facebook": {
@@ -274,6 +259,7 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
+        "certificateId_": "",
         "appVersion_": "0.0.1"
       },
       "WP81": {
@@ -294,6 +280,7 @@
         "splashes_": [],
         "addlPermissions_": "",
         "excludedLibraries_": "",
+        "certificateId_": "",
         "appVersion_": "0.0.0.1",
         "cordovaCLIVersion_": "5.1.1"
       }

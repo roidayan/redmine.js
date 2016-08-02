@@ -1,10 +1,13 @@
 {
   "project": {
-    "projectSettingsVersion": "2.0.0",
+    "projectSettingsVersion": "3.0.0",
     "initialAutoPluginCount": 0,
     "currentBuildConfiguration": "Android",
     "projectFiles": {},
     "projectDirectories": {},
     "currentService": {}
+  },
+  "build-tab": {
+    "selectedTargets": []
   }
 }

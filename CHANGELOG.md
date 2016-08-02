@@ -1,3 +1,10 @@
+<a name"0.11.3"></a>
+### 0.11.3 (2016-08-02)
+
+- fix empty assignee list
+- small view fix
+
+
 <a name"0.11.2"></a>
 ### 0.11.2 (2016-03-04)
 
