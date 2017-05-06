@@ -10,6 +10,3 @@ app/jspm_packages
 www
 # cordova plugins
 plugins
-# intel xdk
-intelxdk.config.*.xml
-xdk

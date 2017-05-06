@@ -6,7 +6,7 @@
       "projectTypeName": "com.intel.xdk.projecttype.jsapp",
       "src": "",
       "projectGuid": "b1ebf536-7553-4661-982a-291ed1c484db",
-      "lastModifiedDate": 1470046542616,
+      "lastModifiedDate": 1470125347432,
       "creationDate": 1441377460995
     },
     "sourceDirectory": "www",
@@ -111,8 +111,8 @@
         "addlPermissions_": "",
         "excludedLibraries_": "",
         "certificateId_": "",
-        "appVersion_": "0.11.2",
-        "appVersionCode_": "7",
+        "appVersion_": "0.11.3",
+        "appVersionCode_": "8",
         "cordovaCLIVersion_": "5.1.1",
         "appDescription_": "Redmine Client",
         "appAuthor_": "Roi Dayan",
@@ -130,12 +130,13 @@
         "appName_": "Redminejs",
         "appID_": "not.yet.specified",
         "appAccess_": {
-          "mode": "legacy",
+          "mode": "whitelist",
           "network": [
             "*"
           ],
           "intents": [],
-          "navigation": []
+          "navigation": [],
+          "properties": {}
         },
         "icons_": [],
         "splashes_": [],

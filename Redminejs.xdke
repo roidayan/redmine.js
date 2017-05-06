@@ -8,6 +8,8 @@
     "currentService": {}
   },
   "build-tab": {
-    "selectedTargets": []
+    "selectedTargets": [
+      "CORDOVA_ANDROID"
+    ]
   }
 }
